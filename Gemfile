@@ -49,3 +49,5 @@ end
 gem 'slim-rails', '~> 3.0'
 gem 'puma', '~> 2.15'
 gem 'rails_12factor', group: :production
+
+gem 'twitter', '~> 5.15'

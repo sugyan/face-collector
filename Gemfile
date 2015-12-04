@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.2.3"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -45,4 +46,6 @@ group :development do
   gem 'spring'
 end
 
-gem 'slim-rails', '~> 3.0.1'
+gem 'slim-rails', '~> 3.0'
+gem 'puma', '~> 2.15'
+gem 'rails_12factor', group: :production

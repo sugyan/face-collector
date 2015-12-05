@@ -1,11 +1,16 @@
 namespace :collect_images do
   desc "TODO"
+
+  logger = Logger.new $stderr
+  logger.level = Logger::INFO
+
   task twitter: :environment do
     # use application-only authentication
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['CONSUMER_KEY']
       config.consumer_secret     = ENV['CONSUMER_SECRET']
     end
+    client.middleware.insert(-1, Faraday::Response::Logger, logger)
     # search result doesn't include `extended_entities`.
     # so use `statuses/lookup` with search results.
     tweets = client.search('#CHEERZ filter:images -filter:retweets', lang: 'ja', locale: 'ja').take(100)

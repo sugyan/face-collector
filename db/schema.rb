@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205060541) do
+ActiveRecord::Schema.define(version: 20151205143820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20151205060541) do
     t.text     "media_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json     "faces"
   end
 
 end

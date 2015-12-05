@@ -1,15 +1,21 @@
 namespace :collect_images do
   desc "TODO"
   task twitter: :environment do
+    # use application-only authentication
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['CONSUMER_KEY']
       config.consumer_secret     = ENV['CONSUMER_SECRET']
-      config.access_token        = ENV['ACCESS_TOKEN']
-      config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
     end
-    client.search('#CHEERZ filter:images -filter:retweets', lang: 'ja', locale: 'ja', include_entities: true).take(30).each do |tweet|
+    # search result doesn't include `extended_entities`.
+    # so use `statuses/lookup` with search results.
+    tweets = client.search('#CHEERZ filter:images -filter:retweets', lang: 'ja', locale: 'ja').take(100)
+    client.statuses(tweets, include_entities: true).each do |tweet|
       tweet.media.each do |media|
-        p '%s -> %s' % [tweet.url, media.media_url_https]
+        Photo.find_or_create_by(id: media.id) do |c|
+          c.user = tweet.user.name
+          c.url = tweet.url
+          c.media_url = media.media_url_https
+        end
       end
     end
   end

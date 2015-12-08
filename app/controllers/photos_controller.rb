@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: [:show]
 
   def index
-    @photos = Photo.take(20)
+    @photos = Photo.where.not(faces: nil).take(20)
   end
 
   def show

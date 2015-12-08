@@ -1,5 +1,5 @@
 h1 Photo
 
-= image_tag @photo.media_url
+canvas#canvas width=512 height=512
 script
-  | var faces = #{ raw(@photo.faces) }
+  | var faces = #{ raw(@photo.faces.to_json) };

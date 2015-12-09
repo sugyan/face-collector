@@ -18,12 +18,22 @@ class Photo {
             this.ctx.drawImage(img, offset_x, offset_y, w, h);
             this.faces.faces.forEach((e) => {
                 let face = document.createElement('canvas');
-                face.width  = e.w * img.width  / 100.0;
-                face.height = e.h * img.height / 100.0;
-                // TODO...
+                let side = Math.max(e.w * img.width / 100.0, e.h * img.height / 100.0);
+                face.width  = side;
+                face.height = side;
+                let eye_l, eye_r;
+                if (e.eyes[0].x > e.eyes[1].x) {
+                    eye_r = e.eyes[0];
+                    eye_l = e.eyes[1];
+                } else {
+                    eye_l = e.eyes[0];
+                    eye_r = e.eyes[1];
+                }
                 let ctx = face.getContext('2d');
-                let rad = Math.atan2((e.eyes[0].y - e.eyes[1].y) * img.height, (e.eyes[0].x - e.eyes[1].x) * img.width);
+                let rad = Math.atan2((eye_r.y - eye_l.y) * img.height, (eye_r.x - eye_l.x) * img.width);
+                ctx.translate(side * 0.5, side * 0.5);
                 ctx.rotate(-rad);
+                ctx.translate(-e.center.x * img.width / 100.0, -e.center.y * img.height / 100.0);
                 ctx.drawImage(img, 0, 0);
                 $(this.detected).append(face);
             });

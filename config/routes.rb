@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   root 'root#index'
+  get 'proxy' => 'proxy#index'
 
   resources :photos, only: [:index, :show]
 

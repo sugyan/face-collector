@@ -14,7 +14,7 @@ namespace :detect_faces do
       faces = JSON.parse(res.body)['faces']
       logger.info('%s faces detected' % faces.size)
       if faces.size > 0
-        photo.update(faces: res.body)
+        photo.update(detected: res.body)
       else
         photo.delete()
       end

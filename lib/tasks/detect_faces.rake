@@ -10,13 +10,17 @@ namespace :detect_faces do
       faraday.adapter :net_http
     end
     Photo.where(detected: nil).each do |photo|
-      res = conn.get '/api', url: photo.media_url
-      faces = JSON.parse(res.body)['faces']
-      logger.info('%s faces detected' % faces.size)
-      if faces.size > 0
-        photo.update(detected: res.body)
-      else
-        photo.delete()
+      begin
+        res = conn.get '/api', url: photo.media_url
+        faces = JSON.parse(res.body)['faces']
+        logger.info('%s faces detected' % faces.size)
+        if faces.size > 0
+          photo.update(detected: res.body)
+        else
+          photo.delete()
+        end
+      rescue Exception => e
+        logger.error(e)
       end
     end
   end

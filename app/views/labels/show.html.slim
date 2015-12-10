@@ -1,0 +1,13 @@
+p#notice = notice
+
+dl.dl-horizontal
+  dt ID:
+  dd = @label.id
+  dt Name:
+  dd = @label.name
+  dt Tags:
+  dd = @label.tags
+
+= link_to 'Edit', edit_label_path(@label), class: %(btn btn-link)
+'|
+= link_to 'Back', labels_path, class: %(btn btn-link)

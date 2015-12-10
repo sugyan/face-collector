@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'root#index'
   get 'proxy' => 'proxy#index'
 
+  resources :labels
   resources :photos, only: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,15 @@
+= form_for @label do |f|
+  - if @label.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@label.errors.count, "error")} prohibited this label from being saved:"
+      ul
+        - @label.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :name
+    = f.text_field :name, class: %(form-control)
+  .field.form-group
+    = f.label :tags
+    = f.text_area :tags, class: %(form-control)
+  .actions = f.submit class: %(btn btn-primary)

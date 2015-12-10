@@ -1,14 +1,13 @@
 h1 Photos
 script async=true src="//platform.twitter.com/widgets.js" charset="utf-8"
-table
+table.table.table-striped
   - @photos.each do |photo|
     tr
       td
-        a href=url_for(photo)
-          = image_tag photo.media_url, style: 'max-width: 200px; max-height: 200px;'
-          | (
-          = photo.detected['faces'].size
-          |  faces)
+        div
+          a href=url_for(photo)
+            = image_tag photo.media_url, style: 'max-width: 200px; max-height: 200px;'
+        span #{ photo.detected['faces'].size } faces
       td
-        blockquote class="twitter-tweet"
+        blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
           a href=photo.url

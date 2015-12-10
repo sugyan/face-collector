@@ -3,4 +3,4 @@ h1 Photo
 canvas#canvas width=512 height=512
 ul#detected
 script
-  | var faces = #{ raw(@photo.faces.to_json) };
+  | var faces = #{ raw(@photo.detected.to_json) };

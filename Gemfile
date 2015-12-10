@@ -51,3 +51,4 @@ gem 'puma', '~> 2.15'
 gem 'rails_12factor', group: :production
 
 gem 'twitter', '~> 5.15'
+gem 'kaminari', '~> 0.16'

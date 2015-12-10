@@ -9,7 +9,7 @@ namespace :detect_faces do
       faraday.response :logger, logger
       faraday.adapter :net_http
     end
-    Photo.where(faces: nil).each do |photo|
+    Photo.where(detected: nil).each do |photo|
       res = conn.get '/api', url: photo.media_url
       faces = JSON.parse(res.body)['faces']
       logger.info('%s faces detected' % faces.size)

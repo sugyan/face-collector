@@ -1,11 +1,14 @@
 h1 Photos
+script async=true src="//platform.twitter.com/widgets.js" charset="utf-8"
 table
   - @photos.each do |photo|
     tr
-      td = photo.user
       td
         a href=url_for(photo)
           = image_tag photo.media_url, style: 'max-width: 200px; max-height: 200px;'
           | (
-          = photo.faces['faces'].size
+          = photo.detected['faces'].size
           |  faces)
+      td
+        blockquote class="twitter-tweet"
+          a href=photo.url

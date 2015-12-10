@@ -11,7 +11,13 @@ namespace :detect_faces do
     end
     Photo.where(faces: nil).each do |photo|
       res = conn.get '/api', url: photo.media_url
-      photo.update(faces: res.body)
+      faces = JSON.parse(res.body)['faces']
+      logger.info('%s faces detected' % faces.size)
+      if faces.size > 0
+        photo.update(faces: res.body)
+      else
+        photo.delete()
+      end
     end
   end
 

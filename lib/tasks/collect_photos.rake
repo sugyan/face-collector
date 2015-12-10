@@ -1,4 +1,4 @@
-namespace :collect_images do
+namespace :collect_photos do
   desc "TODO"
 
   logger = Logger.new $stderr

@@ -1,6 +1,9 @@
 h1 Photo
 
-canvas#canvas width=512 height=512
-ul#detected
+.row
+  .col-md-6
+    canvas#canvas width=512 height=512
+  .col-md-6
+    ul#detected
 script
   | var faces = #{ raw(@photo.detected.to_json) };

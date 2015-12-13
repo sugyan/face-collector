@@ -1,0 +1,9 @@
+table.table.table-condensed
+  - @faces.each_slice(10) do |faces|
+    tr
+      - faces.each do |face|
+        td
+          a href=face_path(face)
+            = image_tag image_face_path(face), width: '100%'
+.text-center
+  = paginate @faces

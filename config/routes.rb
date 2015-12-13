@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   resources :labels
   resources :photos, only: [:index, :show]
+  resources :faces,  only: [:index, :show] do
+    member do
+      get 'image'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

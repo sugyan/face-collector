@@ -132,6 +132,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    rmagick (2.15.4)
     sass (3.4.20)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -203,6 +204,7 @@ DEPENDENCIES
   puma (~> 2.15)
   rails (= 4.2.5)
   rails_12factor
+  rmagick (~> 2.15)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   slim-rails (~> 3.0)

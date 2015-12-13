@@ -52,3 +52,4 @@ gem 'rails_12factor', group: :production
 
 gem 'twitter', '~> 5.15'
 gem 'kaminari', '~> 0.16'
+gem 'rmagick', '~> 2.15'

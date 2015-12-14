@@ -17,7 +17,6 @@ namespace :collect_photos do
     client.statuses(tweets, include_entities: true).each do |tweet|
       tweet.media.each do |media|
         Photo.find_or_create_by(id: media.id) do |c|
-          c.user = tweet.user.name
           c.url = tweet.url
           c.media_url = media.media_url_https
         end

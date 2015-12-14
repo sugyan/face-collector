@@ -12,12 +12,18 @@ namespace :detect_faces do
       faraday.response :logger, logger
       faraday.adapter :net_http
     end
-    Photo.where.not(detected: nil).each do |photo|
+    Photo.all.each do |photo|
+      next if not photo.faces.empty?
       begin
-        img = Magick::Image.read(photo.media_url).first
-
         res = conn.get '/api', url: photo.media_url
         faces = JSON.parse(res.body)['faces']
+        if faces.empty?
+          photo.delete
+          next
+        end
+        photo.faces.delete
+
+        img = Magick::Image.read(photo.media_url).first
         faces.each do |face|
           eyes = face['eyes']
           eye_l, eye_r = eyes[0]['x'] < eyes[1]['x'] ? [eyes[0], eyes[1]] : [eyes[1], eyes[0]]

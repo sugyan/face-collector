@@ -4,12 +4,14 @@ table.table.table-striped
   - @photos.each do |photo|
     tr
       td
-        = photo.id
-      td
         div
           a href=url_for(photo)
             = image_tag photo.media_url, style: 'max-width: 200px; max-height: 200px;'
-        span #{ photo.detected['faces'].size } faces
+        span #{ photo.faces.size } faces
+      td
+        - photo.faces.each do |face|
+          a href=face_path(face)
+            = image_tag image_face_path(face), width: 84, height: 84
       td
         blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
           a href=photo.url

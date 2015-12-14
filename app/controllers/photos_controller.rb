@@ -3,7 +3,6 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo
-              .where.not(detected: nil)
               .order(id: :desc)
               .page(params[:page])
   end

@@ -13,15 +13,16 @@ namespace :detect_faces do
       faraday.adapter :net_http
     end
     Photo.all.each do |photo|
+      # already exists?
       next if not photo.faces.empty?
       begin
         res = conn.get '/api', url: photo.media_url
         faces = JSON.parse(res.body)['faces']
+        # not found?
         if faces.empty?
           photo.delete
           next
         end
-        photo.faces.delete
 
         img = Magick::Image.read(photo.media_url).first
         faces.each do |face|

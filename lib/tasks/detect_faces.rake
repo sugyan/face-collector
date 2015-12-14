@@ -17,7 +17,12 @@ namespace :detect_faces do
       next if not photo.faces.empty?
       begin
         res = conn.get '/api', url: photo.media_url
-        faces = JSON.parse(res.body)['faces']
+        data = JSON.parse(res.body)
+        if data['error']
+          logger.error(data['error'])
+          next
+        end
+        faces = data['faces']
         # not found?
         if faces.empty?
           photo.delete

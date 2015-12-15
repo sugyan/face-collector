@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'proxy' => 'proxy#index'
 
   resources :labels
-  resources :photos, only: [:index, :show]
+  resources :photos, only: [:index, :show, :destroy]
   resources :faces,  only: [:index, :show] do
     member do
       get 'image'

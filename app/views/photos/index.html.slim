@@ -1,7 +1,14 @@
 h1 Photos
+form.well
+  .form-group
+    input.form-control name='q' value=params[:q]
+  button.btn.btn-primary Search
 table.table.table-striped
   - @photos.each do |photo|
     tr
+      td
+        blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
+          a href=photo.url
       td
         div
           a href=url_for(photo) data-no-turbolink='true'
@@ -12,7 +19,6 @@ table.table.table-striped
           a href=face_path(face)
             = image_tag image_face_path(face), width: 84, height: 84
       td
-        blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
-          a href=photo.url
+        = link_to 'Destroy', photo, class: %(btn btn-danger), data: { confirm: 'Are you sure?' }, method: :delete
 .text-center data-no-turbolink='true'
   = paginate @photos

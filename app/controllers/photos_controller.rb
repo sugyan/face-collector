@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :destroy]
+  before_action :set_photo, only: [:destroy]
 
   def index
     q = params[:q]
@@ -7,9 +7,6 @@ class PhotosController < ApplicationController
               .where('url LIKE ? OR media_url LIKE ?', "%#{q}%", "%#{q}%")
               .order(id: :desc)
               .page(params[:page])
-  end
-
-  def show
   end
 
   def destroy

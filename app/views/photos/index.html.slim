@@ -10,11 +10,7 @@ table.table.table-striped
         blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
           a href=photo.url
       td
-        div
-          a href=url_for(photo) data-no-turbolink='true'
-            = image_tag photo.media_url, style: 'max-width: 200px; max-height: 200px;'
-        span #{ photo.faces.size } faces
-      td
+        p #{ photo.faces.size } faces
         - photo.faces.each do |face|
           a href=face_path(face)
             = image_tag image_face_path(face), width: 84, height: 84

@@ -23,13 +23,18 @@ namespace :detect_faces do
           next
         end
         faces = data['faces']
+        # reject too small or too large faces
+        img = Magick::Image.read(photo.media_url).first
+        faces = faces.select do |face|
+          face['w'] < 100 && face['h'] < 100 &&
+            (face['w'] * img.columns / 100.0 > SIZE / 2 && face['H'] * img.rows / 100.0 > SIZE / 2)
+        end
         # not found?
         if faces.empty?
           photo.delete
           next
         end
 
-        img = Magick::Image.read(photo.media_url).first
         faces.each do |face|
           eyes = face['eyes']
           eye_l, eye_r = eyes[0]['x'] < eyes[1]['x'] ? [eyes[0], eyes[1]] : [eyes[1], eyes[0]]

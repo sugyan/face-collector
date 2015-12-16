@@ -27,7 +27,7 @@ namespace :detect_faces do
         img = Magick::Image.read(photo.media_url).first
         faces = faces.select do |face|
           face['w'] < 100 && face['h'] < 100 &&
-            (face['w'] * img.columns / 100.0 > SIZE / 2 && face['H'] * img.rows / 100.0 > SIZE / 2)
+            (face['w'] * img.columns / 100.0 > SIZE / 2 && face['h'] * img.rows / 100.0 > SIZE / 2)
         end
         # not found?
         if faces.empty?

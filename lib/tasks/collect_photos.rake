@@ -11,14 +11,16 @@ namespace :collect_photos do
       config.consumer_secret     = ENV['CONSUMER_SECRET']
     end
     client.middleware.insert(-1, Faraday::Response::Logger, logger)
-    # search result doesn't include `extended_entities`.
-    # so use `statuses/lookup` with search results.
-    tweets = client.search('#CHEERZ filter:images -filter:retweets', lang: 'ja', locale: 'ja').take(100)
-    client.statuses(tweets, include_entities: true).each do |tweet|
-      tweet.media.each do |media|
-        Photo.find_or_create_by(id: media.id) do |c|
-          c.url = tweet.url
-          c.media_url = media.media_url_https
+    Query.all.each do |query|
+      # search result doesn't include `extended_entities`.
+      # so use `statuses/lookup` with search results.
+      tweets = client.search("#{query.text} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(100)
+      client.statuses(tweets, include_entities: true).each do |tweet|
+        tweet.media.each do |media|
+          Photo.find_or_create_by(id: media.id) do |c|
+            c.url = tweet.url
+            c.media_url = media.media_url_https
+          end
         end
       end
     end

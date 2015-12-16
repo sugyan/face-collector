@@ -1,0 +1,23 @@
+h1 Listing queries
+
+table.table
+  thead
+    tr
+      th Text
+      th Executed
+      th
+      th
+      th
+
+  tbody
+    - @queries.each do |query|
+      tr
+        td = query.text
+        td = query.executed
+        td = link_to 'Show', query, class: %(btn-link)
+        td = link_to 'Edit', edit_query_path(query), class: %(btn-link)
+        td = link_to 'Destroy', query, data: {:confirm => 'Are you sure?'}, :method => :delete, class: %(btn-link)
+
+br
+
+= link_to 'New Query', new_query_path, class: %(btn btn-link)

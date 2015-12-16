@@ -1,0 +1,11 @@
+p#notice = notice
+
+dl.dl-horizontal
+  dt Text:
+  dd = @query.text
+  dt Executed:
+  dd = @query.executed
+
+= link_to 'Edit', edit_query_path(@query), class: %(btn btn-link)
+'|
+= link_to 'Back', queries_path, class: %(btn btn-link)

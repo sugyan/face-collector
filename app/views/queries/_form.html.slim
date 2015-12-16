@@ -1,0 +1,12 @@
+= form_for @query do |f|
+  - if @query.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@query.errors.count, "error")} prohibited this query from being saved:"
+      ul
+        - @query.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :text
+    = f.text_field :text, class: %(form-control)
+  .actions = f.submit class: %(btn btn-primary)

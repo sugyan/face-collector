@@ -7,7 +7,7 @@ namespace :detect_faces do
   logger.level = Logger::INFO
 
   task detect: :environment do
-    SIZE = 224
+    SIZE = ENV['IMAGE_SIZE'] || 224
     conn = Faraday.new(url: 'https://face-detector.herokuapp.com') do |faraday|
       faraday.response :logger, logger
       faraday.adapter :net_http

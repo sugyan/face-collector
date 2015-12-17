@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :faces,  only: [:index, :show] do
     member do
       get 'image'
+      post 'label'
     end
   end
 

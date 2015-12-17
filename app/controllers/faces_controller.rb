@@ -1,5 +1,5 @@
 class FacesController < ApplicationController
-  before_action :set_face, only: [:show, :image]
+  before_action :set_face, only: [:show, :label, :image]
 
   def index
     @faces = Face
@@ -9,6 +9,12 @@ class FacesController < ApplicationController
   end
 
   def show
+  end
+
+  def label
+    p = params.require(:face).permit(:label_id)
+    @face.update(label_id: p['label_id'])
+    redirect_to @face
   end
 
   def image

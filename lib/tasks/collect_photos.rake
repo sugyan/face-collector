@@ -46,8 +46,7 @@ namespace :collect_photos do
         targets = Nokogiri::HTML(open(image_url)).css('script').select do |script|
           script.text.match(/imgData/)
         end
-        json = targets.first.text.scan(/{.*}/m)[0]
-        data = JSON.parse(json)
+        data = JSON.parse(targets.first.text.scan(/{.*}/m)[0])
         images = data['imgData']['next']['imgList'].concat(data['imgData']['current']['imgList'])
         images.each do |image|
           uid = ['ameblo', args.ameblo_id, image['imgUrl'].split('/').last.split('.').first].join(':')

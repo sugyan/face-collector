@@ -5,7 +5,7 @@ table.table
     tr
       th Id
       th Name
-      th Tags
+      th Description
       th
       th
       th
@@ -15,7 +15,7 @@ table.table
       tr
         td = label.id
         td = label.name
-        td = label.tags
+        td = label.description
         td = link_to 'Show', label, class: %(btn-link)
         td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
         td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete, class: %(btn-link)

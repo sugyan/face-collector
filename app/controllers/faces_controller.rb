@@ -5,7 +5,7 @@ class FacesController < ApplicationController
     @faces = Face
              .order(id: :desc)
              .page(params[:page])
-             .per(50)
+             .per(100)
   end
 
   def show

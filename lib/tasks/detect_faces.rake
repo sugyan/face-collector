@@ -33,6 +33,7 @@ namespace :detect_faces do
         logger.info("#{ faces.size } faces")
         if faces.empty?
           photo.delete
+          img.destroy!
           next
         end
 
@@ -53,6 +54,7 @@ namespace :detect_faces do
             data: rvg.draw.to_blob{ self.format = 'JPG' },
           )
         end
+        img.destroy!
       rescue SignalException => e
         raise e
       rescue Exception => e

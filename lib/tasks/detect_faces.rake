@@ -53,6 +53,7 @@ namespace :detect_faces do
             data: rvg.draw.to_blob{ self.format = 'JPG' },
           )
         end
+        img.destroy!
       rescue SignalException => e
         raise e
       rescue Exception => e

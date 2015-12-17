@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   def index
     q = params[:q]
     @photos = Photo
-              .where('url LIKE ? OR media_url LIKE ?', "%#{q}%", "%#{q}%")
+              .where('source_url LIKE ? OR photo_url LIKE ?', "%#{q}%", "%#{q}%")
               .order(id: :desc)
               .page(params[:page])
   end

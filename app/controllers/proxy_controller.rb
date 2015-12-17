@@ -1,7 +1,10 @@
 class ProxyController < ApplicationController
   def index
     url = URI(params[:url])
-    if url.host != 'pbs.twimg.com'
+    case url.host
+    when 'pbs.twimg.com'
+    when 'stat.ameba.jp'
+    else
       return head :bad_request
     end
     res = Net::HTTP.get_response(url)

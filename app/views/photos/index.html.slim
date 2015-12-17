@@ -7,8 +7,13 @@ table.table.table-striped
   - @photos.each do |photo|
     tr
       td
-        blockquote class="twitter-tweet" data-cards="hidden" data-conversation="none" data-dnt=true
-          a href=photo.url
+        div
+          a href=photo.source_url
+            = photo.uid
+        div
+          = photo.caption
+      td
+        = image_tag proxy_path(url: photo.photo_url), style: 'max-width: 200px; max-height: 200px;'
       td
         p #{ photo.faces.size } faces
         - photo.faces.each do |face|

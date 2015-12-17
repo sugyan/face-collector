@@ -16,7 +16,7 @@ namespace :detect_faces do
       # already exists?
       next if not photo.faces.empty?
       begin
-        res = conn.get '/api', url: photo.media_url
+        res = conn.get '/api', url: photo.photo_url
         data = JSON.parse(res.body)
         if data['error']
           logger.error(data['error'])
@@ -24,12 +24,13 @@ namespace :detect_faces do
         end
         faces = data['faces']
         # reject too small or too large faces
-        img = Magick::Image.read(photo.media_url).first
+        img = Magick::Image.read(photo.photo_url).first
         faces = faces.select do |face|
           face['w'] < 100 && face['h'] < 100 &&
             (face['w'] * img.columns / 100.0 > SIZE / 2 && face['h'] * img.rows / 100.0 > SIZE / 2)
         end
         # not found?
+        logger.info("#{ faces.size } faces")
         if faces.empty?
           photo.delete
           next
@@ -52,6 +53,8 @@ namespace :detect_faces do
             data: rvg.draw.to_blob{ self.format = 'JPG' },
           )
         end
+      rescue SignalException => e
+        raise e
       rescue Exception => e
         logger.error(e)
       end

@@ -1,6 +1,6 @@
 class CreatePhotos < ActiveRecord::Migration
   def change
-    create_table :photos, { id: :bigint } do |t|
+    create_table :photos do |t|
       t.string :user
       t.text :url
       t.text :media_url

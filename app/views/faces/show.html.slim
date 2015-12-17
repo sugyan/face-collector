@@ -1,4 +1,3 @@
 = image_tag image_face_path(@face)
-blockquote class="twitter-tweet" data-conversation="none" data-dnt=true
-  a href=@face.photo.url
-script async=true src="//platform.twitter.com/widgets.js" charset="utf-8"
+a href=@face.photo.photo_url
+  = @face.photo.caption

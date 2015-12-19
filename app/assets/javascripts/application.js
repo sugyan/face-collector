@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ./bootstrap.min.js
+//= require ./typeahead.bundle.min.js
 //= require ./bootstrap-tagsinput.min.js
 //= require_tree .

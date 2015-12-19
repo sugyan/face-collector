@@ -5,7 +5,8 @@ h3 face #{@face.id}
     hr
     .well
       = form_tag label_face_path do
-        label Label
+        div
+          label Label
         = text_field :face, :label_id, class: %(form-control)
   .col-md-4
     div = @face.photo.uid

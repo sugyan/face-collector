@@ -4,7 +4,7 @@ var babel = require('gulp-babel');
 gulp.task('build', function() {
     return gulp.src('app/assets/src/js/*.js')
         .pipe(babel({ presets: ['es2015'] }))
-        .pipe(gulp.dest('app/assets/javascripts'));
+        .pipe(gulp.dest('app/assets/javascripts/dest'));
 });
 
 gulp.task('watch', function() {

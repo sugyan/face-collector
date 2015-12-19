@@ -23,6 +23,7 @@
   "dependencies": {
     "babel-preset-es2015": "^6.3.13",
     "bootstrap": "^3.3.6",
+    "bootstrap-tagsinput": "^0.7.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1"
   }

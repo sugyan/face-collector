@@ -15,6 +15,6 @@
 
 # Others
 /vendor/bundle
-/app/assets/javascripts/*.js
+/app/assets/javascripts/dest/*.js
 !app/assets/javascripts/application.js
 /node_modules

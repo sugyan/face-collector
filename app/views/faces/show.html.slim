@@ -4,11 +4,12 @@ h3 face #{@face.id}
     div = image_tag image_face_path(@face)
     hr
     .well
-      = form_tag label_face_path do
+      = form_tag label_face_path(@face) do
         div
           label Label
         input.typeahead.form-control value=(@face.label && @face.label.name)
         = hidden_field :face, :label_id
+        = hidden_field_tag :random, @random
         div
           button.btn.btn-primary Update
   .col-md-4

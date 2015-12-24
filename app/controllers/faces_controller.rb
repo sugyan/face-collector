@@ -14,7 +14,17 @@ class FacesController < ApplicationController
   def label
     p = params.require(:face).permit(:label_id)
     @face.update(label_id: p['label_id'])
-    redirect_to @face
+    if params[:random]
+       redirect_to action: :random
+    else
+      redirect_to @face
+    end
+  end
+
+  def random
+    @face = Face.offset(rand(Face.count)).first
+    @random = true
+    render :show
   end
 
   def image

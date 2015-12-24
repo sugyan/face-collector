@@ -5,19 +5,36 @@ $(document).on('ready page:load', () => {
         input.tagsinput();
     }
     if (window.location.pathname.match('^/faces/')) {
-        let input = $('input[name="face[label_id]"]');
+        let input = $('input.typeahead');
+        let commaTokenizer = ((tokenizer) => {
+            return (keys) => {
+                return (obj) => {
+                    let tokens = [];
+                    keys.forEach((key) => {
+                        tokens = tokens.concat(tokenizer(obj[key]));
+                    });
+                    return tokens;
+                };
+            };
+        })(str => str.split(/,/));
         let source = new Bloodhound({
-            initialize: false,
-            local: ['dog', 'pig', 'moose'],
+            prefetch: {
+                url: '/labels.json',
+                cache: false
+            },
+            identify: obj => obj.id,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            datumTokenizer: Bloodhound.tokenizers.whitespace
+            datumTokenizer: commaTokenizer(['name', 'tags'])
         });
-        source.initialize();
         input.typeahead({
             minLength: 1,
             highlight: true
         }, {
-            source: source
+            source: source,
+            display: (obj) => obj.name
+        });
+        input.on('typeahead:select', (_, suggestion) => {
+            $('input[name="face[label_id]"]').val(suggestion.id);
         });
         input.focus();
     }

@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   root 'root#index'
   get 'proxy' => 'proxy#index'
 
-  resources :labels
   resources :queries
   resources :photos, only: [:index, :destroy]
+  resources :labels do
+    get 'faces' => 'faces#labeled'
+  end
   resources :faces,  only: [:index, :show] do
     member do
       get 'image'

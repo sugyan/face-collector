@@ -8,6 +8,15 @@ class FacesController < ApplicationController
              .per(100)
   end
 
+  def labeled
+    @faces = Face
+             .where(label_id: params[:label_id])
+             .order(updated_at: :desc)
+             .page(params[:page])
+             .per(100)
+    render :index
+  end
+
   def show
   end
 

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'random'
+      get 'binary'
     end
   end
 

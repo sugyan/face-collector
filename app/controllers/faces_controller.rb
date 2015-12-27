@@ -36,6 +36,20 @@ class FacesController < ApplicationController
     render :show
   end
 
+  def binary
+    data = String.new
+    ids = Face.where.not(label_id: nil).pluck(:id).shuffle[0 .. 99]
+    Face.where(id: ids).each do |face|
+      data << [face.label_id].pack('C')
+      img = Magick::Image.from_blob(face.data).first
+      img.each_pixel do |pixel|
+        data << [pixel.red / 256, pixel.green / 256, pixel.blue / 256].pack('C*')
+      end
+      img.destroy!
+    end
+    send_data data, filename: 'faces.bin'
+  end
+
   def image
     send_data @face.data, :disposition => "inline", :type => "image/jpeg"
   end

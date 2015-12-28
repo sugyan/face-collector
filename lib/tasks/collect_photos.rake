@@ -1,7 +1,7 @@
 require 'open-uri'
 
 namespace :collect_photos do
-  desc "TODO"
+  desc 'TODO'
 
   logger = Logger.new $stderr
   logger.level = Logger::INFO
@@ -23,7 +23,7 @@ namespace :collect_photos do
           Photo.find_or_create_by(uid: uid) do |c|
             c.source_url = tweet.url
             c.photo_url = media.media_url_https
-            c.caption = '%s(@%s): %s' % [tweet.user.name, tweet.user.screen_name, tweet.text]
+            c.caption = format('%s(@%s): %s', tweet.user.name, tweet.user.screen_name, tweet.text)
             c.posted_at = tweet.created_at
           end
         end
@@ -31,12 +31,12 @@ namespace :collect_photos do
     end
   end
 
-  task :ameblo, ['ameblo_id', 'months'] => :environment do |task, args|
+  task :ameblo, %w(ameblo_id months) => :environment do |_task, args|
     m = (args.months || '30').to_i
-    today = Date.today
-    (0 .. m - 1).each do |i|
+    today = Time.zone.today
+    (0..m - 1).each do |i|
       yyyymm = (today << i).strftime('%Y%m')
-      url = "http://ameblo.jp/#{ args.ameblo_id }/imagelist-#{ yyyymm }.html"
+      url = "http://ameblo.jp/#{args.ameblo_id}/imagelist-#{yyyymm}.html"
       logger.info(url)
       doc = Nokogiri::HTML(open(url))
       doc.css('#imgList .imgLink').each do |li|

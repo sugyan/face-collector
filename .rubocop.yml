@@ -1,0 +1,23 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - db/schema.rb
+    - 'vendor/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 25

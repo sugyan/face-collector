@@ -4,9 +4,9 @@ class PhotosController < ApplicationController
   def index
     q = params[:q]
     @photos = Photo
-              .where('source_url LIKE ? OR photo_url LIKE ?', "%#{q}%", "%#{q}%")
-              .order(id: :desc)
-              .page(params[:page])
+      .where('source_url LIKE ? OR photo_url LIKE ?', "%#{q}%", "%#{q}%")
+      .order(id: :desc)
+      .page(params[:page])
   end
 
   def destroy
@@ -16,7 +16,8 @@ class PhotosController < ApplicationController
   end
 
   private
-    def set_photo
-      @photo = Photo.find(params[:id])
-    end
+
+  def set_photo
+    @photo = Photo.find(params[:id])
+  end
 end

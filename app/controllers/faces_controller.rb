@@ -3,17 +3,17 @@ class FacesController < ApplicationController
 
   def index
     @faces = Face
-             .order(id: :desc)
-             .page(params[:page])
-             .per(100)
+      .order(id: :desc)
+      .page(params[:page])
+      .per(100)
   end
 
   def labeled
     @faces = Face
-             .where(label_id: params[:label_id])
-             .order(updated_at: :desc)
-             .page(params[:page])
-             .per(100)
+      .where(label_id: params[:label_id])
+      .order(updated_at: :desc)
+      .page(params[:page])
+      .per(100)
     render :index
   end
 
@@ -24,7 +24,7 @@ class FacesController < ApplicationController
     p = params.require(:face).permit(:label_id)
     @face.update(label_id: p['label_id'])
     if params[:random]
-       redirect_to action: :random
+      redirect_to action: :random
     else
       redirect_to @face
     end
@@ -38,7 +38,7 @@ class FacesController < ApplicationController
 
   def binary
     data = String.new
-    ids = Face.where.not(label_id: nil).pluck(:id).shuffle[0 .. 99]
+    ids = Face.where.not(label_id: nil).pluck(:id).sample(100)
     Face.where(id: ids).each do |face|
       data << [face.label_id].pack('C')
       img = Magick::Image.from_blob(face.data).first
@@ -51,11 +51,12 @@ class FacesController < ApplicationController
   end
 
   def image
-    send_data @face.data, :disposition => "inline", :type => "image/jpeg"
+    send_data @face.data, disposition: 'inline', type: 'image/jpeg'
   end
 
   private
-    def set_face
-      @face = Face.find(params[:id])
-    end
+
+  def set_face
+    @face = Face.find(params[:id])
+  end
 end

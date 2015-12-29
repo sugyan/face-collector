@@ -40,7 +40,7 @@ class FacesController < ApplicationController
     data = String.new
     ids = Face.where.not(label_id: nil).pluck(:id).sample(100)
     Face.where(id: ids).each do |face|
-      data << [face.label_id].pack('C')
+      data << [face.label_id - 1].pack('C')
       img = Magick::Image.from_blob(face.data).first
       img.each_pixel do |pixel|
         data << [pixel.red / 256, pixel.green / 256, pixel.blue / 256].pack('C*')

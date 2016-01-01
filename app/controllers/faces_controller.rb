@@ -37,15 +37,14 @@ class FacesController < ApplicationController
   end
 
   def binary
+    p = params.permit(:size, :num)
+    size = p.fetch(:size, ENV['IMAGE_SIZE'] || '224').to_i
+    num = [p.fetch(:num, '100').to_i, 500].min
+
     data = String.new
-    ids = Face.where.not(label_id: nil).pluck(:id).sample(100)
+    ids = Face.where.not(label_id: nil).pluck(:id).sample(num)
     Face.where(id: ids).each do |face|
-      data << [face.label_id - 1].pack('C')
-      img = Magick::Image.from_blob(face.data).first
-      img.each_pixel do |pixel|
-        data << [pixel.red / 256, pixel.green / 256, pixel.blue / 256].pack('C*')
-      end
-      img.destroy!
+      data << face.binary(size)
     end
     send_data data, filename: 'faces.bin'
   end

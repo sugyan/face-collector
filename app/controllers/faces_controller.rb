@@ -39,7 +39,7 @@ class FacesController < ApplicationController
   def binary
     p = params.permit(:size, :num)
     size = p.fetch(:size, ENV['IMAGE_SIZE'] || '224').to_i
-    num = [p.fetch(:num, '100').to_i, 500].min
+    num = [p.fetch(:num, '100').to_i, 600].min
 
     data = String.new
     ids = Face.where.not(label_id: nil).pluck(:id).sample(num)

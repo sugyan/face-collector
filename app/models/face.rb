@@ -2,7 +2,7 @@ class Face < ActiveRecord::Base
   belongs_to :photo
   belongs_to :label
 
-  def binary(size)
+  def cifar10_binary(size)
     buf = String.new
     buf << [label_id - 1].pack('C')
     img = Magick::Image.from_blob(data).first.resize(size, size)

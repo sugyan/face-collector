@@ -36,15 +36,16 @@ class FacesController < ApplicationController
     render :show
   end
 
-  def binary
+  def cifar10
+    label_id = params.require(:label_id)
     p = params.permit(:size, :num)
     size = p.fetch(:size, ENV['IMAGE_SIZE'] || '224').to_i
-    num = [p.fetch(:num, '100').to_i, 600].min
+    num = [p.fetch(:num, '100').to_i, 1000].min
 
     data = String.new
-    ids = Face.where.not(label_id: nil).pluck(:id).sample(num)
+    ids = Face.where(label_id: label_id).pluck(:id).sample(num)
     Face.where(id: ids).each do |face|
-      data << face.binary(size)
+      data << face.cifar10_binary(size)
     end
     send_data data, filename: 'faces.bin'
   end

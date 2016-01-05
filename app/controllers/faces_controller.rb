@@ -24,14 +24,22 @@ class FacesController < ApplicationController
     p = params.require(:face).permit(:label_id)
     @face.update(label_id: p['label_id'])
     if params[:random]
-      redirect_to action: :random
+      url = random_faces_url
+      url = random_faces_url(no_label: true) if params[:no_label]
+      redirect_to url
     else
       redirect_to @face
     end
   end
 
   def random
-    @face = Face.offset(rand(Face.count)).first
+    if params[:no_label]
+      count = Face.where(label_id: nil).count
+      @face = Face.where(label_id: nil).offset(rand(count)).first
+      @no_label = true
+    else
+      @face = Face.offset(rand(Face.count)).first
+    end
     @random = true
     render :show
   end

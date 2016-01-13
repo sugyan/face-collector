@@ -23,6 +23,10 @@ namespace :detect_faces do
           next
         end
         faces = data['faces']
+        faces.each do |face|
+          face['w'] *= 1.2
+          face['h'] *= 1.2
+        end
         # reject too small or too large faces
         img = Magick::Image.read(photo.photo_url).first
         faces = faces.select do |face|

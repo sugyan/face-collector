@@ -17,6 +17,18 @@ class FacesController < ApplicationController
     render :index
   end
 
+  def sample
+    num = [params.fetch(:num, '100').to_i, 1000].min
+    @label = Label.find(params[:label_id])
+    ids = Face.where(label_id: params[:label_id])
+      .pluck(:id)
+      .sample(num)
+    @faces = Face.where(id: ids)
+    respond_to do |format|
+      format.json
+    end
+  end
+
   def show
   end
 

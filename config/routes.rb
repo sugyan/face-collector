@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :queries
   resources :photos, only: [:index, :destroy]
   resources :labels do
-    get 'faces' => 'faces#labeled'
+    get 'faces'  => 'faces#labeled'
+    get 'sample' => 'faces#sample'
   end
   resources :faces, only: [:index, :show] do
     member do

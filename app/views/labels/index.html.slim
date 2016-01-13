@@ -6,6 +6,7 @@ table.table
       th Id
       th Name
       th Description
+      th Index Number
       th
       th
       th
@@ -16,6 +17,7 @@ table.table
         td = label.id
         td = label.name
         td = label.description
+        td = label.index_number
         td = link_to 'Show', label, class: %(btn-link)
         td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
         td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete, class: %(btn-link)

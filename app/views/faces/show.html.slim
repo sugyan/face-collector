@@ -14,6 +14,7 @@ h3 face #{@face.id}
           = hidden_field_tag :no_label, true
         div
           button.btn.btn-primary Update
+    = link_to 'Delete', face_path(@face), data: { confirm: 'Are you sure?' }, method: :delete, class: %(btn btn-danger)
   .col-md-4
     div = @face.photo.uid
     div = image_tag proxy_path(url: @face.photo.photo_url), style: 'width: 100%'

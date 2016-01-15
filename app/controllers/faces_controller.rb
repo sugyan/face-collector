@@ -1,5 +1,5 @@
 class FacesController < ApplicationController
-  before_action :set_face, only: [:show, :label, :image]
+  before_action :set_face, only: [:show, :destroy, :label, :image]
 
   def index
     @faces = Face
@@ -10,8 +10,9 @@ class FacesController < ApplicationController
 
   def labeled
     @faces = Face
+      .joins(:photo)
       .where(label_id: params[:label_id])
-      .order(updated_at: :desc)
+      .order('photos.posted_at DESC')
       .page(params[:page])
       .per(100)
     render :index
@@ -32,10 +33,17 @@ class FacesController < ApplicationController
   def show
   end
 
+  def destroy
+    @face.destroy
+    respond_to do |format|
+      format.html { redirect_to faces_url, notice: 'Face was successfully destroyed.' }
+    end
+  end
+
   def label
     p = params.require(:face).permit(:label_id)
     @face.update(label_id: p['label_id'])
-    if params[:random]
+    if !params[:random].blank?
       url = random_faces_url
       url = random_faces_url(no_label: true) if params[:no_label]
       redirect_to url

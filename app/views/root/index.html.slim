@@ -1,9 +1,11 @@
 h1 Faces
-ul
-  - @labels.each do |label|
-    li
-      = link_to "#{ label.name } (#{ label.faces.count })", label_faces_path(label)
-    p
+- @labels.each do |label|
+  p
+    | ・
+    = link_to "#{ label.name } (#{ label.faces.count })", label_faces_path(label)
+  table.table.table-condensed
+    tr
       - label.faces.order(updated_at: :desc).limit(10).each do |face|
-        a href=face_path(face)
-          = image_tag image_face_path(face)
+        td
+          a href=face_path(face)
+            = image_tag image_face_path(face), width: '100%'

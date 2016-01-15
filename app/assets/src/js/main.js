@@ -1,12 +1,13 @@
 /* global $, Bloodhound */
 $(document).on('ready page:load', () => {
+    let input;
     if (window.location.pathname.match('^/labels/')) {
-        let input = $('input[name="label[tags]"]');
+        input = $('input[name="label[tags]"]');
         input.tagsinput();
     }
     if (window.location.pathname.match('^/faces/')) {
-        let input = $('input.typeahead');
-        let commaTokenizer = ((tokenizer) => {
+        input = $('input.typeahead');
+        const commaTokenizer = ((tokenizer) => {
             return (keys) => {
                 return (obj) => {
                     let tokens = [];
@@ -17,7 +18,7 @@ $(document).on('ready page:load', () => {
                 };
             };
         })(str => str.split(/,/));
-        let source = new Bloodhound({
+        const source = new Bloodhound({
             prefetch: {
                 url: '/labels.json',
                 cache: false

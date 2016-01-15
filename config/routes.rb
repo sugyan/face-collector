@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'faces'  => 'faces#labeled'
     get 'sample' => 'faces#sample'
   end
-  resources :faces, only: [:index, :show] do
+  resources :faces, only: [:index, :show, :destroy] do
     member do
       get 'image'
       post 'label'

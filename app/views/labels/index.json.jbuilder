@@ -1,9 +1,9 @@
-# coding: utf-8
 @labels << {
   id: nil,
   name: 'Remove label',
-  tags: 'remove'
+  tags: 'remove',
+  index_number: nil
 }
 json.array!(@labels) do |label|
-  json.extract! label, :id, :name, :tags
+  json.extract! label, :id, :name, :tags, :index_number
 end

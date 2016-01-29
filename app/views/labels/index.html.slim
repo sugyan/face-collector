@@ -1,12 +1,13 @@
-h1 Listing labels
+h1 Labels
 
 table.table
   thead
     tr
-      th Id
+      th Index
       th Name
       th Description
-      th Index Number
+      th Twitter
+      th Ameblo
       th
       th
       th
@@ -14,14 +15,16 @@ table.table
   tbody
     - @labels.each do |label|
       tr
-        td = label.id
+        td = label.index_number
         td = label.name
         td = label.description
-        td = label.index_number
+        td = label.twitter
+        td = label.ameblo
         td = link_to 'Show', label, class: %(btn-link)
         td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
         td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete, class: %(btn-link)
 
-br
-
 = link_to 'New Label', new_label_path, class: %(btn btn-link)
+
+.text-center
+  = paginate @labels

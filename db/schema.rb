@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126152545) do
+ActiveRecord::Schema.define(version: 20160129113749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20160126152545) do
     t.text     "description"
     t.string   "url"
     t.integer  "index_number"
+    t.string   "twitter"
+    t.string   "ameblo"
   end
 
   add_index "labels", ["index_number"], name: "index_labels_on_index_number", unique: true, using: :btree

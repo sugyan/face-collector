@@ -70,6 +70,6 @@ class LabelsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def label_params
-    params.require(:label).permit(:name, :index_number, :description, :url, :tags)
+    params.require(:label).permit(:name, :index_number, :description, :url, :twitter, :ameblo, :tags)
   end
 end

@@ -7,17 +7,27 @@
           li = message
 
   .field.form-group
-    div = f.label :name
+    = f.label :name
     = f.text_field :name, class: %(form-control)
   .field.form-group
-    div = f.label :index_number
-    = f.number_field :index_number, class: %(form-control)
+    = f.label :index_number
+    = f.number_field :index_number, min: 0, class: %(form-control)
   .field.form-group
-    div = f.label :description
+    = f.label :description
     = f.text_area :description, class: %(form-control)
   .field.form-group
-    div = f.label :url
+    = f.label :url
     = f.url_field :url, class: %(form-control)
+  .field.form-group
+    = f.label :twitter
+    .input-group
+      span.input-group-addon @
+      = f.text_field :twitter, class: %(form-control)
+  .field.form-group
+    div = f.label :ameblo
+    div.input-group
+      span.input-group-addon ameblo.jp/
+      = f.text_field :ameblo, class: %(form-control)
   .field.form-group
     div = f.label :tags
     = f.text_field :tags, class: %(form-control)

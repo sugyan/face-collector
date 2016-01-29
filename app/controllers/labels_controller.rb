@@ -4,10 +4,17 @@ class LabelsController < ApplicationController
   # GET /labels
   # GET /labels.json
   def index
-    @labels = Label
-      .order(index_number: :asc).order(:name)
-      .page(params[:page])
-      .per(100)
+    respond_to do |format|
+      format.html do
+        @labels = Label
+          .order(index_number: :asc).order(:name)
+          .page(params[:page])
+          .per(100)
+      end
+      format.json do
+        @labels = Label.all
+      end
+    end
   end
 
   # GET /labels/1

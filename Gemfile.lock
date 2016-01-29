@@ -52,7 +52,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    domain_name (0.5.25)
+    domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
     erubis (2.7.0)
@@ -70,6 +70,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    httpclient (2.7.1)
     i18n (0.7.0)
     jbuilder (2.4.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -197,6 +198,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  httpclient (~> 2.7)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari (~> 0.16)

@@ -18,8 +18,10 @@ h3 face #{@face.id}
           button.btn.btn-primary Update
     = link_to 'Delete', face_path(@face), data: { confirm: 'Are you sure?' }, method: :delete, class: %(btn btn-danger)
   .col-md-8
-    div = @face.photo.uid
-    div = image_tag proxy_path(url: @face.photo.photo_url), style: 'width: 100%'
+    h4 = @face.photo.uid
+    div
+      a href=@face.photo.photo_url target="_blank"
+        = image_tag proxy_path(url: @face.photo.photo_url), style: 'max-width: 345px; max-height: 345px;'
     div
       a href=@face.photo.source_url target="_blank"
         = @face.photo.caption

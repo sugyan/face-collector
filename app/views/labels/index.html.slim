@@ -3,11 +3,16 @@ h1 Labels
 table.table
   thead
     tr
-      th Index
-      th Name
-      th Description
-      th Twitter
-      th Ameblo
+      th
+        = link_to 'Index', order: :index_number
+      th
+        = link_to 'Name', order: :name
+      th
+        = link_to 'Description', order: :description
+      th
+        = link_to 'Twitter', order: :twitter
+      th
+        = link_to 'Ameblo', order: :ameblo
       th
       th
       th

@@ -7,7 +7,7 @@ class LabelsController < ApplicationController
     respond_to do |format|
       format.html do
         @labels = Label
-          .order(index_number: :asc).order(updated_at: :desc)
+          .order(params.fetch(:order, :index_number))
           .page(params[:page])
           .per(100)
       end

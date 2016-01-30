@@ -17,7 +17,7 @@ $(document).on('ready page:load', () => {
                     return tokens;
                 };
             };
-        })(str => str.split(/,/));
+        })(str => (str || '').split(/,/));
         const source = new Bloodhound({
             prefetch: {
                 url: '/labels.json',

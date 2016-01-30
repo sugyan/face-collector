@@ -13,10 +13,17 @@ namespace :collect_photos do
       config.consumer_secret = ENV['CONSUMER_SECRET']
     end
     client.middleware.insert(-1, Faraday::Response::Logger, logger)
-    Query.all.each do |query|
+    queries = Query.all.map(&:text)
+    screen_names = Label
+      .where.not(twitter: nil)
+      .where.not(twitter: '')
+      .pluck(:twitter).uniq
+      .sample(5)
+    queries << screen_names.map { |name| "from:#{name}" }.join(' OR ')
+    queries.each do |query|
       # search result doesn't include `extended_entities`.
       # so use `statuses/lookup` with search results.
-      tweets = client.search("#{query.text} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(100)
+      tweets = client.search("#{query} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(100)
       client.statuses(tweets, include_entities: true).each do |tweet|
         tweet.media.each do |media|
           uid = ['twitter', media.id].join(':')

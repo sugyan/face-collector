@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :labels do
     get 'faces'  => 'faces#labeled'
     get 'sample' => 'faces#sample'
+    get 'all', on: :collection
   end
   resources :faces, only: [:index, :show, :destroy] do
     member do

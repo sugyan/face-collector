@@ -1,3 +1,6 @@
+- if @label
+  h2
+    = link_to @label.name, label_path(@label)
 table.table.table-condensed
   - @faces.each_slice(10) do |faces|
     tr

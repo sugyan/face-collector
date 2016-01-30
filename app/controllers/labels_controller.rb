@@ -12,8 +12,15 @@ class LabelsController < ApplicationController
           .per(100)
       end
       format.json do
-        @labels = Label.all
+        @labels = Label.where.not(index_number: nil)
       end
+    end
+  end
+
+  def all
+    @labels = Label.all
+    respond_to do |format|
+      format.json
     end
   end
 

@@ -9,3 +9,5 @@ h1 Faces
         td
           a href=face_path(face)
             = image_tag image_face_path(face), width: '100%'
+.text-center
+  = paginate @ids

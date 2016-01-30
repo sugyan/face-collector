@@ -9,6 +9,7 @@ class FacesController < ApplicationController
   end
 
   def labeled
+    @label = Label.find(params[:label_id])
     @faces = Face
       .joins(:photo)
       .where(label_id: params[:label_id])

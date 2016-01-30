@@ -20,21 +20,28 @@ $(document).on('ready page:load', () => {
         })(str => (str || '').split(/,/));
         const source = new Bloodhound({
             prefetch: {
-                url: '/labels.json',
+                url: '/labels/all.json',
                 cache: false
             },
             identify: obj => obj.id,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            datumTokenizer: commaTokenizer(['name', 'tags'])
+            datumTokenizer: commaTokenizer(['name', 'tags', 'twitter'])
         });
         input.typeahead({
             minLength: 1,
             highlight: true
         }, {
             source: source,
-            display: (obj) => obj.name
+            display: (obj) => {
+                let ret = `${obj.name} - ${obj.description}`;
+                if (obj.twitter) {
+                    ret += ` (@${obj.twitter})`;
+                }
+                return ret;
+            }
         });
         input.on('typeahead:select', (_, suggestion) => {
+            $('#name').text(suggestion.name);
             $('input[name="face[label_id]"]').val(suggestion.id);
         });
         input.focus();

@@ -35,5 +35,31 @@ namespace :search_idols do
   end
 
   task dmmyell: :environment do
+    uri = 'http://yell.dmm.com/'
+    page = URI.join(uri, '/lp/list/idolplus/all/page:1/')
+    client = HTTPClient.new
+    loop do
+      doc = Nokogiri::HTML(client.get_content(page))
+      doc.css('.area-celebList-list .box-list').each do |box|
+        group = box.css('header h2').text.strip
+        logger.info(group)
+        box.css('ul li').each do |li|
+          name = li.css('.tit').text.strip
+          sns = li.css('.sns a').first
+          sns && twitter = sns[:href].sub('https://twitter.com/', '')
+          Label.find_or_create_by(name: name) do |label|
+            label.description = group
+            label.twitter = twitter
+          end
+        end
+      end
+      next_arrow = doc.css('.arrow.next')
+      if next_arrow.empty?
+        break
+      else
+        page = URI.join(uri, next_arrow.css('a').first[:href])
+        sleep 1
+      end
+    end
   end
 end

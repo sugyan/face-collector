@@ -5,7 +5,7 @@ class RootController < ApplicationController
       .select(:label_id)
       .where.not(label_id: nil)
       .group(:label_id)
-      .order(count: :desc)
+      .order(count: :desc).order(:label_id)
       .page(params[:page])
       .per(10)
     labels = Label.where(id: @ids).index_by(&:id)

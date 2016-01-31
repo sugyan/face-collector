@@ -23,7 +23,7 @@ namespace :collect_photos do
     queries.each do |query|
       # search result doesn't include `extended_entities`.
       # so use `statuses/lookup` with search results.
-      tweets = client.search("#{query} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(100)
+      tweets = client.search("#{query} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(50)
       client.statuses(tweets, include_entities: true).each do |tweet|
         tweet.media.each do |media|
           uid = ['twitter', media.id].join(':')

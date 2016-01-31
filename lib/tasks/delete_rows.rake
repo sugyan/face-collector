@@ -9,8 +9,10 @@ namespace :delete_rows do
     logger.info(format('sum: %d', sum))
     next if sum < 9000
 
-    Photo.order(created_at: :asc).limit(100).each do |photo|
-      photo.destroy if photo.faces.all? { |face| face.label_id.nil? }
+    Face.where(label_id: nil).order(created_at: :asc).limit(100).each do |face|
+      photo = face.photo
+      face.destroy
+      photo.destroy if photo.faces.empty?
     end
   end
 end

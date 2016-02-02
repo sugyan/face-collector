@@ -1,6 +1,8 @@
 - if @label
   h2
     = link_to @label.name, label_path(@label)
+- else
+  = link_to 'Random', random_faces_path, class: %(btn btn-link)
 table.table.table-condensed
   - @faces.each_slice(10) do |faces|
     tr

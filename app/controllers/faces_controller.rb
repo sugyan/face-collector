@@ -35,7 +35,9 @@ class FacesController < ApplicationController
   end
 
   def destroy
+    photo = @face.photo
     @face.destroy
+    photo.destroy if photo.faces.empty?
     respond_to do |format|
       format.html { redirect_to faces_url, notice: 'Face was successfully destroyed.' }
     end

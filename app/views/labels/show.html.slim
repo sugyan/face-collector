@@ -4,9 +4,9 @@
       span aria-hidden="true" &times;
     = notice
 
+h3 Label #{ @label.id }
+
 dl.dl-horizontal
-  dt ID:
-  dd = @label.id
   dt Index Number:
   dd = @label.index_number
   dt Name:
@@ -16,11 +16,24 @@ dl.dl-horizontal
   dt Url:
   dd = @label.url
   dt Twitter:
-  dd = @label.twitter
+  dd
+    - if @label.twitter.present?
+      = link_to "@#{ @label.twitter }", 'https://twitter.com/%s' % @label.twitter, target: '_blank'
   dt Ameblo:
-  dd = @label.ameblo
+  dd
+    - if @label.ameblo.present?
+      = link_to "ameblo.jp/#{ @label.ameblo }", 'http://ameblo.jp/%s/' % @label.ameblo, target: '_blank'
   dt Tags:
   dd = @label.tags
+
+h4
+  = link_to 'Faces (%d)' % @label.faces.size, label_faces_path(@label)
+div
+  - @label.faces.all.sample(5).each do |face|
+    a href=face_path(face)
+      = image_tag image_face_path(face)
+
+hr
 
 = link_to 'Edit', edit_label_path(@label), class: %(btn btn-link)
 '|

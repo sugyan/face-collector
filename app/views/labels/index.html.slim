@@ -29,7 +29,9 @@ table.table
         td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
         td = link_to 'Destroy', label, data: {:confirm => 'Are you sure?'}, :method => :delete, class: %(btn-link)
 
-= link_to 'New Label', new_label_path, class: %(btn btn-link)
-
 .text-center
   = paginate @labels
+
+hr
+
+= link_to 'New Label', new_label_path, class: %(btn btn-link)

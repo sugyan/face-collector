@@ -1,6 +1,8 @@
 require 'open-uri'
 
 namespace :collect_photos do
+  include Image
+
   desc 'TODO'
 
   logger = Logger.new $stderr
@@ -20,19 +22,40 @@ namespace :collect_photos do
       .pluck(:twitter).uniq
       .sample(5)
     queries << screen_names.map { |name| "from:#{name}" }.join(' OR ')
+    tweets = {}
     queries.each do |query|
       # search result doesn't include `extended_entities`.
       # so use `statuses/lookup` with search results.
-      tweets = client.search("#{query} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(50)
-      client.statuses(tweets, include_entities: true).each do |tweet|
-        tweet.media.each do |media|
-          uid = ['twitter', media.id].join(':')
-          Photo.find_or_create_by(uid: uid) do |c|
-            c.source_url = tweet.url
-            c.photo_url = media.media_url_https
-            c.caption = format('%s(@%s): %s', tweet.user.name, tweet.user.screen_name, tweet.text)
-            c.posted_at = tweet.created_at
-          end
+      results = client.search("#{query} filter:images -filter:retweets", lang: 'ja', locale: 'ja').take(100)
+      client.statuses(results, include_entities: true).each do |tweet|
+        tweets[tweet.id.to_s] = tweet
+      end
+    end
+    logger.info(format('%d tweets fetched', tweets.size))
+
+    # detect faces and save
+    size = (ENV['IMAGE_SIZE'] || '224').to_i
+    tweets.each_value do |tweet|
+      tweet.media.each do |media|
+        uid = ['twitter', media.id].join(':')
+        next if Photo.find_by(uid: uid)
+
+        photo = Photo.new do |c|
+          c.uid = uid
+          c.source_url = tweet.url
+          c.photo_url = media.media_url_https
+          c.caption = format('%s (@%s): %s', tweet.user.name, tweet.user.screen_name, tweet.text)
+          c.posted_at = tweet.created_at
+        end
+        begin
+          faces = detect_faces(photo.photo_url, size)
+          img = photo.image
+          logger.info(format('%d faces detected', faces.size))
+          photo.faces << faces.map { |face| Face.new(data: face_image(img, face, size)) }
+          photo.save if photo.faces.present?
+          img.destroy!
+        rescue SignalException => e
+          raise e
         end
       end
     end

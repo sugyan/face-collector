@@ -7,6 +7,7 @@ class PhotosController < ApplicationController
       .where('source_url LIKE ? OR photo_url LIKE ?', "%#{q}%", "%#{q}%")
       .order(id: :desc)
       .page(params[:page])
+      .per(10)
   end
 
   def destroy

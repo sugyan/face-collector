@@ -1,8 +1,6 @@
 require 'open-uri'
 
 namespace :collect_photos do
-  include Image
-
   desc 'TODO'
 
   logger = Logger.new $stderr
@@ -48,12 +46,12 @@ namespace :collect_photos do
           c.posted_at = tweet.created_at
         end
         begin
-          faces = detect_faces(photo.photo_url, size)
-          img = photo.image
+          faces = photo.face_images(size)
           logger.info(format('%d faces detected', faces.size))
-          photo.faces << faces.map { |face| Face.new(data: face_image(img, face, size)) }
-          photo.save if photo.faces.present?
-          img.destroy!
+          if faces.present?
+            photo.faces << faces.map { |face| Face.new(data: face) }
+            photo.save
+          end
         rescue SignalException => e
           raise e
         end

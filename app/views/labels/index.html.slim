@@ -27,7 +27,9 @@ table.table
         td = link_to 'Show', label, class: %(btn-link)
         td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
 
-= link_to 'New Label', new_label_path, class: %(btn btn-link)
-
 .text-center
   = paginate @labels
+
+hr
+
+= link_to 'New Label', new_label_path, class: %(btn btn-link)

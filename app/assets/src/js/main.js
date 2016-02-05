@@ -41,7 +41,11 @@ $(document).on('ready page:load', () => {
             }
         });
         input.on('typeahead:select', (_, suggestion) => {
-            $('#name').text(suggestion.name);
+            $('#name').html(
+                $('<a>')
+                    .attr('href', suggestion.url)
+                    .text(suggestion.name)
+            );
             $('input[name="face[label_id]"]').val(suggestion.id);
         });
         input.focus();

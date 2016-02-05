@@ -19,7 +19,5 @@ table.table.table-striped
         - photo.faces.each do |face|
           a href=face_path(face)
             = image_tag image_face_path(face), width: 84, height: 84
-      td
-        = link_to 'Destroy', photo, class: %(btn btn-danger), data: { confirm: 'Are you sure?' }, method: :delete
 .text-center
   = paginate @photos

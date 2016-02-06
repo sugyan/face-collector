@@ -1,18 +1,23 @@
 h1 Labels
 
+form.well
+  .form-group
+    input.form-control name="q" value=params[:q]
+  button.btn.btn-primary Search
+
 table.table
   thead
     tr
       th
-        = link_to 'Index', order: :index_number
+        = link_to 'Index', params.merge(order: :index_number)
       th
-        = link_to 'Name', order: :name
+        = link_to 'Name', params.merge(order: :name)
       th
-        = link_to 'Description', order: :description
+        = link_to 'Description', params.merge(order: :description)
       th
-        = link_to 'Twitter', order: :twitter
+        = link_to 'Twitter', params.merge(order: :twitter)
       th
-        = link_to 'Ameblo', order: :ameblo
+        = link_to 'Ameblo', params.merge(order: :ameblo)
       th
       th
 

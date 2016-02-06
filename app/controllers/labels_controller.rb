@@ -6,8 +6,15 @@ class LabelsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
+        if (q = params[:q])
+          where = [
+            'name LIKE ? OR description LIKE ? OR twitter LIKE ? OR ameblo LIKE ?',
+            *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 4
+          ]
+        end
         @labels = Label
           .order(params.fetch(:order, :index_number))
+          .where(where)
           .page(params[:page])
           .per(100)
       end

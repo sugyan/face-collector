@@ -10,14 +10,12 @@ html
     nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
-          a.navbar-brand href="/" Face Collector
+          = link_to 'Face Collector', collector_path, class: %w(navbar-brand)
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a href="/faces" Faces
+              = link_to 'Faces', collector_faces_path
             li
-              a href="/photos" Photos
-            li
-              a href="/labels" Labels
+              = link_to 'Labels', collector_labels_path
     .container
       = yield

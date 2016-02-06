@@ -1,11 +1,11 @@
 /* global $, Bloodhound */
 $(document).on('ready page:load', () => {
     let input;
-    if (window.location.pathname.match('^/labels/')) {
+    if (window.location.pathname.match('^/collector/labels/')) {
         input = $('input[name="label[tags]"]');
         input.tagsinput();
     }
-    if (window.location.pathname.match('^/faces/')) {
+    if (window.location.pathname.match('^/collector/faces/')) {
         input = $('input.typeahead');
         const commaTokenizer = ((tokenizer) => {
             return (keys) => {
@@ -20,7 +20,7 @@ $(document).on('ready page:load', () => {
         })(str => (str || '').split(/,/));
         const source = new Bloodhound({
             prefetch: {
-                url: '/labels/all.json',
+                url: '/collector/labels/all.json',
                 cache: false
             },
             identify: obj => obj.id,

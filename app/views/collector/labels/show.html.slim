@@ -27,14 +27,14 @@ dl.dl-horizontal
   dd = @label.tags
 
 h4
-  = link_to 'Faces (%d)' % @label.faces.size, label_faces_path(@label)
+  = link_to 'Faces (%d)' % @label.faces.size, collector_label_faces_path(@label)
 div
   - @label.faces.all.sample(5).each do |face|
-    a href=face_path(face)
-      = image_tag image_face_path(face)
+    a href=collector_face_path(face)
+      = image_tag image_collector_face_path(face)
 
 hr
 
-= link_to 'Edit', edit_label_path(@label), class: %(btn btn-link)
+= link_to 'Edit', edit_collector_label_path(@label), class: %(btn btn-link)
 '|
-= link_to 'Back', labels_path, class: %(btn btn-link)
+= link_to 'Back', collector_labels_path, class: %(btn btn-link)

@@ -8,7 +8,8 @@ h3 face #{@face.id}
         p
           span label:
           strong#name.form-control-static<
-            = @face.label ? @face.label.name : ''
+            - if @face.label
+              = link_to @face.label.name, collector_label_path(@face.label)
         input.typeahead.form-control value=(@face.label && @face.label.name)
         = hidden_field :face, :label_id
         = hidden_field_tag :random, @random

@@ -38,6 +38,10 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     buftok (0.2.0)
@@ -51,6 +55,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
+    connection_pool (2.2.0)
     debug_inspector (0.0.2)
     domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
@@ -133,6 +138,13 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.5.0)
     rdoc (4.2.1)
+    react-rails (1.5.0)
+      babel-transpiler (>= 0.7.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.2)
+      tilt
     rmagick (2.15.4)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -206,6 +218,7 @@ DEPENDENCIES
   puma (~> 2.15)
   rails (= 4.2.5)
   rails_12factor
+  react-rails (~> 1.5)
   rmagick (~> 2.15)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

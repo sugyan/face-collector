@@ -22,8 +22,10 @@
   "homepage": "https://github.com/sugyan/face-collector#readme",
   "dependencies": {
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "bootstrap": "^3.3.6",
     "bootstrap-tagsinput": "^0.7.1",
+    "exif-js": "^2.1.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "typeahead.js": "^0.11.1"

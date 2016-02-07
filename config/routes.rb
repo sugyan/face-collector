@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :recognizer do
+  namespace :recognizer do
+    get '/' => 'root#index'
   end
 end

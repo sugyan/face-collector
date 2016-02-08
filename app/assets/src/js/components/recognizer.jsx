@@ -80,7 +80,7 @@ class ImageLoader extends React.Component {
         const req = this.req = Math.floor(Math.random() * 0xFFFFFFFF);
         this.props.changeLoadingState(true);
         $.ajax({
-            url: '/api',
+            url: '/recognizer/api.json',
             method: 'POST',
             data: {
                 image: image.src
@@ -147,13 +147,14 @@ class ImageLoader extends React.Component {
 
                     faces.push({
                         url: face_url(face),
-                        results: face.recognize.sort((a, b) => b[1] - a[1])
+                        results: face.recognize.sort((a, b) => b[1] - a[1]).splice(0, 5)
                     });
                 });
                 this.props.updateFaces(faces, result.message);
             },
             error: (_, e) => {
-                window.console.error(e);
+                this.props.changeLoadingState(false);
+                this.props.updateFaces([], e);
             }
         });
     }

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :collector do
     get '/' => 'root#index'
-    get 'proxy' => 'proxy#index'
+    get 'proxy' => 'root#proxy'
 
     resources :queries
     resources :labels do

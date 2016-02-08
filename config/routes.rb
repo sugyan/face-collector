@@ -24,5 +24,6 @@ Rails.application.routes.draw do
 
   namespace :recognizer do
     get '/' => 'root#index'
+    post '/api' => 'root#api'
   end
 end

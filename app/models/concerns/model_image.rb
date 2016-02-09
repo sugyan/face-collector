@@ -1,6 +1,6 @@
 require 'rvg/rvg'
 
-module Image
+module ModelImage
   def detect_faces(url, size)
     detector = Faraday.new(url: ENV['FACE_DETECT_API_ENDPOINT']) do |faraday|
       faraday.adapter :net_http
@@ -16,7 +16,7 @@ module Image
     faces.select do |face|
       face['w'] < 100 && face['h'] < 100 &&
         (face['w'] * data['image']['width'] / 100.0 > size / 2 &&
-         face['h'] * data['image']['height'] / 100.0 > size / 2)
+                                                             face['h'] * data['image']['height'] / 100.0 > size / 2)
     end
   end
 

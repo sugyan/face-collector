@@ -1,6 +1,6 @@
 require 'rvg/rvg'
 
-module Image
+module ControllerImage
   def detect_faces(image)
     url = URI(ENV['GOOGLE_CLOUD_VISION_API_ENDPOINT'])
     res = HTTPClient.new.post(url, generate_json(image), 'Content-Type' => 'application/json')

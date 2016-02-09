@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  include Image
+  include ModelImage
   has_many :faces, dependent: :destroy
 
   def face_images(size)

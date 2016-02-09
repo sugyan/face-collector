@@ -1,6 +1,6 @@
 module Recognizer
   class RootController < RecognizerController
-    include Image
+    include ControllerImage
 
     FACE_SIZE = 112
 

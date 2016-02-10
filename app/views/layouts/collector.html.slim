@@ -10,8 +10,13 @@ html
     nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
-          = link_to 'Face Collector', collector_path, class: %w(navbar-brand)
-        .collapse.navbar-collapse
+          button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to 'Face Collector', collector_path, class: %(navbar-brand)
+        #collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
               = link_to 'Faces', collector_faces_path

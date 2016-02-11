@@ -25,3 +25,16 @@ h3 face #{@face.id}
         = @face.photo.caption
     div
       = @face.photo.posted_at.to_date
+
+    - if @face.photo.faces.size > 1
+      h4 other
+      table.table
+        - @face.photo.faces.each do |face|
+          - next if face.id == @face.id
+          tr
+            td
+              a href=collector_face_path(face)
+                = image_tag image_collector_face_path(face)
+              span style="margin-left: 10px;"
+                - if face.label_id
+                  = link_to face.label.name, collector_label_path(face.label)

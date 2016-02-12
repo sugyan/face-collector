@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208061702) do
+ActiveRecord::Schema.define(version: 20160212170038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 20160208061702) do
     t.integer  "photo_id"
     t.integer  "label_id"
     t.binary   "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "edited_user_id"
   end
 
+  add_index "faces", ["edited_user_id"], name: "index_faces_on_edited_user_id", using: :btree
   add_index "faces", ["label_id"], name: "index_faces_on_label_id", using: :btree
   add_index "faces", ["photo_id"], name: "index_faces_on_photo_id", using: :btree
 

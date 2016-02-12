@@ -47,7 +47,7 @@ module Collector
 
     def label
       p = params.require(:face).permit(:label_id)
-      @face.update(label_id: p['label_id'])
+      @face.update(label_id: p['label_id'], edited_user_id: current_user.id)
       if !params[:random].blank?
         url = random_collector_faces_url
         redirect_to url

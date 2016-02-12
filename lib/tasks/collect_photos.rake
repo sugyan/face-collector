@@ -14,12 +14,14 @@ namespace :collect_photos do
     end
     client.middleware.insert(-1, Faraday::Response::Logger, logger)
     queries = Query.all.map(&:text)
-    screen_names = Label
+    Label
       .where.not(twitter: nil)
       .where.not(twitter: '')
       .pluck(:twitter).uniq
-      .sample(5)
-    queries << screen_names.map { |name| "from:#{name}" }.join(' OR ')
+      .sample(20)
+      .each_slice(10) do |names|
+      queries << names.map { |name| "from:#{name}" }.join(' OR ')
+    end
     tweets = {}
     queries.each do |query|
       # search result doesn't include `extended_entities`.

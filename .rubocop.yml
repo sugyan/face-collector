@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - db/schema.rb
     - 'vendor/**/*'
+    - 'db/migrate/*'
 
 Style/Documentation:
   Enabled: false
@@ -14,7 +15,7 @@ Style/MultilineOperationIndentation:
   EnforcedStyle: indented
 
 Metrics/LineLength:
-  Max: 120
+  Max: 160
 
 Metrics/MethodLength:
   Max: 30

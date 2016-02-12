@@ -35,6 +35,7 @@ div
 
 hr
 
-= link_to 'Edit', edit_collector_label_path(@label), class: %(btn btn-link)
-'|
+- if user_signed_in?
+  = link_to 'Edit', edit_collector_label_path(@label), class: %(btn btn-link)
+  '|
 = link_to 'Back', collector_labels_path, class: %(btn btn-link)

@@ -8,8 +8,9 @@ form.well
 table.table
   thead
     tr
-      th
-        = link_to 'Index', params.merge(order: :index_number)
+      - if params[:order] == 'index_number'
+        th
+          = link_to 'Index', params.merge(order: :index_number)
       th
         = link_to 'Name', params.merge(order: :name)
       th
@@ -19,18 +20,21 @@ table.table
       th
         = link_to 'Ameblo', params.merge(order: :ameblo)
       th
-      th
+      - if user_signed_in?
+        th
 
   tbody
     - @labels.each do |label|
       tr
-        td = label.index_number
+        - if params[:order] == 'index_number'
+          td = label.index_number
         td = label.name
         td = label.description
         td = label.twitter
         td = label.ameblo
         td = link_to 'Show', collector_label_path(label), class: %(btn-link)
-        td = link_to 'Edit', edit_collector_label_path(label), class: %(btn-link)
+        - if user_signed_in?
+          td = link_to 'Edit', edit_collector_label_path(label), class: %(btn-link)
 
 .text-center
   = paginate @labels

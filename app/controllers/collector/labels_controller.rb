@@ -1,6 +1,7 @@
 module Collector
   class LabelsController < CollectorController
     before_action :set_label, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
     # GET /labels
     # GET /labels.json
@@ -14,7 +15,7 @@ module Collector
             ]
           end
           @labels = Label
-            .order(params.fetch(:order, :index_number))
+            .order(params.fetch(:order, :description))
             .where(where)
             .page(params[:page])
             .per(100)

@@ -1,6 +1,7 @@
 module Collector
   class FacesController < CollectorController
-    before_action :set_face, only: [:show, :destroy, :label, :image]
+    before_action :set_face, only: [:show, :label, :image]
+    before_action :authenticate_user!, only: [:label]
 
     def index
       @faces = Face
@@ -35,14 +36,14 @@ module Collector
     def show
     end
 
-    def destroy
-      photo = @face.photo
-      @face.destroy
-      photo.destroy if photo.faces.empty?
-      respond_to do |format|
-        format.html { redirect_to collector_faces_url, notice: 'Face was successfully destroyed.' }
-      end
-    end
+    # def destroy
+    #   photo = @face.photo
+    #   @face.destroy
+    #   photo.destroy if photo.faces.empty?
+    #   respond_to do |format|
+    #     format.html { redirect_to collector_faces_url, notice: 'Face was successfully destroyed.' }
+    #   end
+    # end
 
     def label
       p = params.require(:face).permit(:label_id)

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get 'sample' => 'faces#sample'
       get 'all', on: :collection
     end
-    resources :faces, only: [:index, :show, :destroy] do
+    resources :faces, only: [:index, :show] do
       member do
         get 'image'
         post 'label'

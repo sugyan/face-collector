@@ -6,6 +6,7 @@ module Collector
         .select(:label_id)
         .where.not(label_id: nil)
         .group(:label_id)
+        .having('label_id >= 0')
         .order(count: :desc).order(:label_id)
         .page(params[:page])
         .per(10)

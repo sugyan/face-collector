@@ -16,6 +16,7 @@ module Collector
           end
           @labels = Label
             .order(params.fetch(:order, :description))
+            .where('id >= ?', 0)
             .where(where)
             .page(params[:page])
             .per(100)
@@ -27,7 +28,7 @@ module Collector
     end
 
     def all
-      @labels = Label.all
+      @labels = Label.where('id >= ?', 0).all
       respond_to do |format|
         format.json
       end

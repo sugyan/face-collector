@@ -20,8 +20,7 @@ $(document).on('ready page:load', () => {
         })(str => (str || '').split(/,/));
         const source = new Bloodhound({
             prefetch: {
-                url: '/collector/labels/all.json',
-                cache: false
+                url: '/collector/labels/all.json'
             },
             identify: obj => obj.id,
             queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -33,7 +32,7 @@ $(document).on('ready page:load', () => {
         }, {
             source: source,
             display: (obj) => {
-                let ret = `${obj.name} - ${obj.description}`;
+                let ret = `${obj.name} - ${obj.description || ''}`;
                 if (obj.twitter) {
                     ret += ` (@${obj.twitter})`;
                 }

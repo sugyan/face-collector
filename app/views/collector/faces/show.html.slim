@@ -9,7 +9,10 @@ h3 face #{@face.id}
           span label:
           strong#name.form-control-static<
             - if @face.label
-              = link_to @face.label.name, collector_label_path(@face.label)
+              - if @face.label.name.present?
+                = link_to @face.label.name, collector_label_path(@face.label)
+              - else
+                | Not Face
         - if user_signed_in?
           input.typeahead.form-control value=(@face.label && @face.label.name)
           = hidden_field :face, :label_id

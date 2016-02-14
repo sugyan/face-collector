@@ -6,7 +6,7 @@ module Collector
 
     setup do
       @label = labels(:one)
-      @request.env['devise.mapping'] = Devise.mappings[:admin]
+      sign_in users(:one)
     end
 
     test 'should get index' do

@@ -1,4 +1,5 @@
 /* global $, React, EXIF */
+/* eslint-disable no-unused-vars */
 
 class Recognizer extends React.Component {
     constructor(props) {

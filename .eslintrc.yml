@@ -16,6 +16,7 @@ env:
   browser: true
 plugins:
   - react
-ecmaFeatures:
-  jsx: true
+parserOptions:
+  ecmaFeatures:
+    jsx: true
 extends: 'eslint:recommended'

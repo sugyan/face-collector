@@ -4,10 +4,10 @@
 - else
   - if user_signed_in?
     = link_to 'Random', random_collector_faces_path, class: %(btn btn-link)
-    form.well
-      .form-group
-        input.form-control name="q" value=params[:q]
-      button.btn.btn-primary Search
+  form.well
+    .form-group
+      input.form-control name="q" value=params[:q]
+    button.btn.btn-primary Search
 
 table.table.table-condensed
   - @faces.each_slice(10) do |faces|

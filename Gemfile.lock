@@ -65,6 +65,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    digest-crc (0.4.1)
     domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
@@ -74,6 +75,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    google-protobuf (3.0.0.alpha.5.0.3)
     hashie (3.4.3)
     http (1.0.2)
       addressable (~> 2.3)
@@ -236,6 +238,8 @@ PLATFORMS
 DEPENDENCIES
   byebug
   devise (~> 3.5)
+  digest-crc (~> 0.4)
+  google-protobuf (~> 3.0.0.alpha)
   httpclient (~> 2.7)
   jbuilder (~> 2.0)
   jquery-rails

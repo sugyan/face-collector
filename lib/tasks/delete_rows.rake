@@ -7,7 +7,7 @@ namespace :delete_rows do
   task old: :environment do
     sum = Photo.count + Face.count + Label.count
     logger.info(format('sum: %d', sum))
-    next if sum < 20_000
+    next if sum < 30_000
 
     Face.where(label_id: nil).order(created_at: :asc).limit(100).each do |face|
       photo = face.photo

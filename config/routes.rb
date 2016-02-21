@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :queries
     resources :labels do
       get 'faces'  => 'faces#labeled'
-      get 'sample' => 'faces#sample'
       get 'all', on: :collection
     end
     resources :faces, only: [:index, :show] do
@@ -22,6 +21,7 @@ Rails.application.routes.draw do
       end
       collection do
         get 'random'
+        get 'tfrecords/:index_number' => 'faces#tfrecords'
       end
     end
   end

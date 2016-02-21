@@ -28,18 +28,6 @@ module Collector
       render :index
     end
 
-    def sample
-      num = [params.fetch(:num, '100').to_i, 1000].min
-      @label = Label.find(params[:label_id])
-      ids = Face.where(label_id: params[:label_id])
-        .pluck(:id)
-        .sample(num)
-      @faces = Face.where(id: ids)
-      respond_to do |format|
-        format.json
-      end
-    end
-
     def show
     end
 
@@ -72,6 +60,22 @@ module Collector
 
     def image
       send_data @face.data, disposition: 'inline', type: 'image/jpeg'
+    end
+
+    def tfrecords
+      label = Label.find_by(index_number: params[:index_number])
+      return head :not_found unless label
+
+      sample = [params.fetch(:sample, '100').to_i, 10_000].min
+      faces = label.faces.sample(sample)
+
+      self.content_type = 'application/octet-stream'
+      response.body = Enumerator.new do |y|
+        faces.each do |face|
+          y << face.tfrecord
+        end
+      end
+      response.close
     end
 
     private

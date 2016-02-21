@@ -7,14 +7,15 @@ class Face < ActiveRecord::Base
   def tfrecord
     return if label.blank?
     return if label.index_number.blank?
-    example = Tensorflow::Example.new
-    features = Tensorflow::Features.new(
-      feature: {
-        'label' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [label.index_number])),
-        'image_raw' => Tensorflow::Feature.new(bytes_list: Tensorflow::BytesList.new(value: [data]))
-      }
+
+    example = Tensorflow::Example.new(
+      features: Tensorflow::Features.new(
+        feature: {
+          'label' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [label.index_number])),
+          'image_raw' => Tensorflow::Feature.new(bytes_list: Tensorflow::BytesList.new(value: [data]))
+        }
+      )
     )
-    example.features = features
     encoded = Tensorflow::Example.encode(example)
     length = [encoded.size].pack('Q')
     [

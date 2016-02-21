@@ -69,7 +69,7 @@ module Collector
       sample = [params.fetch(:sample, '100').to_i, 10_000].min
       faces = label.faces.sample(sample)
 
-      self.content_type = 'application/octet-stream'
+      self.content_type = DEFAULT_SEND_FILE_TYPE
       response.body = Enumerator.new do |y|
         faces.each do |face|
           y << face.tfrecord

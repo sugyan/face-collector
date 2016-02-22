@@ -5,12 +5,10 @@ threads threads_count, threads_count
 preload_app!
 
 rackup DefaultRackup
-port ENV['PORT'] || 3000
+host = ENV['HOST'] || '0.0.0.0'
+port = ENV['PORT'] || 3000
+bind format('tcp://%s:%s', host, port)
 environment ENV['RACK_ENV'] || 'development'
-
-project_root = File.join(File.dirname(__FILE__), '..')
-pidfile File.join(project_root, 'tmp', 'pids', 'puma.pid')
-stdout_redirect File.join(project_root, 'log', 'puma.log'), File.join(project_root, 'log', 'puma-err.log')
 
 on_worker_boot do
   # Worker specific setup for Rails 4.1+

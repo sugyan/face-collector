@@ -67,15 +67,11 @@ module Collector
       return head :not_found unless label
 
       sample = [params.fetch(:sample, '100').to_i, 10_000].min
-      faces = label.faces.sample(sample)
-
-      self.content_type = DEFAULT_SEND_FILE_TYPE
-      response.body = Enumerator.new do |y|
-        faces.each do |face|
-          y << face.tfrecord
-        end
+      data = String.new
+      label.faces.sample(sample).each do |face|
+        data << face.tfrecord
       end
-      response.close
+      send_data data
     end
 
     private

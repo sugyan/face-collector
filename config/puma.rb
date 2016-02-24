@@ -9,6 +9,7 @@ host = ENV['HOST'] || '0.0.0.0'
 port = ENV['PORT'] || 3000
 bind format('tcp://%s:%s', host, port)
 environment ENV['RACK_ENV'] || 'development'
+quiet
 
 on_worker_boot do
   # Worker specific setup for Rails 4.1+

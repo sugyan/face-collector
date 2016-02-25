@@ -4,6 +4,7 @@ AllCops:
     - db/schema.rb
     - 'vendor/**/*'
     - 'db/migrate/*'
+    - 'lib/tensorflow/core/example/*.rb'
 
 Style/Documentation:
   Enabled: false

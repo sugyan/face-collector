@@ -16,6 +16,7 @@ module Clockwork
     Face.where(label_id: nil).order(created_at: :asc).limit(20).each do |face|
       photo = face.photo
       face.destroy
+      manager.log(format('face %d destroyed.', face.id))
       photo.destroy if photo.faces.empty?
     end
   end

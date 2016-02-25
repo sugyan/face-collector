@@ -3,7 +3,7 @@ require 'open-uri'
 namespace :collect_photos do
   desc 'TODO'
 
-  logger = Logger.new $stderr
+  logger = Logger.new(STDOUT)
   logger.level = Logger::INFO
 
   task twitter: :environment do

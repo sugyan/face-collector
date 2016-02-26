@@ -24,7 +24,8 @@ module Clockwork
   every(1.day, 'db_backup', at: '00:00') do
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest = File.join(Rails.root, 'var', 'backups', format('backup-%s.dump', Time.zone.today.to_s))
-    cmd = format('pg_dump -Fc --no-acl --no-owner -h localhost %s > %s', database, dest)
-    puts 'backup succeeded' if system(cmd)
+    cmd = format('pg_dump -Fc --no-acl --no-owner %s > %s', database, dest)
+    manager.log(cmd)
+    manager.log('backup succeeded') if system(cmd)
   end
 end

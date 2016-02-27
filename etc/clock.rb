@@ -9,7 +9,9 @@ module Clockwork
   end
 
   every(1.hour, 'collect_photos', thread: true) do
-    Rake::Task['collect_photos:twitter'].execute
+    task = Rake::Task['collect_photos:twitter']
+    task.invoke
+    task.reenable
   end
 
   every(1.hour, 'delete_rows') do

@@ -10,8 +10,8 @@ module Collector
         format.html do
           if (q = params[:q])
             where = [
-              'name LIKE ? OR description LIKE ? OR twitter LIKE ? OR ameblo LIKE ?',
-              *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 4
+              'name LIKE ? OR description LIKE ? OR twitter LIKE ?',
+              *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 3
             ]
           end
           @labels = Label
@@ -97,7 +97,7 @@ module Collector
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def label_params
-      params.require(:label).permit(:name, :index_number, :description, :url, :twitter, :ameblo, :tags)
+      params.require(:label).permit(:name, :index_number, :description, :url, :twitter, :tags)
     end
   end
 end

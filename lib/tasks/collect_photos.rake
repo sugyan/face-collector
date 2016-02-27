@@ -3,10 +3,7 @@ require 'open-uri'
 namespace :collect_photos do
   desc 'TODO'
 
-  logger = Logger.new(STDOUT)
-  logger.level = Logger::INFO
-
-  task twitter: :environment do
+  task twitter: :common do
     # use application-only authentication
     client = Twitter::REST::Client.new do |config|
       config.consumer_key    = ENV['TWITTER_CONSUMER_KEY']

@@ -1,0 +1,28 @@
+ja:
+  activerecord:
+    models:
+      face: 面  #g
+      label: ラベル  #g
+      photo: 写真  #g
+      query: クエリー  #g
+      user: ユーザー  #g
+    attributes:
+      face:
+        data: データ  #g
+        label: :activerecord.models.label
+        photo: :activerecord.models.photo
+      label:
+        description: 詳細
+        faces: 顔  #g
+        index_number: 番号
+        name: 名前
+        tags: タグ
+        twitter: Twitter
+        url: URL
+      photo:
+        caption: キャプション  #g
+        faces: 顔  #g
+        photo_url: 写真のURL  #g
+        posted_at: で掲示されます  #g
+        source_url: ソースURL  #g
+        uid: UID  #g

@@ -1,13 +1,8 @@
 - if @label
   h2
     = link_to @label.name, collector_label_path(@label)
-- else
-  - if user_signed_in?
-    = link_to 'Random', random_collector_faces_path, class: %(btn btn-link)
-  form.well
-    .form-group
-      input.form-control name="q" value=params[:q]
-    button.btn.btn-primary Search
+
+= page_entries_info @faces
 
 table.table.table-condensed
   - @faces.each_slice(10) do |faces|
@@ -16,5 +11,9 @@ table.table.table-condensed
         td class="#{ face.label_id ? 'success' : '' }"
           a href=collector_face_path(face)
             = image_tag image_collector_face_path(face), width: '100%'
+
+- if user_signed_in?
+  = link_to 'Random', random_collector_faces_path, class: %(btn btn-default)
+
 .text-center
   = paginate @faces

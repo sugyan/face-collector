@@ -147,9 +147,9 @@ ja:
         display_entries: "全 <b>%{total}</b> 件中 <b>%{first} - %{last}</b> 件目"
       one_page:
         display_entries:
-          one: "<b>%{count}</b>レコード表示中です %{entry_name}"
-          other: "<b>%{count}</b>レコード表示中です %{entry_name}"
-          zero: "レコードが見つかりませんでした %{entry_name}"
+          one: "全 <b>%{count}</b> 件"
+          other: "全 <b>%{count}</b> 件"
+          zero: "<b>0</b> 件"
   views:
     pagination:
       first: "&laquo; 最初"

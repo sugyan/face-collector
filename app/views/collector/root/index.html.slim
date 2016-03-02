@@ -11,9 +11,13 @@ h1 Faces
     = link_to "#{ label.name } (#{ label.faces.count })", collector_label_faces_path(label)
   table.table.table-condensed
     tr
-      - label.faces.order(updated_at: :desc).limit(10).each do |face|
+      - faces = label.faces.order(updated_at: :desc).limit(10)
+      - faces.each do |face|
         td
           a href=collector_face_path(face)
             = image_tag image_collector_face_path(face), width: '100%'
+      - if faces.size < 10
+        - (10 - faces.size).times do
+          td style="width: 10%;"
 .text-center
   = paginate @ids

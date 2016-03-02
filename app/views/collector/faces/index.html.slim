@@ -11,6 +11,9 @@ table.table.table-condensed
         td class="#{ face.label_id ? 'success' : '' }"
           a href=collector_face_path(face)
             = image_tag image_collector_face_path(face), width: '100%'
+      - if faces.size < 10
+        - (10 - faces.size).times do
+          td style="width: 10%;"
 
 - if user_signed_in?
   = link_to 'Random', random_collector_faces_path, class: %(btn btn-default)

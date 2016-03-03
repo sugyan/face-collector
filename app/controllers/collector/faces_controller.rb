@@ -68,12 +68,9 @@ module Collector
 
       sample = [params.fetch(:sample, '100').to_i, 10_000].min
       faces = label.faces.to_a
-      # faces of index "0"
+      # faces of index "0"?
       if label.index_number == 0
-        label_ids = Face.group(:label_id).pluck(:label_id).reject(&:nil?)
-        Label.where(index_number: nil).where(id: label_ids.sample(100)).each do |l|
-          faces << l.faces.sample
-        end
+        faces.concat(Face.joins(:label).where('labels.index_number is null').to_a)
       end
       # sample and generate tfrecords
       data = String.new

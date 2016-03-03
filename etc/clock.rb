@@ -25,9 +25,22 @@ module Clockwork
 
   every(1.day, 'db_backup', at: '00:00') do
     database = Rails.configuration.database_configuration[Rails.env]['database']
-    dest = File.join(Rails.root, 'var', 'backups', format('backup-%s.dump', Time.zone.today.to_s))
+    dest_dir = File.join(Rails.root, 'var', 'backups')
+
+    # dump
+    dest = File.join(dest_dir, format('backup-%s.dump', Time.zone.today.to_s))
     cmd = format('pg_dump -Fc --no-acl --no-owner %s > %s', database, dest)
     manager.log(cmd)
     manager.log('backup succeeded') if system(cmd)
+
+    # delete files older than 7 days
+    Dir.foreach(dest_dir) do |file|
+      path = File.join(dest_dir, file)
+      next unless file.match('.*\.dump')
+      if File.stat(path).ctime < Time.zone.today - 7
+        manager.log(format('delete %s', path))
+        File.unlink(path)
+      end
+    end
   end
 end

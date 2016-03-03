@@ -15,8 +15,8 @@ namespace :collect_photos do
       .where.not(twitter: nil)
       .where.not(twitter: '')
       .pluck(:twitter).uniq
-      .sample(30)
-      .each_slice(10) do |names|
+      .sample(40)
+      .each_slice(8) do |names|
       queries << names.map { |name| "from:#{name}" }.join(' OR ')
     end
     tweets = {}

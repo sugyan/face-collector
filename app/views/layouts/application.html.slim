@@ -15,13 +15,13 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          = link_to 'Face Collector', collector_path, class: %(navbar-brand)
+          = link_to 'Face Collector', root_path, class: %(navbar-brand)
         #collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              = link_to 'Faces', collector_faces_path
+              = link_to 'Faces', faces_path
             li
-              = link_to 'Labels', collector_labels_path
+              = link_to 'Labels', labels_path
           ul.nav.navbar-nav.navbar-right
             li
               - if user_signed_in?

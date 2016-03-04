@@ -1,6 +1,6 @@
 json.array!(@labels) do |label|
   json.extract! label, :id, :name, :description, :tags, :twitter
-  json.url collector_label_url(label)
+  json.url label_url(label)
 end
 json.array!([
   {

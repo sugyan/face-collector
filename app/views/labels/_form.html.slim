@@ -1,4 +1,4 @@
-= form_for [:collector, @label] do |f|
+= form_for @label do |f|
   - if @label.errors.any?
     #error_explanation
       h2 = "#{pluralize(@label.errors.count, "error")} prohibited this label from being saved:"

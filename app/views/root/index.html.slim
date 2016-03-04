@@ -1,5 +1,23 @@
-h1 root
+- if notice
+  .alert.alert-success.alert-dismissible role="alert"
+    button.close type="button" aria-label="Close" data-dismiss="alert"
+      span aria-hidden="true" &times;
+    = notice
 
-ul
-  li = link_to 'Collector', collector_path
-  li = link_to 'Recognizer', recognizer_path
+h1 Faces
+- @labels.each do |label|
+  p
+    | ・
+    = link_to "#{ label.name } (#{ label.faces.count })", label_faces_path(label)
+  table.table.table-condensed
+    tr
+      - faces = label.faces.order(updated_at: :desc).limit(10)
+      - faces.each do |face|
+        td
+          a href=face_path(face)
+            = image_tag image_face_path(face), width: '100%'
+      - if faces.size < 10
+        - (10 - faces.size).times do
+          td style="width: 10%;"
+.text-center
+  = paginate @ids

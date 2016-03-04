@@ -31,13 +31,13 @@ table.table
         td = label.name
         td = label.description
         td = label.twitter
-        td = link_to 'Show', collector_label_path(label), class: %(btn-link)
+        td = link_to 'Show', label_path(label), class: %(btn-link)
         - if user_signed_in?
-          td = link_to 'Edit', edit_collector_label_path(label), class: %(btn-link)
+          td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
 
 .text-center
   = paginate @labels
 
 hr
 
-= link_to 'New Label', new_collector_label_path, class: %(btn btn-link)
+= link_to 'New Label', new_label_path, class: %(btn btn-link)

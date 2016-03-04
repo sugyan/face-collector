@@ -1,7 +1,7 @@
 json.labels do
   json.array!(@labels) do |label|
-    json.extract! label, :id, :index_number
-    json.url collector_label_url(label)
+    json.extract! label, :id, :index_number, :name, :description, :url, :twitter
+    json.label_url collector_label_url(label)
     json.faces_count label.faces.size
   end
 end

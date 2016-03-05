@@ -15,7 +15,7 @@ table.table.table-condensed
         - (10 - faces.size).times do
           td style="width: 10%;"
 
-- if user_signed_in?
+- unless @label
   = link_to 'Random', random_faces_path, class: %(btn btn-default)
 
 .text-center

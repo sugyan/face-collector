@@ -53,6 +53,8 @@ namespace :collect_photos do
           end
         rescue SignalException => e
           raise e
+        rescue Faraday::ClientError => e
+          logger.warn(e)
         end
       end
     end

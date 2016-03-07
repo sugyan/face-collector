@@ -16,7 +16,7 @@ module ModelImage
     faces.select do |face|
       face['w'] < 100 && face['h'] < 100 &&
         (face['w'] * data['image']['width'] / 100.0 > size / 2 &&
-                                                             face['h'] * data['image']['height'] / 100.0 > size / 2)
+         face['h'] * data['image']['height'] / 100.0 > size / 2)
     end
   end
 

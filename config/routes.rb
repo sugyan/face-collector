@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'root#index'
   get '/root' => 'root#index'
-  get 'proxy' => 'root#proxy'
 
   resources :queries
   resources :labels do

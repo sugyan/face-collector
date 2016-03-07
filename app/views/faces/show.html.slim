@@ -25,7 +25,7 @@ h3 face #{@face.id}
     h4 photo #{@face.photo.id}
     div
       a href=@face.photo.photo_url target="_blank"
-        = image_tag proxy_path(url: @face.photo.photo_url), style: 'max-width: 345px; max-height: 345px;'
+        = image_tag @face.photo.photo_url, style: 'max-width: 345px; max-height: 345px;'
     div
       a href=@face.photo.source_url target="_blank"
         = @face.photo.caption

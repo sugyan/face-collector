@@ -9,9 +9,12 @@ namespace :infer_faces do
       true_count = 0
       false_count = 0
       label.faces.each do |face|
-        image = face.data
-        # TODO: center crop?
-        res = client.post(uri, [['images', 'data:image/jpeg;base64,' + Base64.strict_encode64(image)]])
+        img = Magick::Image.from_blob(face.data).first
+        img.crop!(Magick::CenterGravity, 96, 96)
+        b64data = Base64.strict_encode64(img.to_blob)
+        img.destroy!
+
+        res = client.post(uri, [['images', 'data:image/jpeg;base64,' + b64data]])
         top = JSON.parse(res.body)['results'].first[0]
         if top['label']['id'] == label.id
           true_count += 1

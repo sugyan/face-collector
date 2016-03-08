@@ -51,9 +51,7 @@ namespace :collect_photos do
             photo.faces << faces.map { |face| Face.new(data: face) }
             photo.save
           end
-        rescue SignalException => e
-          raise e
-        rescue Faraday::ClientError, Magick::ImageMagickError => e
+        rescue StandardError => e
           logger.warn(e)
         end
       end

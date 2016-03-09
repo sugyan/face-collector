@@ -22,6 +22,7 @@ table.table
       th
       - if user_signed_in?
         th
+        th
 
   tbody
     - @labels.each do |label|
@@ -30,14 +31,17 @@ table.table
           td = label.index_number
         td = label.name
         td = label.description
-        td = label.twitter
+        td
+          - if label.twitter.present?
+            = "@#{ label.twitter }"
         td = link_to 'Show', label_path(label), class: %(btn-link)
         - if user_signed_in?
           td = link_to 'Edit', edit_label_path(label), class: %(btn-link)
+          td = link_to 'Destroy', label, data: { confirm: 'Are you sure?' }, method: :delete, class: %(btn-link)
 
 .text-center
   = paginate @labels
 
-hr
-
-= link_to 'New Label', new_label_path, class: %(btn btn-link)
+- if user_signed_in?
+  hr
+  = link_to 'New Label', new_label_path, class: %(btn btn-link)

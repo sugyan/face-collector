@@ -19,8 +19,6 @@ h3 face #{@face.id}
           = hidden_field_tag :random, @random
           span style="margin-left: 10px;"
             button.btn.btn-primary Update
-        - else
-          = link_to 'Login and Edit', user_omniauth_authorize_path(:twitter), class: %(btn btn-info)
   .col-md-8
     h4 photo #{@face.photo.id}
     div

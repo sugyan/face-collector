@@ -6,18 +6,23 @@
 
 h1 Faces
 - @labels.each do |label|
-  p
-    | ・
-    = link_to "#{ label.name } (#{ label.faces.count })", label_faces_path(label)
-  table.table.table-condensed
-    tr
-      - faces = label.faces.order(updated_at: :desc).limit(10)
-      - faces.each do |face|
-        td
-          a href=face_path(face)
-            = image_tag image_face_path(face), width: '100%'
-      - if faces.size < 10
-        - (10 - faces.size).times do
-          td style="width: 10%;"
+  .panel.panel-default
+    .panel-body style="padding-bottom: 0;"
+      h4
+        = link_to label.name + (label.description.present? ? " - #{ label.description }" : ""), label_path(label)
+      table.table.table-condensed
+        tr
+          - faces = label.faces.order(updated_at: :desc).limit(10)
+          - faces.each do |face|
+            td
+              a href=face_path(face)
+                = image_tag image_face_path(face), width: '100%'
+          - if faces.size < 10
+            - (10 - faces.size).times do
+              td style="width: 10%;"
+        tr
+          td colspan=10
+            div.pull-right
+              = link_to raw('&raquo;') + " all #{ label.faces.size } faces", label_faces_path(label)
 .text-center
   = paginate @ids

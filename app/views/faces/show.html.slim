@@ -20,7 +20,7 @@ h3 face #{@face.id}
           span style="margin-left: 10px;"
             button.btn.btn-primary Update
   .col-md-8
-    h4 photo #{@face.photo.id}
+    h4 photo
     div
       a href=@face.photo.photo_url target="_blank"
         = image_tag @face.photo.photo_url, style: 'max-width: 345px; max-height: 345px;'

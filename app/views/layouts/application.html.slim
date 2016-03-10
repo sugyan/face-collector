@@ -22,5 +22,13 @@ html
               = link_to 'Faces', faces_path
             li
               = link_to 'Labels', labels_path
+          - if user_signed_in?
+            ul.nav.navbar-nav.navbar-right
+              li.dropdown
+                 a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+                   = "@#{ current_user.screen_name }"
+                   span.caret
+                 ul.dropdown-menu
+                   li = link_to 'Sign out', destroy_user_session_path
     .container
       = yield

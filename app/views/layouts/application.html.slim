@@ -26,9 +26,19 @@ html
             ul.nav.navbar-nav.navbar-right
               li.dropdown
                  a.dropdown-toggle href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-                   = "@#{ current_user.screen_name }"
+                   = current_user.email
                    span.caret
                  ul.dropdown-menu
-                   li = link_to 'Sign out', destroy_user_session_path
+                   li = link_to 'Sign out', destroy_user_session_path, method: :delete
     .container
+      - if notice
+        .alert.alert-success.alert-dismissible role="alert"
+          button.close type="button" aria-label="Close" data-dismiss="alert"
+            span aria-hidden="true" &times;
+          = notice
+      - if alert
+        .alert.alert-danger.alert-dismissible role="alert"
+          button.close type="button" aria-label="Close" data-dismiss="alert"
+            span aria-hidden="true" &times;
+          = alert
       = yield

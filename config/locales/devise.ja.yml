@@ -1,11 +1,18 @@
 ja:
   devise:
-    omniauth_callbacks:
-      failure: "%{kind} アカウントによる認証に失敗しました。理由：（%{reason}）"
-      success: "%{kind} アカウントによる認証に成功しました。"
     sessions:
       already_signed_out: "既にログアウト済みです。"
       new:
         sign_in: "ログイン"
       signed_in: "ログインしました。"
       signed_out: "ログアウトしました。"
+    failure:
+      already_authenticated: "You are already signed in."
+      inactive: "Your account is not activated yet."
+      invalid: "%{authentication_keys} か password が違います。"
+      locked: "Your account is locked."
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "%{authentication_keys} か password が違います。"
+      timeout: "Your session expired. Please sign in again to continue."
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "You have to confirm your email address before continuing."

@@ -1,0 +1,17 @@
+h2 Log in
+
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .form-group
+    = f.label :email
+    = f.email_field :email, autofocus: true, class: %(form-control)
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, autocomplete: 'off', class: %(form-control)
+
+  .checkbox
+    label
+      = f.check_box :remember_me
+      | Remember me
+
+  = f.submit 'Log in', class: %(btn btn-default)

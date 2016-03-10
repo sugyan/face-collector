@@ -1,6 +1,8 @@
 - if @label
   h2
     = link_to @label.name, label_path(@label)
+- else
+  h1 Faces
 
 = page_entries_info @faces
 

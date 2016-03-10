@@ -7,8 +7,6 @@
 h3 Label #{ @label.id }
 
 dl.dl-horizontal
-  dt Index Number:
-  dd = @label.index_number
   dt Name:
   dd = @label.name
   dt Description:
@@ -19,8 +17,11 @@ dl.dl-horizontal
   dd
     - if @label.twitter.present?
       = link_to "@#{ @label.twitter }", 'https://twitter.com/%s' % @label.twitter, target: '_blank'
-  dt Tags:
-  dd = @label.tags
+  - if user_signed_in?
+    dt Index Number:
+    dd = @label.index_number
+    dt Tags:
+    dd = @label.tags
 
 h4
   = link_to 'Faces (%d)' % @label.faces.size, label_faces_path(@label)

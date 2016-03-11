@@ -1,8 +1,10 @@
-- if @label
+- if not @label
+  - provide(:title, 'Faces')
+  h1 Faces
+- else
+  - provide(:title, raw(format(%q(%s's Faces), @label.name)))
   h2
     = link_to @label.name, label_path(@label)
-- else
-  h1 Faces
 
 = page_entries_info @faces
 

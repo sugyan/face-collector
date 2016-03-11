@@ -1,8 +1,15 @@
 - if not @label
-  - provide(:title, 'Faces')
+  - content_for(:title, 'Faces')
   h1 Faces
 - else
-  - provide(:title, raw(format(%q(%s's Faces), @label.name)))
+  - title = format(%q(%s's Faces), @label.name)
+  - content_for(:title, raw(title))
+  - content_for(:meta) do
+    meta name="twitter:card" content="summary"
+    meta name="twitter:site" content="@sugyan"
+    meta name="twitter:title" content=title
+    meta name="twitter:description" content=format('all %d faces of %s', @faces.size, @label.name)
+    meta name="twitter:image" content=image_face_url(@faces.sample)
   h2
     = link_to @label.name, label_path(@label)
 

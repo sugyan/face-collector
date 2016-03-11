@@ -1,3 +1,10 @@
+- content_for(:meta) do
+  meta name="twitter:card" content="summary"
+  meta name="twitter:site" content="@sugyan"
+  meta name="twitter:title" content="Face Collector"
+  meta name="twitter:description" content="collected and labeled faces"
+  meta name="twitter:image" content=image_face_url(@labels.sample.faces.sample)
+
 - @labels.each do |label|
   .panel.panel-default
     .panel-body style="padding-bottom: 0;"

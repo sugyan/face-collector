@@ -1,5 +1,11 @@
 - if not @label
   - content_for(:title, 'Faces')
+  - content_for(:meta) do
+    meta name="twitter:card" content="summary"
+    meta name="twitter:site" content="@sugyan"
+    meta name="twitter:title" content="Faces"
+    meta name="twitter:description" content=format('all %d faces', @faces.total_count)
+    meta name="twitter:image" content=image_face_url(@faces.sample)
   h1 Faces
 - else
   - title = format(%q(%s's Faces), @label.name)

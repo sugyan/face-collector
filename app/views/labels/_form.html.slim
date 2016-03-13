@@ -25,5 +25,5 @@
       = f.text_field :twitter, class: %(form-control)
   .field.form-group
     div = f.label :tags
-    = f.text_field :tags, class: %(form-control)
+    = react_component('TagsInput', name: 'label[tags]', value: @label.tags)
   .actions = f.submit class: %(btn btn-primary)

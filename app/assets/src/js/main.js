@@ -1,10 +1,6 @@
 /* global $, Bloodhound */
 $(document).on('ready page:load', () => {
     let input;
-    if (window.location.pathname.match('^/labels/')) {
-        input = $('input[name="label[tags]"]');
-        input.tagsinput();
-    }
     if (window.location.pathname.match('^/faces/')) {
         input = $('input.typeahead');
         const commaTokenizer = ((tokenizer) => {

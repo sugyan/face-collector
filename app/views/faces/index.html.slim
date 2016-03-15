@@ -5,7 +5,6 @@
     meta name="twitter:site" content="@sugyan"
     meta name="twitter:title" content="Faces"
     meta name="twitter:description" content=format('all %d faces', @faces.total_count)
-    meta name="twitter:image" content=image_face_url(@faces.sample)
   h1 Faces
 - else
   - title = format(%q(%s's Faces), @label.name)
@@ -15,7 +14,6 @@
     meta name="twitter:site" content="@sugyan"
     meta name="twitter:title" content=title
     meta name="twitter:description" content=format('all %d faces of %s', @faces.size, @label.name)
-    meta name="twitter:image" content=image_face_url(@faces.sample)
   h2
     = link_to @label.name, label_path(@label)
 

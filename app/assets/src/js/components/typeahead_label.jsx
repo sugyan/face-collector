@@ -1,8 +1,12 @@
-/* global $, Bloodhound */
-$(document).on('ready page:load', () => {
-    let input;
-    if (window.location.pathname.match('^/faces/')) {
-        input = $('input.typeahead');
+/* global $, React, Bloodhound */
+class TypeaheadLabel extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: this.props.label ? this.props.label.name : ''
+        };
+    }
+    componentDidMount() {
         const commaTokenizer = ((tokenizer) => {
             return (keys) => {
                 return (obj) => {
@@ -22,7 +26,7 @@ $(document).on('ready page:load', () => {
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             datumTokenizer: commaTokenizer(['name', 'tags', 'twitter'])
         });
-        input.typeahead({
+        $(this.refs.input).typeahead({
             minLength: 1,
             highlight: true
         }, {
@@ -34,15 +38,34 @@ $(document).on('ready page:load', () => {
                 }
                 return ret;
             }
-        });
-        input.on('typeahead:select', (_, suggestion) => {
+        }).on('typeahead:select', (_, suggestion) => {
             $('#name').html(
                 $('<a>')
-                    .attr('href', suggestion.url)
-                    .text(suggestion.name)
+           .attr('href', suggestion.url)
+           .text(suggestion.name)
             );
-            $('input[name="face[label_id]"]').val(suggestion.id);
-        });
-        input.focus();
+            $(this.refs.hidden).val(suggestion.id);
+        }).focus();
     }
-});
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
+    }
+    render() {
+        return (
+            <div>
+              <input
+                  ref="input"
+                  value={this.state.value}
+                  onChange={this.handleChange.bind(this)}
+                  className="typeahead form-control" />
+              <input
+                  ref="hidden"
+                  name={this.props.name}
+                  type="hidden" />
+              <button className="btn btn-primary" style={{ marginLeft: 10 }}>Update</button>
+            </div>
+        );
+    }
+}

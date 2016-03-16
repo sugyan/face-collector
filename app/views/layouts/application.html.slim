@@ -3,7 +3,7 @@ html
   head
     meta name="viewport" content="width=device-width, initial-scale=1"
     = yield :meta
-    title = [yield(:title).presence, 'FaceCollector'].compact.join(' - ')
+    title = [yield(:title).presence, 'Face Collector'].compact.join(' - ')
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags

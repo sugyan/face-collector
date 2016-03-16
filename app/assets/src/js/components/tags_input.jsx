@@ -1,4 +1,5 @@
 /* global $, React */
+/* eslint-disable no-unused-vars */
 class TagsInput extends React.Component {
     constructor(props) {
         super(props);

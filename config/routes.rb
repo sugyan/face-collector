@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :queries
   resources :labels do
-    get 'faces'  => 'faces#labeled'
+    get 'faces' => 'faces#labeled'
     get 'all', on: :collection
   end
   resources :faces, only: [:index, :show] do
@@ -20,4 +20,10 @@ Rails.application.routes.draw do
 
   # devise
   devise_for :users
+
+  # recognizer
+  namespace :recognizer do
+    root 'root#index'
+    post 'api' => 'root#api'
+  end
 end

@@ -1,4 +1,5 @@
 /* global $, React, Bloodhound */
+/* eslint-disable no-unused-vars */
 class TypeaheadLabel extends React.Component {
     constructor(props) {
         super(props);

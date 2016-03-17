@@ -145,10 +145,10 @@ class ImageLoader extends React.Component {
                     ctx.closePath();
                     ctx.stroke();
 
-                    /* faces.push({
-                       url: face_url(face),
-                       results: face.recognize.sort((a, b) => b[1] - a[1]).splice(0, 5)
-                       }); */
+                    faces.push({
+                        url: face_url(face),
+                        results: face.recognize.splice(0, 3)
+                    });
                 });
                 this.props.updateFaces(faces, result.message);
             },
@@ -207,7 +207,14 @@ class ResultList extends React.Component {
     render() {
         const faces = this.props.faces.map((e, i) => {
             const results = e.results.map((r, j) => {
-                const text = `${r[0]}: ${r[1]}`;
+                const label = r.label;
+                const name = label.name + (label.description ? ` (${label.description})` : '');
+                const text = (
+                    <div>
+                      <span>{Math.floor(r.value * 1e5) / 1000.0} - </span>
+                      <span>{label.name ? <a href={label.label_url} target="_blank">{name}</a> : '該当なし'}</span>
+                    </div>
+                );
                 const li = j == 0 ? <strong>{text}</strong> : <span>{text}</span>;
                 return (
                     <li key={`${i}-${j}`}>{li}</li>

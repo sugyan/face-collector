@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311084914) do
+ActiveRecord::Schema.define(version: 20160319074601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 20160311084914) do
   add_index "faces", ["edited_user_id"], name: "index_faces_on_edited_user_id", using: :btree
   add_index "faces", ["label_id"], name: "index_faces_on_label_id", using: :btree
   add_index "faces", ["photo_id"], name: "index_faces_on_photo_id", using: :btree
+
+  create_table "inferences", force: :cascade do |t|
+    t.integer  "face_id"
+    t.integer  "label_id"
+    t.float    "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "inferences", ["face_id", "label_id"], name: "index_inferences_on_face_id_and_label_id", unique: true, using: :btree
+  add_index "inferences", ["face_id"], name: "index_inferences_on_face_id", using: :btree
+  add_index "inferences", ["label_id"], name: "index_inferences_on_label_id", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name"
@@ -82,4 +94,6 @@ ActiveRecord::Schema.define(version: 20160311084914) do
 
   add_foreign_key "faces", "labels"
   add_foreign_key "faces", "photos"
+  add_foreign_key "inferences", "faces"
+  add_foreign_key "inferences", "labels"
 end

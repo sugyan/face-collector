@@ -26,13 +26,12 @@ div
     a href=face_path(face)
       = image_tag image_face_path(face)
 
-- if user_signed_in?
-  h4
-    = link_to "Inferences (#{@label.inferences.size})", inferences_label_path(@label)
-  div
-    - @label.inferences.all.sample(5).each do |inference|
-      a href=face_path(inference.face)
-        = image_tag image_face_path(inference.face)
+h4
+  = link_to "Inferences (#{@label.inferences.size})", inferences_label_path(@label)
+div
+  - @label.inferences.all.sample(5).each do |inference|
+    a href=face_path(inference.face)
+      = image_tag image_face_path(inference.face)
 
 hr
 

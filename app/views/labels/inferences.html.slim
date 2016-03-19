@@ -13,3 +13,6 @@ table.table.table-condensed
       - if inferences.size < 10
         - (10 - inferences.size).times do
           td style="width: 10%;"
+
+.text-center
+  = paginate @inferences

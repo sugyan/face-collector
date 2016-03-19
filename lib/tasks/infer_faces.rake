@@ -21,7 +21,7 @@ namespace :infer_faces do
       next unless top['label']['id']
 
       inference = Inference.find_or_initialize_by(face_id: face.id)
-      inference.update(score: top['value'])
+      inference.update(label_id: top['label']['id'], score: top['value'])
       logger.info(inference)
     end
   end

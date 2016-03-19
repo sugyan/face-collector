@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319074601) do
+ActiveRecord::Schema.define(version: 20160319085720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160319074601) do
   add_index "inferences", ["face_id", "label_id"], name: "index_inferences_on_face_id_and_label_id", unique: true, using: :btree
   add_index "inferences", ["face_id"], name: "index_inferences_on_face_id", using: :btree
   add_index "inferences", ["label_id"], name: "index_inferences_on_label_id", using: :btree
+  add_index "inferences", ["score"], name: "index_inferences_on_score", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name"

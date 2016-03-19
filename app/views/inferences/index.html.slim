@@ -1,0 +1,19 @@
+h1 Inferences
+
+table.table
+  thead
+    tr
+      th image
+      th score
+      th label
+  tbody
+    - @inferences.each do |inference|
+      tr
+        td
+          a href=face_path(inference.face)
+            = image_tag image_face_path(inference.face)
+        td = format('%.5f', inference.score * 100)
+        td = link_to inference.label.name, label_path(inference.label)
+
+.text-center
+  = paginate @inferences

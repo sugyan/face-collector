@@ -47,6 +47,22 @@ class FacesController < ApplicationController
     render :show
   end
 
+  def collage
+    labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
+    count = labeled.count
+
+    img = Magick::Image.new(120, 120)
+    [[0, 0], [0, 60], [60, 0], [60, 60]].each do |offsets|
+      face = Magick::Image.from_blob(labeled.offset(rand(count)).first.data).first
+      img.composite!(face.resize!(60, 60), offsets[0], offsets[1], Magick::OverCompositeOp)
+      face.destroy!
+    end
+    data = img.to_blob { self.format = 'JPG' }
+    img.destroy!
+
+    send_data data, disposition: 'inline', type: 'image/jpeg'
+  end
+
   def image
     send_data @face.data, disposition: 'inline', type: 'image/jpeg'
   end

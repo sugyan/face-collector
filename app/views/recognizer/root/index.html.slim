@@ -1,1 +1,7 @@
+- content_for(:meta) do
+  meta name="twitter:card" content="summary"
+  meta name="twitter:site" content="@sugyan"
+  meta name="twitter:title" content="Face Recognizer"
+  meta name="twitter:description" content="detect and recognize faces"
+  meta name="twitter:image" content="#{collage_faces_url}?#{Time.zone.now.to_i}"
 = react_component('Recognizer', api: recognizer_api_path)

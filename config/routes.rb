@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'random'
+      get 'collage'
       get 'tfrecords/:index_number' => 'faces#tfrecords'
     end
   end

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       get 'tfrecords/:index_number' => 'faces#tfrecords'
     end
   end
-  resources :inferences, only: [:index]
+  resources :inferences, only: [:index] do
+    member do
+      post 'accept'
+    end
+  end
 
   # devise
   devise_for :users

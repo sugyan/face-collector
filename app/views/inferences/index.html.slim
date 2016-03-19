@@ -3,17 +3,27 @@ h1 Inferences
 table.table
   thead
     tr
-      th image
-      th score
+      th face
       th label
+      th photo
+      - if user_signed_in?
+        th
   tbody
     - @inferences.each do |inference|
       tr
         td
           a href=face_path(inference.face)
             = image_tag image_face_path(inference.face)
-        td = format('%.5f', inference.score * 100)
-        td = link_to inference.label.name, label_path(inference.label)
+        td
+          div = link_to inference.label.name, label_path(inference.label)
+          div = format('%.5f', inference.score * 100)
+        td
+          div = inference.face.photo.caption
+          div #{ inference.face.photo.faces.count } faces
+        - if user_signed_in?
+          td
+            = form_for inference, url: accept_inference_path(inference), method: :post do
+              button.btn.btn-primary OK
 
 .text-center
   = paginate @inferences

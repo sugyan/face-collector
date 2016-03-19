@@ -42,6 +42,7 @@ class FacesController < ApplicationController
   def label
     p = params.require(:face).permit(:label_id)
     @face.update(label_id: p['label_id'], edited_user_id: current_user.id)
+    @face.inference.destroy if @face.inference
     if !params[:random].blank?
       url = random_faces_url
       redirect_to url

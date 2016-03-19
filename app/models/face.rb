@@ -3,6 +3,7 @@ require 'tensorflow/core/example/example'
 class Face < ActiveRecord::Base
   belongs_to :photo
   belongs_to :label
+  has_one :inference
 
   def tfrecord
     return if label.blank?

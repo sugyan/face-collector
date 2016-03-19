@@ -20,7 +20,7 @@ namespace :infer_faces do
       top = JSON.parse(res.body)['results'].first.first
       next unless top['label']['id']
 
-      inference = Inference.find_or_initialize_by(face_id: face.id, label_id: top['label']['id'])
+      inference = Inference.find_or_initialize_by(face_id: face.id)
       inference.update(score: top['value'])
       logger.info(inference)
     end

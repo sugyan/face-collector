@@ -1,0 +1,15 @@
+h2
+  => link_to @label.name, label_path(@label)
+  | Inferences
+
+table.table.table-condensed
+  - @inferences.each_slice(10) do |inferences|
+    tr
+      - inferences.each do |inference|
+        td
+          a href=face_path(inference.face)
+            = image_tag image_face_path(inference.face), width: '100%'
+          = format('%.5f', inference.score * 100)
+      - if inferences.size < 10
+        - (10 - inferences.size).times do
+          td style="width: 10%;"

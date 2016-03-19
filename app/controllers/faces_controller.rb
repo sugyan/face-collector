@@ -16,17 +16,6 @@ class FacesController < ApplicationController
       .per(100)
   end
 
-  def labeled
-    @label = Label.find(params[:label_id])
-    @faces = Face
-      .joins(:photo)
-      .where(label_id: params[:label_id])
-      .order('photos.posted_at DESC')
-      .page(params[:page])
-      .per(100)
-    render :index
-  end
-
   def show
   end
 

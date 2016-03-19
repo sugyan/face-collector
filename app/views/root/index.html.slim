@@ -22,6 +22,6 @@
         tr
           td colspan=10
             div.pull-right
-              = link_to raw('&raquo;') + " all #{ label.faces.size } faces", label_faces_path(label)
+              = link_to raw('&raquo;') + " all #{ label.faces.size } faces", faces_label_path(label)
 .text-center
   = paginate @ids

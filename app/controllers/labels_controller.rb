@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: [:show, :edit, :update, :destroy]
+  before_action :set_label, only: [:show, :edit, :update, :destroy, :faces, :inferences]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /labels
@@ -85,6 +85,25 @@ class LabelsController < ApplicationController
       format.html { redirect_to labels_url, notice: 'Label was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /labels/1/faces
+  def faces
+    @faces = Face
+      .joins(:photo)
+      .where(label_id: params[:id])
+      .order('photos.posted_at DESC')
+      .page(params[:page])
+      .per(100)
+    render 'faces/index'
+  end
+
+  # GET /labels/1/inferences
+  def inferences
+    @inferences = @label.inferences
+      .order(score: :desc)
+      .page(params[:page])
+      .per(100)
   end
 
   private

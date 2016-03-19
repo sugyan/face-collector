@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   resources :queries
   resources :labels do
-    get 'faces' => 'faces#labeled'
+    member do
+      get 'faces'
+      get 'inferences'
+    end
     get 'all', on: :collection
   end
   resources :faces, only: [:index, :show] do

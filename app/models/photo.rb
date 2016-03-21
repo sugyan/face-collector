@@ -5,7 +5,9 @@ class Photo < ActiveRecord::Base
   def face_images(size)
     detected = detect_faces(photo_url, size)
     img = Magick::Image.read(photo_url).first
-    results = detected.map { |face| face_image(img, face, size) }
+    results = detected.map do |face|
+      { data: face_image(img, face, size), json: face }
+    end
     img.destroy!
     results
   end

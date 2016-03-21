@@ -48,7 +48,7 @@ namespace :collect_photos do
           faces = photo.face_images(size)
           logger.info(format('%d faces detected', faces.size))
           if faces.present?
-            photo.faces << faces.map { |face| Face.new(data: face) }
+            photo.faces << faces.map { |face| Face.new(data: face[:data], json: face[:json]) }
             photo.save
           end
         rescue StandardError => e

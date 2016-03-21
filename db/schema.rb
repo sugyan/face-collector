@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321083955) do
+ActiveRecord::Schema.define(version: 20160321115417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20160321083955) do
     t.text     "caption"
     t.datetime "posted_at"
     t.string   "uid"
+    t.string   "md5"
   end
 
+  add_index "photos", ["md5"], name: "index_photos_on_md5", unique: true, using: :btree
   add_index "photos", ["uid"], name: "index_photos_on_uid", unique: true, using: :btree
 
   create_table "queries", force: :cascade do |t|

@@ -14,15 +14,6 @@ module Clockwork
     task.reenable
   end
 
-  every(1.hour, 'delete_rows') do
-    Face.where(label_id: nil).order(created_at: :asc).limit(20).each do |face|
-      photo = face.photo
-      face.destroy
-      manager.log(format('face %d destroyed.', face.id))
-      photo.destroy if photo.faces.empty?
-    end
-  end
-
   every(1.day, 'db_backup', at: '00:00') do
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')

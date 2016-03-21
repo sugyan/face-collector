@@ -9,7 +9,7 @@ namespace :search_idols do
 
   task cheerz: :environment do
     uri = 'https://cheerz.cz/'
-    header = { 'Accept-Language': 'ja-JP' }
+    header = { :'Accept-Language' => 'ja-JP' }
     client = HTTPClient.new
     Nokogiri::HTML(client.get_content(URI.join(uri, '/idols'), nil, header)).css('.idols ul.list li a').each do |a1|
       group = a1.text.strip
@@ -54,12 +54,10 @@ namespace :search_idols do
         end
       end
       next_arrow = doc.css('.arrow.next')
-      if next_arrow.empty?
-        break
-      else
-        page = URI.join(uri, next_arrow.css('a').first[:href])
-        sleep 1
-      end
+      break if next_arrow.empty?
+
+      page = URI.join(uri, next_arrow.css('a').first[:href])
+      sleep 1
     end
   end
 end

@@ -36,7 +36,7 @@ module Clockwork
     # delete files older than 7 days
     Dir.foreach(dest_dir) do |file|
       path = File.join(dest_dir, file)
-      next unless file.match('.*\.dump')
+      next unless file =~ /.*\.dump$/
       if File.stat(path).ctime < Time.zone.today - 7
         manager.log(format('delete %s', path))
         File.unlink(path)

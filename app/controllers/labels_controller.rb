@@ -19,6 +19,11 @@ class LabelsController < ApplicationController
           .where(where)
           .page(params[:page])
           .per(100)
+        @counts = Face
+          .select(:label_id)
+          .group(:label_id)
+          .where(label_id: @labels.map(&:id))
+          .count
       end
       format.json do
         @labels = Label.where.not(index_number: nil)

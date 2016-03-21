@@ -21,6 +21,7 @@ table.table
         = link_to 'Description', params.merge(order: :description)
       th
         = link_to 'Twitter', params.merge(order: :twitter)
+      th Faces
       - if user_signed_in?
         th
         th
@@ -35,6 +36,7 @@ table.table
         td
           - if label.twitter.present?
             = "@#{ label.twitter }"
+        td = @counts[label.id] || 0
         - if user_signed_in?
           td = link_to 'Edit', edit_label_path(label)
           td = link_to 'Destroy', label, data: { confirm: 'Are you sure?' }, method: :delete

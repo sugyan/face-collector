@@ -1,5 +1,5 @@
 class InferencesController < ApplicationController
-  before_action :authenticate_user!, only: [:accept]
+  before_action :authenticate_user!
 
   def index
     @inferences = Inference

@@ -5,14 +5,9 @@ end
 json.array!(
   [
     {
-      id: nil,
-      name: 'Remove label',
-      tags: 'remove'
-    },
-    {
       id: -1,
-      name: 'Not Face',
-      tags: 'notface'
+      name: 'Not Target',
+      tags: 'nottarget'
     }
   ]
 )

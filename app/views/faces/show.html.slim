@@ -24,6 +24,8 @@ h3 face #{@face.id}
         - if user_signed_in?
           = react_component('TypeaheadLabel', name: 'face[label_id]', label: @face.label)
           = hidden_field_tag :random, @random
+          br
+          = link_to 'Destroy', @face, data: { confirm: 'Are you sure?' }, method: :delete, class: %(btn btn-danger)
   .col-md-8
     h4 photo
     div

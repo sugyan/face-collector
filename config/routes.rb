@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
     get 'all', on: :collection
   end
-  resources :faces, only: [:index, :show] do
+  resources :faces, only: [:index, :show, :destroy] do
     member do
       get 'image'
       post 'label'

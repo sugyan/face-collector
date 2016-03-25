@@ -1,6 +1,6 @@
 class FacesController < ApplicationController
-  before_action :set_face, only: [:show, :label, :image]
-  before_action :authenticate_user!, only: [:label]
+  before_action :set_face, only: [:show, :destroy, :label, :image]
+  before_action :authenticate_user!, only: [:destroy, :label]
 
   def index
     if (q = params[:q])
@@ -19,14 +19,12 @@ class FacesController < ApplicationController
   def show
   end
 
-  # def destroy
-  #   photo = @face.photo
-  #   @face.destroy
-  #   photo.destroy if photo.faces.empty?
-  #   respond_to do |format|
-  #     format.html { redirect_to faces_url, notice: 'Face was successfully destroyed.' }
-  #   end
-  # end
+  def destroy
+    @face.destroy
+    respond_to do |format|
+      format.html { redirect_to faces_url, notice: 'Face was successfully destroyed.' }
+    end
+  end
 
   def label
     p = params.require(:face).permit(:label_id)

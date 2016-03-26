@@ -31,8 +31,7 @@ class FacesController < ApplicationController
     @face.update(label_id: p['label_id'], edited_user_id: current_user.id)
     @face.inference.destroy if @face.inference
     if !params[:random].blank?
-      url = random_faces_url
-      redirect_to url
+      redirect_to random_faces_url
     else
       redirect_to face_url(@face)
     end
@@ -42,6 +41,17 @@ class FacesController < ApplicationController
     count = Face.where(label_id: nil).count
     @face = Face.where(label_id: nil).offset(rand(count)).first
     @random = true
+    respond_to do |format|
+      # retry to pick a single face photo
+      format.html do
+        retry_count = 0
+        while @face.photo.faces.where(label_id: nil).size > 1
+          break if (retry_count += 1) > 5
+          @face = Face.where(label_id: nil).offset(rand(count)).first
+        end
+      end
+      format.json {}
+    end
     render :show
   end
 

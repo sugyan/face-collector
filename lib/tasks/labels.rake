@@ -17,7 +17,7 @@ namespace :labels do
       .where.not(label_id: nil)
       .group(:label_id)
       .having('label_id >= 0')
-      .having('COUNT(*) > ?', args[:min_faces].to_i)
+      .having('COUNT(*) >= ?', args[:min_faces].to_i)
       .order(count: :desc).order(:label_id)
     faces.each.with_index do |face, i|
       label = face.label

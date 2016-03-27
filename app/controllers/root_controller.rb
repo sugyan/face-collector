@@ -1,17 +1,9 @@
 class RootController < ApplicationController
   def index
-    # group by, and order by count
-    @ids = Face
-      .select(:label_id)
-      .where.not(label_id: nil)
-      .group(:label_id)
-      .having('label_id >= 0')
-      .order(count: :desc).order(:label_id)
-      .page(params[:page])
-      .per(10)
-    labels = Label.where(id: @ids).index_by(&:id)
-    @labels = @ids.map(&:label_id).map do |id|
-      labels[id]
-    end
+    @added = Face
+      .select('DATE(created_at) as DATE', 'COUNT(*)')
+      .where('created_at >= ?', Time.zone.today - 7)
+      .group('DATE')
+      .order('DATE DESC')
   end
 end

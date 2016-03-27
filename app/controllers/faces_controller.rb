@@ -37,6 +37,22 @@ class FacesController < ApplicationController
     end
   end
 
+  def labeled
+    # group by, and order by count
+    @ids = Face
+      .select(:label_id)
+      .where.not(label_id: nil)
+      .group(:label_id)
+      .having('label_id >= 0')
+      .order(count: :desc).order(:label_id)
+      .page(params[:page])
+      .per(10)
+    labels = Label.where(id: @ids).index_by(&:id)
+    @labels = @ids.map(&:label_id).map do |id|
+      labels[id]
+    end
+  end
+
   def random
     count = Face.where(label_id: nil).count
     @face = Face.where(label_id: nil).offset(rand(count)).first

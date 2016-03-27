@@ -26,7 +26,10 @@ class LabelsController < ApplicationController
           .count
       end
       format.json do
-        @labels = Label.where.not(index_number: nil)
+        @labels = Label
+          .where.not(index_number: nil)
+          .where('id >= ?', 0)
+          .order(:index_number)
       end
     end
   end

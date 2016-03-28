@@ -15,7 +15,9 @@ table.table
           a href=face_path(inference.face)
             = image_tag image_face_path(inference.face)
         td
-          div = link_to inference.label.name, label_path(inference.label)
+          a href=label_path(inference.label)
+            div = inference.label.name
+            .small = inference.label.description
           div = format('%.5f', inference.score * 100)
         td
           div = inference.face.photo.caption

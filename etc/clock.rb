@@ -8,7 +8,7 @@ module Clockwork
     puts "Running #{job}"
   end
 
-  every(1.hour, 'collect_photos', thread: true) do
+  every(30.minutes, 'collect_photos', thread: true) do
     task = Rake::Task['collect_photos:twitter']
     task.invoke
     task.reenable

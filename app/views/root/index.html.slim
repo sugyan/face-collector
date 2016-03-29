@@ -9,7 +9,7 @@ ul
 
 h3 Labels
 ul
-  li = link_to "All #{Label.count} Labels", labels_path
+  li = link_to "All #{Label.where('id >= ?', 0).count} Labels", labels_path
 
 h3 Recognizer
 ul

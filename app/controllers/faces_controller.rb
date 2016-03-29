@@ -73,13 +73,16 @@ class FacesController < ApplicationController
 
   def collage
     labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
+    labeled = labeled.where(label_id: params[:label_id]) if params[:label_id]
     count = labeled.count
 
     img = Magick::Image.new(120, 120)
-    [[0, 0], [0, 60], [60, 0], [60, 60]].each do |offsets|
-      face = Magick::Image.from_blob(labeled.offset(rand(count)).first.data).first
-      img.composite!(face.resize!(60, 60), offsets[0], offsets[1], Magick::OverCompositeOp)
-      face.destroy!
+    if count > 0
+      [[0, 0], [0, 60], [60, 0], [60, 60]].each do |offsets|
+        face = Magick::Image.from_blob(labeled.offset(rand(count)).first.data).first
+        img.composite!(face.resize!(60, 60), offsets[0], offsets[1], Magick::OverCompositeOp)
+        face.destroy!
+      end
     end
     data = img.to_blob { self.format = 'JPG' }
     img.destroy!

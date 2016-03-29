@@ -16,7 +16,7 @@ table.table
             = image_tag image_face_path(inference.face)
         td
           a href=label_path(inference.label)
-            div = inference.label.name
+            = inference.label.name
             .small = inference.label.description
           div = format('%.5f', inference.score * 100)
         td

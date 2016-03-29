@@ -1,4 +1,15 @@
-- if not @label
+- if @label
+  - title = format(%q(%s's Faces), @label.name)
+  - content_for(:title, raw(title))
+  - content_for(:meta) do
+    meta name="twitter:card" content="summary"
+    meta name="twitter:site" content="@sugyan"
+    meta name="twitter:title" content=title
+    meta name="twitter:description" content=format('all %d faces of %s', @faces.total_count, @label.name)
+    meta name="twitter:image" content == collage_faces_url(label_id: @label.id, '': Time.zone.now.to_i)
+  h2
+    = link_to @label.name, label_path(@label)
+- else
   - content_for(:title, 'Faces')
   - content_for(:meta) do
     meta name="twitter:card" content="summary"
@@ -6,16 +17,6 @@
     meta name="twitter:title" content="Faces"
     meta name="twitter:description" content=format('all %d faces', @faces.total_count)
   h1 Faces
-- else
-  - title = format(%q(%s's Faces), @label.name)
-  - content_for(:title, raw(title))
-  - content_for(:meta) do
-    meta name="twitter:card" content="summary"
-    meta name="twitter:site" content="@sugyan"
-    meta name="twitter:title" content=title
-    meta name="twitter:description" content=format('all %d faces of %s', @faces.size, @label.name)
-  h2
-    = link_to @label.name, label_path(@label)
 
 = page_entries_info @faces
 

@@ -14,6 +14,12 @@ module Clockwork
     task.reenable
   end
 
+  every(5.hours, 'infer_faces') do
+    task = Rake::Task['infer_faces:update']
+    task.invoke
+    task.reenable
+  end
+
   every(1.day, 'db_backup', at: '00:00') do
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')

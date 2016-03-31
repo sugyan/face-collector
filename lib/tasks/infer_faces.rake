@@ -7,7 +7,7 @@ namespace :infer_faces do
     Inference.joins(:face).where('faces.label_id IS NOT NULL').destroy_all
 
     # random sample and classify
-    100.times do
+    1000.times do
       count = Face.where(label_id: nil).count
       face = Face.where(label_id: nil).offset(rand(count)).first
 

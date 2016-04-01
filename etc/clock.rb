@@ -21,6 +21,10 @@ module Clockwork
   end
 
   every(1.day, 'db_backup', at: '00:00') do
+    # delete unused photos
+    deleted = Photo.where('created_at < ?', Time.zone.today << 1).where.not(id: Face.select(:photo_id).group(:photo_id)).delete_all
+    logger.info(format('%d photos are deleted', deleted))
+
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')
 

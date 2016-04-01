@@ -3,8 +3,9 @@ namespace :infer_faces do
     uri = ENV['CLASSIFIER_API_ENDPOINT']
     client = HTTPClient.new
 
-    # delete already labeled
+    # delete already labeled, old
     Inference.joins(:face).where('faces.label_id IS NOT NULL').destroy_all
+    Inference.order(created_at: :desc).offset(2000).destroy_all
 
     # random sample and classify
     1000.times do

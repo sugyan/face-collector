@@ -78,7 +78,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    google-protobuf (3.0.0.alpha.5.0.3)
+    google-protobuf (3.0.0.alpha.5.0.4)
     hashie (3.4.3)
     http (1.0.4)
       addressable (~> 2.3)

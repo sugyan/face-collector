@@ -12,7 +12,7 @@ form.well
 table.table
   thead
     tr
-      - if params[:order] == 'index_number'
+      - if user_signed_in?
         th
           = link_to 'Index', params.merge(order: :index_number)
       th
@@ -29,7 +29,7 @@ table.table
   tbody
     - @labels.each do |label|
       tr
-        - if params[:order] == 'index_number'
+        - if user_signed_in?
           td = label.index_number
         td = link_to label.name, label_path(label)
         td = label.description

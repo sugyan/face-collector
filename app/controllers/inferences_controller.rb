@@ -7,7 +7,7 @@ class InferencesController < ApplicationController
       .includes(:label)
       .order(score: :desc)
       .page(params[:page])
-      .per(10)
+      .per(5)
   end
 
   def accept

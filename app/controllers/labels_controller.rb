@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: [:show, :edit, :update, :destroy, :faces, :inferences]
+  before_action :set_label, only: [:show, :edit, :update, :destroy, :faces, :faces_list, :inferences]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /labels
@@ -104,6 +104,17 @@ class LabelsController < ApplicationController
       .page(params[:page])
       .per(100)
     render 'faces/index'
+  end
+
+  # GET /labels/1/faces_list
+  def faces_list
+    @faces = Face
+      .joins(:photo)
+      .where(label_id: params[:id])
+      .order('photos.posted_at DESC')
+      .page(params[:page])
+      .per(20)
+    render 'faces/list'
   end
 
   # GET /labels/1/inferences

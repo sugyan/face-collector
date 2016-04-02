@@ -1,0 +1,32 @@
+- title = format(%q(%s's Faces), @label.name)
+- content_for(:title, raw(title))
+- content_for(:meta) do
+  meta name="twitter:card" content="summary"
+  meta name="twitter:site" content="@sugyan"
+  meta name="twitter:title" content=title
+  meta name="twitter:description" content=format('all %d faces of %s', @faces.total_count, @label.name)
+  meta name="twitter:image" content == collage_faces_url(label_id: @label.id, '': Time.zone.now.to_i)
+h2
+  = link_to @label.name, label_path(@label)
+p = link_to 'Grid View', faces_label_path(@label), class: %(btn btn-default)
+
+= page_entries_info @faces
+
+table.table
+  thead
+    tr
+      th face
+      th photo
+  tbody
+    - @faces.each do |face|
+      tr
+        td
+          a href=face_path(face)
+            = image_tag image_face_path(face)
+        td
+          .small = face.photo.caption
+          div = face.photo.posted_at.to_date
+          strong #{ face.photo.faces.where.not(label_id: nil).count } / #{ face.photo.faces.count } faces labeled
+
+.text-center
+  = paginate @faces

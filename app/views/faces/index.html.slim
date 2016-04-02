@@ -9,6 +9,7 @@
     meta name="twitter:image" content == collage_faces_url(label_id: @label.id, '': Time.zone.now.to_i)
   h2
     = link_to @label.name, label_path(@label)
+  p = link_to 'List View', faces_list_label_path(@label), class: %(btn btn-default)
 - else
   - content_for(:title, 'Faces')
   - content_for(:meta) do
@@ -24,7 +25,7 @@ table.table.table-condensed
   - @faces.each_slice(10) do |faces|
     tr
       - faces.each do |face|
-        td class="#{ face.label_id ? 'success' : '' }"
+        td style="background-color: #{ face.label_id ? '#4cae4c' : '#ffffff' };"
           a href=face_path(face)
             = image_tag image_face_path(face), width: '100%'
       - if faces.size < 10

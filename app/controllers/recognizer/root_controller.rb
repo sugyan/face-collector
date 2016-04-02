@@ -1,5 +1,7 @@
 module Recognizer
   class RootController < ApplicationController
+    protect_from_forgery except: :api
+
     include ControllerImage
 
     def index

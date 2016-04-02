@@ -13,6 +13,8 @@ dl.dl-horizontal
   dd
     - if @label.twitter.present?
       = link_to "@#{ @label.twitter }", 'https://twitter.com/%s' % @label.twitter, target: '_blank'
+      ul
+        li = link_to 'Seach from photos', faces_path(q: @label.twitter), class: %(btn-link)
   - if user_signed_in?
     dt Index Number:
     dd = @label.index_number

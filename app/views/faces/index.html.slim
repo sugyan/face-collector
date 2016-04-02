@@ -9,6 +9,7 @@
     meta name="twitter:image" content == collage_faces_url(label_id: @label.id, '': Time.zone.now.to_i)
   h2
     = link_to @label.name, label_path(@label)
+  p = link_to 'List View', faces_list_label_path(@label), class: %(btn btn-default)
 - else
   - content_for(:title, 'Faces')
   - content_for(:meta) do

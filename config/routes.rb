@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :labels do
     member do
       get 'faces'
+      get 'faces_list'
       get 'inferences'
     end
     get 'all', on: :collection

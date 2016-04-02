@@ -20,7 +20,7 @@ table.table
             .small = inference.label.description
           div = format('%.5f', inference.score * 100)
         td
-          div = inference.face.photo.caption
+          .small = inference.face.photo.caption
           div = inference.face.photo.posted_at.to_date
           strong #{ inference.face.photo.faces.where.not(label_id: nil).count } / #{ inference.face.photo.faces.count } faces labeled
         - if user_signed_in?

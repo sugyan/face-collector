@@ -25,7 +25,7 @@ table.table.table-condensed
   - @faces.each_slice(10) do |faces|
     tr
       - faces.each do |face|
-        td style="background-color: #{ face.label_id ? '#4cae4c' : '#ffffff' };"
+        td style="background-color: #{ face.label_id ? '#9ff098' : '#ffffff' };"
           a href=face_path(face)
             = image_tag image_face_path(face), width: '100%'
       - if faces.size < 10

@@ -12,5 +12,7 @@ html
       .container
         .navbar-header
           = link_to 'Face Recognizer', recognizer_root_path, class: %(navbar-brand)
+        ul.nav.navbar-nav.navbar-right
+          li = link_to 'about', recognizer_about_path
     .container
       = yield

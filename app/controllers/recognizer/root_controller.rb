@@ -1,11 +1,18 @@
 module Recognizer
   class RootController < ApplicationController
     protect_from_forgery except: :api
+    layout 'recognizer'
 
     include ControllerImage
 
     def index
-      render layout: 'recognizer'
+    end
+
+    def about
+      @labels = Label
+        .where.not(index_number: nil)
+        .where('id >= ?', 0)
+        .sort { |a, b| a.name <=> b.name }
     end
 
     def api

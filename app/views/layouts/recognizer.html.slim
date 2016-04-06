@@ -11,6 +11,14 @@ html
     nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
+          button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
           = link_to 'Face Recognizer', recognizer_root_path, class: %(navbar-brand)
+        #collapse.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li = link_to 'about', recognizer_about_path
     .container
       = yield

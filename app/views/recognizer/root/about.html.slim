@@ -1,0 +1,9 @@
+- content_for(:title, 'about')
+
+h3 = t('recognizer.about.title')
+
+p == t('recognizer.about.description')
+
+ul
+  - @labels.each do |label|
+    li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}

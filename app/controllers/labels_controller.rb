@@ -116,6 +116,7 @@ class LabelsController < ApplicationController
       .order(score: :desc)
       .page(params[:page])
       .per(5)
+    render 'inferences/index'
   end
 
   private

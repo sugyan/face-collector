@@ -1,10 +1,21 @@
-h1 Inferences
+- if @label
+  h2
+    => link_to @label.name, label_path(@label)
+    | Inferences
+- else
+  h2 Inferences
+
+= page_entries_info @inferences
 
 table.table
   thead
     tr
       th face
-      th label
+      th
+        - if @label
+          | score
+        - else
+          | label
       th photo
       - if user_signed_in?
         th
@@ -15,9 +26,10 @@ table.table
           a href=face_path(inference.face)
             = image_tag image_face_path(inference.face)
         td
-          a href=label_path(inference.label)
-            = inference.label.name
-            .small = inference.label.description
+          - unless @label
+            a href=label_path(inference.label)
+              = inference.label.name
+              .small = inference.label.description
           div = format('%.5f', inference.score * 100)
         td
           .small = inference.face.photo.caption

@@ -112,9 +112,10 @@ class LabelsController < ApplicationController
   # GET /labels/1/inferences
   def inferences
     @inferences = @label.inferences
+      .includes(face: :photo)
       .order(score: :desc)
       .page(params[:page])
-      .per(100)
+      .per(5)
   end
 
   private

@@ -2,17 +2,29 @@ h2
   => link_to @label.name, label_path(@label)
   | Inferences
 
-table.table.table-condensed
-  - @inferences.each_slice(10) do |inferences|
+table.table
+  thead
     tr
-      - inferences.each do |inference|
+      th face
+      th score
+      th photo
+      - if user_signed_in?
+        th
+  tbody
+    - @inferences.each do |inference|
+      tr
         td
           a href=face_path(inference.face)
-            = image_tag image_face_path(inference.face), width: '100%'
-          = format('%.5f', inference.score * 100)
-      - if inferences.size < 10
-        - (10 - inferences.size).times do
-          td style="width: 10%;"
+            = image_tag image_face_path(inference.face)
+        td = format('%.5f', inference.score * 100)
+        td
+          .small = inference.face.photo.caption
+          div = inference.face.photo.posted_at.to_date
+          strong #{ inference.face.photo.faces.where.not(label_id: nil).count } / #{ inference.face.photo.faces.count } faces labeled
+        - if user_signed_in?
+          td
+            = form_for inference, url: accept_inference_path(inference), method: :post do
+              button.btn.btn-primary OK
 
 .text-center
   = paginate @inferences

@@ -4,6 +4,10 @@ h3 = t('recognizer.about.title')
 
 p == t('recognizer.about.description')
 
-ul
-  - @labels.each do |label|
-    li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}
+ul.list-unstyled
+  - @dict.keys.sort.each do |key|
+    li
+      = key
+      ul
+        - @dict[key].each do |label|
+          li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}

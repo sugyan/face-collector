@@ -1,3 +1,4 @@
+# coding: utf-8
 module Recognizer
   class RootController < ApplicationController
     protect_from_forgery except: :api
@@ -9,10 +10,15 @@ module Recognizer
     end
 
     def about
-      @labels = Label
+      keys = %w(あ か さ た な は ま や ら わ)
+      @dict = keys.each_with_object({}) { |key, hash| hash[key] = [] }
+      Label
         .where.not(index_number: nil)
         .where('id >= ?', 0)
-        .sort { |a, b| a.name <=> b.name }
+        .sort_by { |label| label.tags || 'ん' }
+        .each do |label|
+        @dict[keys.reverse.find { |key| key < (label.tags || 'ん') }] << label
+      end
     end
 
     def api

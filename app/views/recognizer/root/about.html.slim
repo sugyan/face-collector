@@ -7,7 +7,12 @@ p == t('recognizer.about.description')
 ul.list-unstyled
   - @dict.keys.sort.each do |key|
     li
-      = key
+      .small = key
       ul
         - @dict[key].each do |label|
           li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}
+
+form.well
+  .form-group
+    textarea.form-control rows=3 maxlength=500 required=true
+  button.btn.btn-primary type="submit" Submit

@@ -24,7 +24,7 @@ module ModelImage
     eyes = face['eyes']
     eye_l, eye_r = eyes[0]['x'] < eyes[1]['x'] ? [eyes[0], eyes[1]] : [eyes[1], eyes[0]]
     rad = Math.atan2((eye_r['y'] - eye_l['y']) * img.rows, (eye_r['x'] - eye_l['x']) * img.columns)
-    rvg = Magick::RVG.new(size, size) do |canvas|
+    img = Magick::RVG.new(size, size) do |canvas|
       scale = size / [face['w'] * img.columns / 100.0, face['h'] * img.rows / 100.0].max
       canvas
         .image(img)
@@ -32,7 +32,9 @@ module ModelImage
         .scale(scale)
         .rotate(-rad * 180.0 / Math::PI)
         .translate(-face['center']['x'] * img.columns / 100.0, -face['center']['y'] * img.rows / 100.0)
-    end
-    rvg.draw.to_blob { self.format = 'JPG' }
+    end.draw
+    blob = img.to_blob { self.format = 'JPG' }
+    img.destroy!
+    blob
   end
 end

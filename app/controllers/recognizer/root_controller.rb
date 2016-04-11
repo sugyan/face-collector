@@ -19,6 +19,7 @@ module Recognizer
         .each do |label|
         @dict[keys.reverse.find { |key| key < (label.tags || 'ん') }] << label
       end
+      @feedback = Feedback.new
     end
 
     def api

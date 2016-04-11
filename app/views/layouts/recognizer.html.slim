@@ -21,4 +21,9 @@ html
           ul.nav.navbar-nav.navbar-right
             li = link_to 'about', recognizer_about_path
     .container
+      - if notice
+        .alert.alert-success.alert-dismissible role="alert"
+          button.close type="button" aria-label="Close" data-dismiss="alert"
+            span aria-hidden="true" &times;
+          = notice
       = yield

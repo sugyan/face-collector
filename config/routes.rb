@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       post 'accept'
     end
   end
+  resources :feedbacks, only: [:index, :create]
 
   # devise
   devise_for :users

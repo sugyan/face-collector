@@ -7,7 +7,15 @@ p == t('recognizer.about.description')
 ul.list-unstyled
   - @dict.keys.sort.each do |key|
     li
-      = key
+      .small = key
       ul
         - @dict[key].each do |label|
           li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}
+
+hr
+
+= form_for @feedback, html: { class: %(well) } do |f|
+  .form-group
+    span.help-block = t('recognizer.about.form.help')
+    = f.text_area :body, rows: 3, maxlength: 500, required: true, class: %(form-control)
+  = f.submit class: %(btn btn-primary)

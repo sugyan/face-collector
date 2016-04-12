@@ -18,4 +18,4 @@ hr
   .form-group
     span.help-block = t('recognizer.about.form.help')
     = f.text_area :body, rows: 3, maxlength: 500, required: true, class: %(form-control)
-  = f.submit class: %(btn btn-primary)
+  = f.submit t('recognizer.about.form.submit'), class: %(btn btn-primary)

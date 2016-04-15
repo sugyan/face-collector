@@ -14,7 +14,7 @@ module Clockwork
     task.reenable
   end
 
-  every(3.hours, 'infer_faces') do
+  every(2.hours, 'infer_faces') do
     task = Rake::Task['infer_faces:update']
     task.invoke
     task.reenable

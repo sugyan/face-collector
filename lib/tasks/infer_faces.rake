@@ -5,7 +5,7 @@ namespace :infer_faces do
 
     # delete already labeled, old
     Inference.joins(:face).where('faces.label_id IS NOT NULL').destroy_all
-    Inference.order(created_at: :desc).offset(2000).destroy_all
+    Inference.order(created_at: :desc).offset(3000).destroy_all
 
     # random sample and classify
     1000.times do

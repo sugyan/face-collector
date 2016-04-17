@@ -19,6 +19,7 @@ ja:
         tags: タグ
         twitter: Twitter
         url: URL
+        status: ステータス
       photo:
         caption: キャプション  #g
         faces: 顔  #g

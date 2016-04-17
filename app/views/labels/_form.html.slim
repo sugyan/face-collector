@@ -26,4 +26,11 @@
   .field.form-group
     div = f.label :tags
     = react_component('TagsInput', name: 'label[tags]', value: @label.tags)
+  .field.form-group
+    = f.label :status
+    div
+      - %w(enabled disabled).each do |value|
+        label.radio-inline
+          = f.radio_button :status, value
+          = value
   .actions = f.submit class: %(btn btn-primary)

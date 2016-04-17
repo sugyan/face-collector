@@ -2,7 +2,7 @@
 
 h3 Label #{ @label.id }
 
-dl.dl-horizontal
+dl.dl-horizontal class="#{ @label.disabled? ? 'bg-danger' : '' }"
   dt Name:
   dd = @label.name
   dt Description:
@@ -21,6 +21,8 @@ dl.dl-horizontal
     dd = @label.index_number
     dt Tags:
     dd = @label.tags
+    dt Status:
+    dd = @label.status
 
 h4
   = link_to "Faces (#{@label.faces.size})", faces_label_path(@label)

@@ -28,7 +28,7 @@ table.table
 
   tbody
     - @labels.each do |label|
-      tr
+      tr class="#{ label.disabled? ? 'danger' : '' }"
         - if user_signed_in?
           td = label.index_number
         td = link_to label.name, label_path(label)

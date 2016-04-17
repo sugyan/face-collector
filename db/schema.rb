@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410044654) do
+ActiveRecord::Schema.define(version: 20160417131758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,15 +52,17 @@ ActiveRecord::Schema.define(version: 20160410044654) do
   create_table "labels", force: :cascade do |t|
     t.string   "name"
     t.text     "tags"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.text     "description"
     t.string   "url"
     t.integer  "index_number"
     t.string   "twitter"
+    t.integer  "status",       default: 1, null: false
   end
 
   add_index "labels", ["index_number"], name: "index_labels_on_index_number", unique: true, using: :btree
+  add_index "labels", ["status"], name: "index_labels_on_status", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.text     "source_url"

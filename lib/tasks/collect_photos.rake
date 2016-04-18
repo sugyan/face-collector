@@ -13,6 +13,7 @@ namespace :collect_photos do
     twitter.middleware.insert(-1, Faraday::Response::Logger, logger)
     queries = Query.all.map(&:text)
     Label
+      .enabled
       .where.not(twitter: nil)
       .where.not(twitter: '')
       .pluck(:twitter).uniq

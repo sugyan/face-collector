@@ -19,10 +19,13 @@ namespace :labels do
       .having('label_id >= 0')
       .having('COUNT(*) >= ?', args[:min_faces].to_i)
       .order(count: :desc).order(:label_id)
-    faces.each.with_index do |face, i|
+    index = 0
+    faces.each do |face|
       label = face.label
-      logger.info format('update label %s (%s) as index %d', label.id, label.name, i + 1)
-      label.update(index_number: i + 1)
+      next if label.disabled?
+      index += 1
+      logger.info format('update label %s (%s) as index %d', label.id, label.name, index)
+      label.update(index_number: index)
     end
   end
 end

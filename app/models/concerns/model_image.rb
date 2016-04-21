@@ -38,3 +38,17 @@ module ModelImage
     blob
   end
 end
+
+## use mini_magick?
+# img.mogrify do |convert|
+#   srt = [
+#     "#{face['center']['x'] * img.width / 100.0},#{face['center']['y'] * img.height / 100.0}",
+#     size / [face['w'] * img.width / 100.0, face['h'] * img.height / 100.0].max,
+#     - rad * 180.0 / Math::PI,
+#     "#{size * 0.5},#{size * 0.5}"
+#   ].join(' ')
+#   convert.background('black')
+#   convert.virtual_pixel('background')
+#   convert.distort(:SRT, srt)
+#   convert.crop("#{size}x#{size}+0+0")
+# end

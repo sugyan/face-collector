@@ -12,10 +12,12 @@ namespace :infer_faces do
       count = Face.where(label_id: nil).count
       face = Face.where(label_id: nil).offset(rand(count)).first
 
-      img = Magick::Image.from_blob(face.data).first
-      img.crop!(Magick::CenterGravity, 96, 96)
+      img = MiniMagick::Image.read(face.data)
+      img.mogrify do |convert|
+        convert.gravity(:center)
+        convert.crop('96x96+0+0')
+      end
       b64data = Base64.strict_encode64(img.to_blob)
-      img.destroy!
 
       res = client.post(uri, [['images', 'data:image/jpeg;base64,' + b64data]])
       top = JSON.parse(res.body)['results'].first.first
@@ -37,10 +39,12 @@ namespace :infer_faces do
       true_count = 0
       false_count = 0
       label.faces.each do |face|
-        img = Magick::Image.from_blob(face.data).first
-        img.crop!(Magick::CenterGravity, 96, 96)
+        img = MiniMagick::Image.read(face.data)
+        img.mogrify do |convert|
+          convert.gravity(:center)
+          convert.crop('96x96+0+0')
+        end
         b64data = Base64.strict_encode64(img.to_blob)
-        img.destroy!
 
         res = client.post(uri, [['images', 'data:image/jpeg;base64,' + b64data]])
         top = JSON.parse(res.body)['results'].first[0]

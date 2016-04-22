@@ -73,20 +73,22 @@ class FacesController < ApplicationController
 
   def collage
     labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
-    labeled = labeled.where(label_id: params[:label_id]) if params[:label_id]
-    count = labeled.count
-
-    img = Magick::Image.new(120, 120)
-    if count > 0
-      [[0, 0], [0, 60], [60, 0], [60, 60]].each do |offsets|
-        face = Magick::Image.from_blob(labeled.offset(rand(count)).first.data).first
-        img.composite!(face.resize!(60, 60), offsets[0], offsets[1], Magick::OverCompositeOp)
-        face.destroy!
-      end
+    if (label_id = params[:label_id])
+      labeled = labeled.where(label_id: label_id)
     end
-    data = img.to_blob { self.format = 'JPG' }
-    img.destroy!
+    count = labeled.count
+    raise ActionController::RoutingError, 'Not Found' if count == 0
 
+    data = Tempfile.create(%w(collage .jpg)) do |tempfile|
+      MiniMagick::Tool::Montage.new do |convert|
+        convert.geometry('60x60+0+0')
+        4.times do
+          convert << MiniMagick::Image.read(labeled.offset(rand(count)).first.data).path
+        end
+        convert << tempfile.path
+      end
+      tempfile.read
+    end
     send_data data, disposition: 'inline', type: 'image/jpeg'
   end
 

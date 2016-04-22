@@ -4,8 +4,10 @@ class Photo < ActiveRecord::Base
 
   def face_images(size)
     detected = detect_faces(photo_url, size)
+    return [] if detected.empty?
+
     img = MiniMagick::Image.open(photo_url)
-    results = detected.map do |face|
+    detected.map do |face|
       eyes = face['eyes']
       eye_l, eye_r = eyes[0]['x'] < eyes[1]['x'] ? [eyes[0], eyes[1]] : [eyes[1], eyes[0]]
       rad = Math.atan2((eye_r['y'] - eye_l['y']) * img.height, (eye_r['x'] - eye_l['x']) * img.width)
@@ -24,7 +26,5 @@ class Photo < ActiveRecord::Base
       end
       { data: face_image.to_blob, json: face }
     end
-    img.destroy!
-    results
   end
 end

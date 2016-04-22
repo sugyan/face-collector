@@ -58,6 +58,7 @@ gem 'omniauth-twitter', '~> 1.2'
 gem 'google-protobuf', '~> 3.0.0.alpha'
 gem 'digest-crc', '~> 0.4'
 gem 'clockwork', '~> 1.2'
+gem 'mini_magick', '~> 4.5'
 
 group :development do
   gem 'i18n_generators', '~> 2.1'

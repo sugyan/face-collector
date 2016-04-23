@@ -1,5 +1,3 @@
-require 'rvg/rvg'
-
 module ModelImage
   def detect_faces(url, size)
     detector = Faraday.new(url: ENV['FACE_DETECT_API_ENDPOINT']) do |faraday|

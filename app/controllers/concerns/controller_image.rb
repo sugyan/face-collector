@@ -1,5 +1,3 @@
-require 'rvg/rvg'
-
 module ControllerImage
   def detect_faces(image)
     url = URI(ENV['GOOGLE_CLOUD_VISION_API_ENDPOINT'])

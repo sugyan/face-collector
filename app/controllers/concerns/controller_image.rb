@@ -28,22 +28,24 @@ module ControllerImage
   def face_image(image, face, size)
     x = face[:bounding].map { |v| v['x'] }
     y = face[:bounding].map { |v| v['y'] }
-    rvg = Magick::RVG.new(size, size) do |canvas|
-      scale = 1.0 * size / [x.max - x.min, y.max - y.min].max
-      canvas
-        .image(image)
-        .translate(size * 0.5, size * 0.5)
-        .scale(scale / 1.2)
-        .rotate(-face[:angle][:roll])
-        .translate(-(x.min + x.max) * 0.5, -(y.min + y.max) * 0.5)
+    srt = [
+      "#{(x.min + x.max) * 0.5},#{(y.min + y.max) * 0.5}",
+      1.0 * size / [x.max - x.min, y.max - y.min].max / 1.1,
+      -face[:angle][:roll],
+      "#{size * 0.5},#{size * 0.5}"
+    ].join(' ')
+    face_image = MiniMagick::Image.open(image.path)
+    face_image.mogrify do |convert|
+      convert.background('black')
+      convert.virtual_pixel('background')
+      convert.distort(:SRT, srt)
+      convert.crop("#{size}x#{size}+0+0")
     end
-    rvg.draw
   end
 
   private
 
   def generate_json(image)
-    image.format = 'JPG'
     {
       requests: [
         {

@@ -50,7 +50,6 @@ gem 'puma', '~> 2.15'
 
 gem 'twitter', '~> 5.15'
 gem 'kaminari', '~> 0.16'
-gem 'rmagick', '~> 2.15'
 gem 'httpclient', '~> 2.7'
 gem 'react-rails', '~> 1.5'
 gem 'devise', '~> 3.5'

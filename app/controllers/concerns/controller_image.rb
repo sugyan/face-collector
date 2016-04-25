@@ -32,8 +32,7 @@ module ControllerImage
       -face[:angle][:roll],
       "#{size * 0.5},#{size * 0.5}"
     ].join(' ')
-    face_image = MiniMagick::Image.open(image.path)
-    face_image.mogrify do |convert|
+    MiniMagick::Image.open(image.path).mogrify do |convert|
       convert.background('black')
       convert.virtual_pixel('background')
       convert.distort(:SRT, srt)

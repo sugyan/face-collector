@@ -33,7 +33,7 @@ module Recognizer
       # create face images
       requests = faces.map do |face|
         img = face_image(image, face, 96)
-        'data:image/jpeg;base64,' + Base64.strict_encode64(img.to_blob)
+        "data:image/jpeg;base64,#{Base64.strict_encode64(img.to_blob)}"
       end
       # classify faces
       classified = classify_faces(requests)

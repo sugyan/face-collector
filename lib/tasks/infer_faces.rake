@@ -39,7 +39,7 @@ namespace :infer_faces do
     Label.where('index_number > ?', 0).order(index_number: :asc).each do |label|
       true_count = 0
       false_count = 0
-      label.faces.each do |face|
+      label.faces.sample(50).each do |face|
         img = MiniMagick::Image.read(face.data).mogrify do |convert|
           convert.gravity(:center)
           convert.crop('96x96+0+0')

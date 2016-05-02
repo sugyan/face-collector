@@ -79,7 +79,7 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-protobuf (3.0.0.alpha.5.0.4)
-    hashie (3.4.3)
+    hashie (3.4.4)
     http (1.0.4)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -164,14 +164,14 @@ GEM
     rake (11.1.2)
     rdoc (4.2.2)
       json (~> 1.4)
-    react-rails (1.6.2)
+    react-rails (1.7.0)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
       connection_pool
       execjs
       rails (>= 3.2)
       tilt
-    responders (2.1.2)
+    responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     sass (3.4.22)
     sass-rails (5.0.4)

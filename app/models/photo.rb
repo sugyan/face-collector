@@ -6,7 +6,7 @@ class Photo < ActiveRecord::Base
     detected = detect_faces(photo_url, size)
     return [] if detected.empty?
 
-    img = MiniMagick::Image.open(photo_url)
+    img = MiniMagick::Image.open(photo_url, '.jpg')
     detected.map do |face|
       eyes = face['eyes']
       eye_l, eye_r = eyes[0]['x'] < eyes[1]['x'] ? [eyes[0], eyes[1]] : [eyes[1], eyes[0]]

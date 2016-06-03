@@ -93,6 +93,7 @@ class LabelsController < ApplicationController
       .joins(:photo)
       .where(label_id: params[:id])
       .order('photos.posted_at DESC')
+      .order('id DESC')
       .page(params[:page])
       .per(100)
     render 'faces/index'

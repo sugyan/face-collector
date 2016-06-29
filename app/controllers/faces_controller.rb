@@ -9,7 +9,6 @@ class FacesController < ApplicationController
       ]
     end
     @faces = Face
-      .joins(:photo)
       .where(where)
       .order(id: :desc)
       .page(params[:page])

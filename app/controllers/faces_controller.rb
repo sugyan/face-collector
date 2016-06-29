@@ -3,16 +3,25 @@ class FacesController < ApplicationController
   before_action :authenticate_user!, only: [:destroy, :label]
 
   def index
+    @faces = Face
+      .order(id: :desc)
+      .page(params[:page])
+      .per(100)
+  end
+
+  def search
     if (q = params[:q])
       where = [
         'photos.caption like ?', format('%%%s%%', q.gsub(/[\\%_]/) { |m| "\\#{m}" })
       ]
     end
     @faces = Face
+      .joins(:photo)
       .where(where)
       .order(id: :desc)
       .page(params[:page])
       .per(100)
+    render :index
   end
 
   def show

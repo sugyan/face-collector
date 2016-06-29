@@ -15,7 +15,7 @@ dl.dl-horizontal class="#{ @label.disabled? ? 'bg-danger' : '' }"
       = link_to "@#{ @label.twitter }", 'https://twitter.com/%s' % @label.twitter, target: '_blank'
       - if user_signed_in?
         ul
-          li = link_to 'Seach from photos', faces_path(q: @label.twitter), class: %(btn-link)
+          li = link_to 'Seach from photos', search_faces_path(q: @label.twitter), class: %(btn-link)
   - if user_signed_in?
     dt Index Number:
     dd = @label.index_number

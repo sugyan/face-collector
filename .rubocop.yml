@@ -20,6 +20,9 @@ Style/MultilineMethodCallIndentation:
 Metrics/LineLength:
   Max: 160
 
+Metrics/ClassLength:
+  Max: 120
+
 Metrics/MethodLength:
   Max: 30
 

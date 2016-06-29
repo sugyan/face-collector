@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'labeled'
+      get 'search'
       get 'random'
       get 'collage'
       get 'tfrecords/:index_number' => 'faces#tfrecords'

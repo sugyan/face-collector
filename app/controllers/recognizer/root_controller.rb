@@ -12,12 +12,12 @@ module Recognizer
     def about
       keys = %w(あ か さ た な は ま や ら わ)
       @dict = keys.each_with_object({}) { |key, hash| hash[key] = [] }
-      Label
+      labels = Label
         .where.not(index_number: nil)
         .where('id >= ?', 0)
-        .sort_by { |label| label.tags || 'ん' }
-        .each do |label|
-        @dict[keys.reverse.find { |key| key < (label.tags || 'ん') }] << label
+        .sort_by { |label| label.tags.presence || 'ん' }
+      labels.each do |label|
+        @dict[keys.reverse.find { |key| key < (label.tags.presence || 'ん') }] << label
       end
       @feedback = Feedback.new
     end

@@ -55,7 +55,7 @@ namespace :collect_photos do
           logger.info(format('%d faces detected', faces.size))
           if faces.present?
             photo.caption = format('%s (@%s): %s', tweet.user.name, tweet.user.screen_name, tweet.text)
-            photo.faces << faces.map { |face| Face.new(data: face[:data], json: face[:json]) }
+            photo.faces << faces.map { |face| Face.new(data: face[:data]) }
           end
           photo.save
         rescue StandardError => e

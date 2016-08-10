@@ -14,13 +14,13 @@ table.table
     tr
       - if user_signed_in?
         th
-          = link_to 'Index', params.merge(order: :index_number)
+          = link_to 'Index', url_for(order: :index_number)
       th
-        = link_to 'Name', params.merge(order: :name)
+        = link_to 'Name', url_for(order: :name)
       th
-        = link_to 'Description', params.merge(order: :description)
+        = link_to 'Description', url_for(order: :description)
       th
-        = link_to 'Twitter', params.merge(order: :twitter)
+        = link_to 'Twitter', url_for(order: :twitter)
       th Faces
       - if user_signed_in?
         th

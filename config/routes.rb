@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   # recognizer
   namespace :recognizer do
-    root 'root#index'
+    root 'root#index', as: :root
     get  'about' => 'root#about'
     post 'api'   => 'root#api'
   end

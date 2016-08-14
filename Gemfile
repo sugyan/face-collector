@@ -62,3 +62,7 @@ gem 'mini_magick', '~> 4.5'
 group :development do
   gem 'i18n_generators', '~> 2.1'
 end
+
+group :test do
+  gem 'rails-controller-testing', '~> 1.0'
+end

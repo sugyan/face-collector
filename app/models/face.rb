@@ -1,6 +1,6 @@
 require 'tensorflow/core/example/example'
 
-class Face < ActiveRecord::Base
+class Face < ApplicationRecord
   belongs_to :photo
   belongs_to :label
   has_one :inference, dependent: :destroy

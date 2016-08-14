@@ -1,2 +1,2 @@
-class Feedback < ActiveRecord::Base
+class Feedback < ApplicationRecord
 end

@@ -1,4 +1,4 @@
-class Label < ActiveRecord::Base
+class Label < ApplicationRecord
   has_many :faces
   has_many :inferences
 

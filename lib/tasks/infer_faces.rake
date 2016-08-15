@@ -18,7 +18,7 @@ namespace :infer_faces do
           convert.crop('96x96+0+0')
         end
         res = client.post(uri, [['images', "data:image/jpeg;base64,#{Base64.strict_encode64(img.to_blob)}"]])
-        top = JSON.parse(res.body)['results'].first.first
+        top = JSON.parse(res.body)['results'].first['top'].first
         next unless top['label']['id']
 
         inference = Inference.find_or_initialize_by(face_id: face.id)
@@ -45,7 +45,7 @@ namespace :infer_faces do
           convert.crop('96x96+0+0')
         end
         res = client.post(uri, [['images', "data:image/jpeg;base64,#{Base64.strict_encode64(img.to_blob)}"]])
-        top = JSON.parse(res.body)['results'].first[0]
+        top = JSON.parse(res.body)['results'].first['top'][0]
         if top['label']['id'] == label.id
           true_count += 1
         else

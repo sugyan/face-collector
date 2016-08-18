@@ -38,7 +38,7 @@ module Recognizer
       # classify faces
       classified = classify_faces(requests)
       faces.each.with_index do |face, i|
-        face[:recognize] = classified[i]
+        face[:recognize] = classified[i]['top']
       end
       render json: { faces: faces, message: format('detected %d faces.', faces.size) }
     end

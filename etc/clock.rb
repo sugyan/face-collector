@@ -20,7 +20,7 @@ module Clockwork
     task.reenable
   end
 
-  every(1.day, 'db_backup', at: '00:00') do
+  every(3.days, 'db_backup', at: '00:00') do
     # delete unused photos
     deleted = Photo.where(created_at: Time.zone.today << 2..Time.zone.today << 1).where.not(
       id: Face.select(:photo_id).where(created_at: Time.zone.today << 2..Time.zone.today << 1).group(:photo_id)
@@ -36,11 +36,11 @@ module Clockwork
     manager.log(cmd)
     manager.log('backup succeeded') if system(cmd)
 
-    # delete files older than 7 days
+    # delete files older than 10 days
     Dir.foreach(dest_dir) do |file|
       path = File.join(dest_dir, file)
       next unless file =~ /.*\.dump$/
-      if File.stat(path).ctime < Time.zone.today - 7
+      if File.stat(path).ctime < Time.zone.today - 10
         manager.log(format('delete %s', path))
         File.unlink(path)
       end

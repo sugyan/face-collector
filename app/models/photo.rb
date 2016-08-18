@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Photo < ApplicationRecord
   include ModelImage
   has_many :faces, dependent: :destroy
 

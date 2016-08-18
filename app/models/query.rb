@@ -1,2 +1,2 @@
-class Query < ActiveRecord::Base
+class Query < ApplicationRecord
 end

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -23,11 +22,10 @@ ActiveRecord::Schema.define(version: 20160808122749) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "edited_user_id"
+    t.index ["edited_user_id"], name: "index_faces_on_edited_user_id", using: :btree
+    t.index ["label_id"], name: "index_faces_on_label_id", using: :btree
+    t.index ["photo_id"], name: "index_faces_on_photo_id", using: :btree
   end
-
-  add_index "faces", ["edited_user_id"], name: "index_faces_on_edited_user_id", using: :btree
-  add_index "faces", ["label_id"], name: "index_faces_on_label_id", using: :btree
-  add_index "faces", ["photo_id"], name: "index_faces_on_photo_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
     t.text     "body"
@@ -42,11 +40,10 @@ ActiveRecord::Schema.define(version: 20160808122749) do
     t.float    "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["face_id"], name: "index_inferences_on_face_id", unique: true, using: :btree
+    t.index ["label_id"], name: "index_inferences_on_label_id", using: :btree
+    t.index ["score"], name: "index_inferences_on_score", using: :btree
   end
-
-  add_index "inferences", ["face_id"], name: "index_inferences_on_face_id", unique: true, using: :btree
-  add_index "inferences", ["label_id"], name: "index_inferences_on_label_id", using: :btree
-  add_index "inferences", ["score"], name: "index_inferences_on_score", using: :btree
 
   create_table "labels", force: :cascade do |t|
     t.string   "name"
@@ -58,10 +55,9 @@ ActiveRecord::Schema.define(version: 20160808122749) do
     t.integer  "index_number"
     t.string   "twitter"
     t.integer  "status",       default: 1, null: false
+    t.index ["index_number"], name: "index_labels_on_index_number", unique: true, using: :btree
+    t.index ["status"], name: "index_labels_on_status", using: :btree
   end
-
-  add_index "labels", ["index_number"], name: "index_labels_on_index_number", unique: true, using: :btree
-  add_index "labels", ["status"], name: "index_labels_on_status", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.text     "source_url"
@@ -72,10 +68,9 @@ ActiveRecord::Schema.define(version: 20160808122749) do
     t.datetime "posted_at"
     t.string   "uid"
     t.string   "md5"
+    t.index ["md5"], name: "index_photos_on_md5", unique: true, using: :btree
+    t.index ["uid"], name: "index_photos_on_uid", unique: true, using: :btree
   end
-
-  add_index "photos", ["md5"], name: "index_photos_on_md5", unique: true, using: :btree
-  add_index "photos", ["uid"], name: "index_photos_on_uid", unique: true, using: :btree
 
   create_table "queries", force: :cascade do |t|
     t.text     "text"
@@ -98,10 +93,9 @@ ActiveRecord::Schema.define(version: 20160808122749) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "screen_name"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "faces", "labels"
   add_foreign_key "faces", "photos"

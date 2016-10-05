@@ -7,7 +7,10 @@ class InferencesController < ApplicationController
       .includes(:label)
       .order(score: :desc)
       .page(params[:page])
-      .per(5)
+    respond_to do |format|
+      format.html { @inferences = @inferences.per(5)   }
+      format.json { @inferences = @inferences.per(100) }
+    end
   end
 
   def accept

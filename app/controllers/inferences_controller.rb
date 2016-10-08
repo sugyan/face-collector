@@ -1,6 +1,7 @@
 class InferencesController < ApplicationController
   acts_as_token_authentication_handler_for User
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   def index
     @inferences = Inference
@@ -18,6 +19,9 @@ class InferencesController < ApplicationController
     inference = Inference.find(params[:id])
     inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
     inference.destroy
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: { result: 'OK' } }
+    end
   end
 end

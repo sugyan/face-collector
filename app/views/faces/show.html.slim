@@ -5,6 +5,8 @@
   meta name="twitter:title" content="face #{@face.id}"
   meta name="twitter:description" content="face of #{@face.photo.caption}"
   meta name="twitter:image" content=image_face_url(@face)
+  meta name="og:title" content="face #{@face.id}"
+  meta name="og:image" content=image_face_url(@face)
 
 h3 face #{@face.id}
 .row

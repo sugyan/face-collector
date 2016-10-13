@@ -17,11 +17,12 @@ class InferencesController < ApplicationController
 
   def accept
     inference = Inference.find(params[:id])
+    face = inference.face
     inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
     inference.destroy
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { render json: { result: 'OK' } }
+      format.json { render json: { result: 'OK', face_url: face_url(face) } }
     end
   end
 end

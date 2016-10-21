@@ -1,0 +1,27 @@
+h2 User #{@user.screen_name}
+
+= page_entries_info @faces
+
+table.table
+  thead
+    tr
+      th face
+      th label
+      th photo
+  tbody
+    - @faces.each do |face|
+      tr
+        td
+          a href=face_path(face)
+            = image_tag image_face_path(face)
+        td
+          a href=label_path(face.label)
+            = face.label.name
+            .small = face.label.description
+          span = l(face.updated_at)
+        td
+          .small = face.photo.caption
+          div = face.photo.posted_at.to_date
+
+.text-center
+  = paginate @faces

@@ -1,0 +1,16 @@
+h2 Users
+
+table.table.table-striped
+  thead
+    tr
+      th id
+      th screen name
+      th labeled
+      th last edited
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.id
+        td = link_to user.screen_name, user_url(user)
+        td = user.faces.count
+        td = user.faces.order(updated_at: :desc).first.updated_at

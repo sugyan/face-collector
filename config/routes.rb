@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   # devise
   devise_for :users
+  resources :users, only: [:index, :show]
 
   # recognizer
   namespace :recognizer do

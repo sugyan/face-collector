@@ -6,4 +6,16 @@ class RootController < ApplicationController
       .group('DATE')
       .order('DATE DESC')
   end
+
+  def feed
+    @faces = Face
+      .includes(:edited_user)
+      .where.not(label_id: nil)
+      .order(updated_at: :desc)
+      .page(params[:page] || 1)
+      .per(50)
+    respond_to do |format|
+      format.rss
+    end
+  end
 end

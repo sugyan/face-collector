@@ -9,6 +9,7 @@ xml.rss version: "2.0", :"xmlns:atom" => "http://www.w3.org/2005/Atom" do
     for face in @faces
       xml.item do
         xml.title face.id
+        xml.link face_url(face)
         xml.guid face_url(face), isPermaLink: true
         xml.pubDate face.updated_at.to_formatted_s(:rfc822)
         xml.author "#{face.edited_user.email} (#{face.edited_user.screen_name})"

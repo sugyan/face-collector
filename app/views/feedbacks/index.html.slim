@@ -1,2 +1,13 @@
-h1 Feedbacks#index
-p Find me in app/views/feedbacks/index.html.slim
+h1 Feedbacks
+
+= page_entries_info @feedbacks
+
+table.table.table-striped
+  thead
+    tr
+      th content
+      th datetime
+  - @feedbacks.each do |feedback|
+    tr
+      td = feedback.body
+      td = feedback.created_at

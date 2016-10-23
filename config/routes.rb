@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'root#index'
   get '/root' => 'root#index'
-  get '/feed' => 'root#feed', constraints: { format: :rss }
+  get '/feed' => 'root#feed'
 
   resources :queries
   resources :labels do

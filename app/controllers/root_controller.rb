@@ -15,6 +15,7 @@ class RootController < ApplicationController
       .page(params[:page] || 1)
       .per(50)
     respond_to do |format|
+      format.html
       format.rss
     end
   end

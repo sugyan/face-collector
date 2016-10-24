@@ -10,13 +10,15 @@ class RootController < ApplicationController
   def feed
     @faces = Face
       .includes(:edited_user)
+      .includes(:photo)
+      .includes(:label)
       .where.not(label_id: nil)
       .order(updated_at: :desc)
       .page(params[:page] || 1)
-      .per(50)
+      .per(100)
     respond_to do |format|
       format.html
-      format.rss
+      format.atom
     end
   end
 end

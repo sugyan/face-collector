@@ -23,7 +23,7 @@ atom_feed do |feed|
         xml.div xmlns: 'http://www.w3.org/1999/xhtml' do |xhtml|
           entries.each do |entry|
             xhtml.p do
-              xhtml.a "face #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})", href: face_url(entry)
+              xhtml.a "[#{entry.updated_at.to_s(:time)}] face #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})", href: face_url(entry)
             end
           end
         end

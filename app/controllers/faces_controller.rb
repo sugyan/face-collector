@@ -80,23 +80,29 @@ class FacesController < ApplicationController
   end
 
   def collage
-    labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
-    if (label_id = params[:label_id])
-      labeled = labeled.where(label_id: label_id)
+    size = params.fetch(:size, '60').to_i
+    if (ids = params[:face_ids])
+      faces = ids.split(/,/).map { |id| Face.find(id) }
+    else
+      labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
+      if (label_id = params[:label_id])
+        labeled = labeled.where(label_id: label_id)
+      end
+      count = labeled.count
+      raise ActionController::RoutingError, 'Not Found' if count.zero?
+      faces = Array.new(4).map { labeled.offset(rand(count)).first }
     end
-    count = labeled.count
-    raise ActionController::RoutingError, 'Not Found' if count == 0
 
+    imgs = faces.map { |face| MiniMagick::Image.read(face.data) }
     data = Tempfile.create(%w(collage .jpg)) do |tempfile|
       MiniMagick::Tool::Montage.new do |convert|
-        convert.geometry('60x60+0+0')
-        4.times do
-          convert << MiniMagick::Image.read(labeled.offset(rand(count)).first.data).path
-        end
+        convert.geometry("#{size}x#{size}+0+0")
+        imgs.each { |img| convert << img.path }
         convert << tempfile.path
       end
       tempfile.read
     end
+    imgs.map(&:destroy!)
     send_data data, disposition: 'inline', type: 'image/jpeg'
   end
 
@@ -111,7 +117,7 @@ class FacesController < ApplicationController
     sample = [params.fetch(:sample, '100').to_i, 10_000].min
     faces = label.faces.to_a
     # faces of index "0"?
-    if label.index_number == 0
+    if label.index_number.zero?
       faces.concat(Face.joins(:label).where('labels.index_number is null').to_a)
     end
     # sample and generate tfrecords

@@ -6,9 +6,10 @@ articles = {}
   articles[key] << face
 end
 
-atom_feed do |feed|
+atom_feed(root_url: feed_url) do |feed|
   feed.title 'Face Collector'
   feed.updated articles.keys.sort.last
+
   articles.keys.sort.reverse.each do |time|
     entries = articles[time]
     xml.entry do
@@ -17,18 +18,14 @@ atom_feed do |feed|
       xml.author { xml.name entries.map(&:edited_user).map(&:screen_name).uniq.join(', ') }
       xml.updated time.xmlschema
       xml.link rel: :alternate, type: 'text/html', href: feed_url
-      xml.content do
-        xml.div xmlns: 'http://www.w3.org/1999/xhtml' do |xhtml|
-          xhtml.img src: collage_faces_url(face_ids: entries[0, 15].map(&:id).join(','), size: 80)
-          xhtml.p do
-            lines = entries[0, 30].map do |entry|
-              "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"
-            end
-            lines << '...' if entries.size > 30
-            xhtml.text! lines.join("\n")
-          end
-        end
+
+      html = Builder::XmlMarkup.new
+      html.img src: collage_faces_url(face_ids: entries[0, 15].map(&:id).join(','), size: 80)
+      entries[0, 30].each do |entry|
+        html.div "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"
       end
+      html.p '...' if entries.size > 30
+      xml.content html.target!, type: :html
     end
   end
 end

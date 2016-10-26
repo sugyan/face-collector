@@ -21,13 +21,15 @@ atom_feed(root_url: feed_url) do |feed|
 
       html = Builder::XmlMarkup.new
       html.img src: collage_faces_url(face_ids: entries[0, 15].map(&:id).join(','), size: 80)
-      entries[0, 30].each do |entry|
-        html.text! "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"
-        html.br
-      end
-      if entries.size > 30
-        html.text! '...'
-        html.br
+      html.div do
+        entries[0, 30].each do |entry|
+          html.text! "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"
+          html.br
+        end
+        if entries.size > 30
+          html.text! '...'
+          html.br
+        end
       end
       xml.content html.target!, type: :html
     end

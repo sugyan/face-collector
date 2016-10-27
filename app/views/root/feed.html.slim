@@ -19,10 +19,10 @@ table.table
             = face.label.name
             .small = face.label.description
           div = l(face.updated_at)
-          - if face.edited_user
+          - if user_signed_in? && face.edited_user
             div
               | by
-              =< link_to face.edited_user.screen_name, users_path(face.edited_user)
+              =< link_to face.edited_user.screen_name, user_path(face.edited_user)
         td
           .small = face.photo.caption
           div = face.photo.posted_at.to_date

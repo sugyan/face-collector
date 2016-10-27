@@ -5,7 +5,7 @@ ul
     ul
       - @added.each do |added|
         li = "#{added.date}: #{added.count}"
-  li = link_to "Labeled #{Face.where.not(label_id: nil).where('label_id > ?', 0).count} Faces", labeled_faces_path
+  li = link_to "Labeled #{Face.where.not(label_id: nil).count} Faces", feed_path
 
 h3 Labels
 ul

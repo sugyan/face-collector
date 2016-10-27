@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       post 'label'
     end
     collection do
-      get 'labeled'
       get 'search'
       get 'random'
       get 'collage'

@@ -6,17 +6,17 @@ class LabelsController < ApplicationController
   # GET /labels.json
   def index
     respond_to do |format|
+      @labels = Label.where('id >= ?', 0)
+      if (q = params[:q])
+        where = [
+          'name LIKE ? OR description LIKE ? OR tags LIKE ?',
+          *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 3
+        ]
+        @labels = @labels.where(where)
+      end
       format.html do
-        if (q = params[:q])
-          where = [
-            'name LIKE ? OR description LIKE ? OR twitter LIKE ?',
-            *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 3
-          ]
-        end
-        @labels = Label
+        @labels = @labels
           .order(params.fetch(:order, :description))
-          .where('id >= ?', 0)
-          .where(where)
           .page(params[:page])
           .per(100)
         @counts = Face
@@ -26,9 +26,8 @@ class LabelsController < ApplicationController
           .count
       end
       format.json do
-        @labels = Label
+        @labels = @labels
           .where.not(index_number: nil)
-          .where('id >= ?', 0)
           .order(:index_number)
       end
     end

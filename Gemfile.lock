@@ -64,7 +64,7 @@ GEM
       responders
       warden (~> 1.2.3)
     digest-crc (0.4.1)
-    domain_name (0.5.20160826)
+    domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.10)
     erubis (2.7.0)
@@ -224,7 +224,7 @@ GEM
       simple_oauth (~> 0.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.2)
+    uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext

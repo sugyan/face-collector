@@ -5,6 +5,7 @@ table.table.table-striped
     tr
       th id
       th screen name
+      th email
       th labeled
       th last edited
   tbody
@@ -12,5 +13,6 @@ table.table.table-striped
       tr
         td = user.id
         td = link_to user.screen_name, user_url(user)
+        td = user.email
         td = user.faces.count
         td = user.faces.order(updated_at: :desc).first.updated_at

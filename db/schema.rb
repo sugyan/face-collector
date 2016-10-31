@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031153951) do
+ActiveRecord::Schema.define(version: 20161031160146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,10 +38,12 @@ ActiveRecord::Schema.define(version: 20161031153951) do
     t.integer  "face_id"
     t.integer  "label_id"
     t.float    "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "rejected",   default: false, null: false
     t.index ["face_id"], name: "index_inferences_on_face_id", unique: true, using: :btree
     t.index ["label_id"], name: "index_inferences_on_label_id", using: :btree
+    t.index ["rejected"], name: "index_inferences_on_rejected", using: :btree
     t.index ["score"], name: "index_inferences_on_score", using: :btree
   end
 

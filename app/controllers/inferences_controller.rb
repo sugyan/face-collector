@@ -9,14 +9,8 @@ class InferencesController < ApplicationController
       .includes(:label)
       .order(score: :desc)
       .page(params[:page])
-    if (q = params[:q])
-      label_ids = Label.where(
-        [
-          'name LIKE ? OR description LIKE ? OR twitter LIKE ?',
-          *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 3
-        ]
-      ).pluck(:id)
-      @inferences = @inferences.where(label_id: label_ids)
+    if (label_id = params[:label_id])
+      @inferences = @inferences.where(label_id: label_id)
     end
     respond_to do |format|
       format.html { @inferences = @inferences.per(5)   }

@@ -12,6 +12,7 @@ json.inferences @inferences.map do |inference|
   end
 end
 json.page do
+  json.total_count @inferences.total_count
   json.prev @inferences.prev_page && url_for(page: @inferences.prev_page, format: :json, only_path: false)
   json.next @inferences.next_page && url_for(page: @inferences.next_page, format: :json, only_path: false)
 end

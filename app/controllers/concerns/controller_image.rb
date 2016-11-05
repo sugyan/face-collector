@@ -37,7 +37,7 @@ module ControllerImage
       convert.virtual_pixel('background')
       convert.distort(:SRT, srt)
       convert.crop("#{size}x#{size}+0+0")
-    end
+    end.format('JPEG')
   end
 
   private

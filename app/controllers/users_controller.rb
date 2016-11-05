@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action do
     head :forbidden unless current_user.is_admin?
   end
+  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   def index
     @users = User.order(:id)

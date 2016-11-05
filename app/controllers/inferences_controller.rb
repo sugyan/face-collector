@@ -1,7 +1,5 @@
 class InferencesController < ApplicationController
   acts_as_token_authentication_handler_for User
-  before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   def index
     @inferences = Inference
@@ -24,6 +22,7 @@ class InferencesController < ApplicationController
   def accept
     inference = Inference.find(params[:id])
     face = inference.face
+    # TODO: logging
     inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
     inference.destroy
     respond_to do |format|

@@ -8,6 +8,7 @@ class LabelsController < ApplicationController
     respond_to do |format|
       @labels = Label.where('id >= ?', 0)
       if (q = params[:q])
+        # TODO: logging
         where = [
           'name LIKE ? OR description LIKE ? OR tags LIKE ?',
           *["%#{q.gsub(/([_%])/, '\\\\\1')}%"] * 3

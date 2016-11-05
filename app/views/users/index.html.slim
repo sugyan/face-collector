@@ -15,4 +15,7 @@ table.table.table-striped
         td = link_to user.screen_name, user_url(user)
         td = user.email
         td = user.faces.count
-        td = user.faces.order(updated_at: :desc).first.updated_at
+        td
+          - last_edited = user.faces.order(updated_at: :desc).first
+          - if last_edited
+            = last_edited.updated_at

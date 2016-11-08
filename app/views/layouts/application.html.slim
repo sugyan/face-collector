@@ -19,13 +19,13 @@ html
           = link_to 'Face Collector', root_path, class: %(navbar-brand)
         #collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li
-              = link_to 'Recognizer', recognizer_root_path
-            li
-              = link_to 'Faces', faces_path
-            li
-              = link_to 'Labels', labels_path
             - if user_signed_in?
+              li
+                = link_to 'Recognizer', recognizer_root_path
+              li
+                = link_to 'Faces', faces_path
+              li
+                = link_to 'Labels', labels_path
               li
                 = link_to 'Inferences', inferences_path
           - if user_signed_in?

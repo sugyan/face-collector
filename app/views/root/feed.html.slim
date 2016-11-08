@@ -12,17 +12,26 @@ table.table
     - @faces.each do |face|
       tr
         td
-          a href=face_path(face)
-            = image_tag image_face_path(face)
+          - if user_signed_in?
+            a href=face_path(face)
+              = image_tag image_face_path(face)
+          - else
+              = image_tag image_face_path(face)
         td
-          a href=label_path(face.label)
+          - if user_signed_in?
+            a href=label_path(face.label)
+              = face.label.name
+              .small = face.label.description
+            div = l(face.updated_at)
+            - if user_signed_in? && face.edited_user
+              div
+                | by
+                =< link_to face.edited_user.screen_name, user_path(face.edited_user)
+          - else
             = face.label.name
             .small = face.label.description
-          div = l(face.updated_at)
-          - if user_signed_in? && face.edited_user
-            div
-              | by
-              =< link_to face.edited_user.screen_name, user_path(face.edited_user)
+            div = l(face.updated_at)
+            div by #{face.edited_user.screen_name}
         td
           .small = face.photo.caption
           div = face.photo.posted_at.to_date

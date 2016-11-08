@@ -1,6 +1,6 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: [:show, :edit, :update, :destroy, :faces, :faces_list, :inferences]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /labels
   # GET /labels.json

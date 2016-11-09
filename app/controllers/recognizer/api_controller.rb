@@ -1,7 +1,6 @@
 module Recognizer
   class ApiController < ApplicationController
     respond_to :json
-    acts_as_token_authentication_handler_for User, except: [:image]
 
     include ControllerImage
 

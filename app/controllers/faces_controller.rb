@@ -1,6 +1,5 @@
 class FacesController < ApplicationController
   before_action :set_face, only: [:show, :destroy, :label, :image]
-  before_action :authenticate_user!, except: [:image, :collage]
 
   def index
     @faces = Face

@@ -1,6 +1,4 @@
 class RootController < ApplicationController
-  before_action :authenticate_user!, except: [:feed]
-
   def index
     @added = Face
       .select('DATE(created_at) as DATE', 'COUNT(*)')

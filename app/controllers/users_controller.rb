@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
-  acts_as_token_authentication_handler_for User
   before_action :set_user, only: [:show]
   before_action do
     head :forbidden unless current_user.is_admin?
   end
-  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   def index
     @users = User.order(:id)

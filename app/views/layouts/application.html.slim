@@ -21,8 +21,6 @@ html
           ul.nav.navbar-nav
             - if user_signed_in?
               li
-                = link_to 'Recognizer', recognizer_root_path
-              li
                 = link_to 'Faces', faces_path
               li
                 = link_to 'Labels', labels_path

@@ -1,10 +1,7 @@
 # coding: utf-8
 module Recognizer
-  class RootController < ApplicationController
+  class RootController < ActionController::Base
     layout 'recognizer'
-
-    def index
-    end
 
     def about
       keys = %w(あ か さ た な は ま や ら わ)

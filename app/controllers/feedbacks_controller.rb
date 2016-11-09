@@ -1,6 +1,4 @@
 class FeedbacksController < ApplicationController
-  before_action :authenticate_user!, except: [:create]
-
   def index
     @feedbacks = Feedback
       .order(created_at: :desc)

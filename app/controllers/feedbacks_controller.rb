@@ -1,4 +1,6 @@
 class FeedbacksController < ApplicationController
+  skip_before_action :authenticate_user_from_token!, only: [:create]
+
   def index
     @feedbacks = Feedback
       .order(created_at: :desc)

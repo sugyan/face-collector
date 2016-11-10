@@ -1,5 +1,6 @@
 class FacesController < ApplicationController
   before_action :set_face, only: [:show, :destroy, :label, :image]
+  skip_before_action :authenticate_user_from_token!, only: [:image, :collage]
 
   def index
     @faces = Face

@@ -3,7 +3,9 @@
     => link_to @label.name, label_path(@label)
     | Inferences
 - else
-  h2 Inferences
+  h2 #{params[:rejected].blank? ? '' : 'Rejected'} Inferences
+  - if params[:rejected].blank?
+    p = link_to 'rejected', rejected_inferences_path, class: %(btn btn-default)
 
 = page_entries_info @inferences
 
@@ -39,6 +41,9 @@ table.table
           td
             = form_for inference, url: accept_inference_path(inference), method: :post do
               button.btn.btn-primary OK
+            br
+            = form_for inference, url: reject_inference_path(inference), method: :post do
+              button.btn.btn-danger NG
 
 .text-center
   = paginate @inferences

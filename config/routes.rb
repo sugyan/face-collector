@@ -38,8 +38,12 @@ Rails.application.routes.draw do
   resources :feedbacks, only: [:index, :create]
 
   resources :inferences, only: [:index] do
+    collection do
+      get 'rejected'
+    end
     member do
       post 'accept'
+      post 'reject'
     end
   end
 end

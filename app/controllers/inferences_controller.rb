@@ -3,6 +3,7 @@ class InferencesController < ApplicationController
     @inferences = Inference
       .includes(face: :photo)
       .includes(:label)
+      .where(rejected: params[:rejected].present?)
       .order(score: :desc)
       .page(params[:page])
     if (label_id = params[:label_id])
@@ -17,15 +18,28 @@ class InferencesController < ApplicationController
     end
   end
 
+  def rejected
+    redirect_to inferences_path(rejected: true)
+  end
+
   def accept
     inference = Inference.find(params[:id])
-    face = inference.face
     # TODO: logging
     inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
     inference.destroy
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { render json: { result: 'OK', face_url: face_url(face) } }
+      format.json { render json: { result: 'OK' } }
+    end
+  end
+
+  def reject
+    inference = Inference.find(params[:id])
+    # TODO: logging
+    inference.update(rejected: true)
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render json: { result: 'OK' } }
     end
   end
 end

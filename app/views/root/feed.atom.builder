@@ -11,7 +11,7 @@ atom_feed(root_url: feed_url) do |feed|
   feed.updated articles.keys.sort.last
 
   articles.keys.sort.reverse.each do |time|
-    entries = articles[time]
+    entries = articles[time][0, 20]
     xml.entry do
       xml.id "tag:#{request.host},2005:face/#{time.xmlschema}"
       xml.title time
@@ -20,9 +20,9 @@ atom_feed(root_url: feed_url) do |feed|
       xml.link rel: :alternate, type: 'text/html', href: feed_url
 
       html = Builder::XmlMarkup.new
-      html.img src: collage_faces_url(face_ids: entries[0, 15].map(&:id).join(','), size: 80)
+      html.img src: collage_faces_url(face_ids: entries.map(&:id).join(','), size: 80)
       html.div do
-        entries[0, 20].each do |entry|
+        entries.each do |entry|
           html.text! "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"
           html.br
         end

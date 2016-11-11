@@ -37,7 +37,7 @@ table.table
           .small = inference.face.photo.caption
           div = inference.face.photo.posted_at.to_date
           strong #{ inference.face.photo.faces.where.not(label_id: nil).count } / #{ inference.face.photo.faces.count } faces labeled
-        - if user_signed_in?
+        - if user_signed_in? && params[:rejected].blank?
           td
             = form_for inference, url: accept_inference_path(inference), method: :post do
               button.btn.btn-primary OK

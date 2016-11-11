@@ -22,24 +22,30 @@ class InferencesController < ApplicationController
     redirect_to inferences_path(rejected: true)
   end
 
+  # POST /inferences/:id/accept
   def accept
     inference = Inference.find(params[:id])
     # TODO: logging
-    inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
-    inference.destroy
+    unless inference.rejected?
+      inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
+      inference.destroy
+    end
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { render json: { result: 'OK' } }
+      format.json { render json: { success: inference.destroyed? } }
     end
   end
 
+  # POST /inferences/:id/reject
   def reject
     inference = Inference.find(params[:id])
     # TODO: logging
-    inference.update(rejected: true)
+    inference.rejected = true
+    result = inference.changed?
+    inference.save
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { render json: { result: 'OK' } }
+      format.json { render json: { success: result } }
     end
   end
 end

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
     @faces = @user.faces
       .includes(:label, :photo)
+      .where.not(label: nil)
       .order(updated_at: :desc)
       .page(params[:page])
       .per(50)

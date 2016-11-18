@@ -12,16 +12,18 @@ form.well
 table.table
   thead
     tr
-      - if user_signed_in?
+      - if current_user.is_admin?
         th
-          = link_to 'Index', url_for(order: :index_number)
+          = link_to Label.human_attribute_name(:index_number), url_for(order: :index_number)
       th
-        = link_to 'Name', url_for(order: :name)
+        = link_to Label.human_attribute_name(:name), url_for(order: :name)
       th
-        = link_to 'Description', url_for(order: :description)
+        = link_to Label.human_attribute_name(:description), url_for(order: :description)
       th
-        = link_to 'Twitter', url_for(order: :twitter)
-      th Faces
+        = link_to Label.human_attribute_name(:note), url_for(order: :note)
+      th
+        = link_to Label.human_attribute_name(:twitter), url_for(order: :twitter)
+      th = Label.human_attribute_name(:faces)
       - if user_signed_in?
         th
         th
@@ -29,10 +31,11 @@ table.table
   tbody
     - @labels.each do |label|
       tr class="#{ label.disabled? ? 'danger' : '' }"
-        - if user_signed_in?
+        - if current_user.is_admin?
           td = label.index_number
         td = link_to label.name, label_path(label)
         td = label.description
+        td = label.note
         td
           - if label.twitter.present?
             = "@#{ label.twitter }"

@@ -13,6 +13,7 @@ ja:
         photo: :activerecord.models.photo
       label:
         description: 詳細
+        note: 備考
         faces: 顔  #g
         index_number: 番号
         name: 名前

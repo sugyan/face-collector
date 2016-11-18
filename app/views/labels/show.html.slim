@@ -3,26 +3,27 @@
 h3 Label #{ @label.id }
 
 dl.dl-horizontal class="#{ @label.disabled? ? 'bg-danger' : '' }"
-  dt Name:
+  dt = Label.human_attribute_name(:name)
   dd = @label.name
-  dt Description:
+  dt = Label.human_attribute_name(:description)
   dd = @label.description
-  dt Url:
+  dt = Label.human_attribute_name(:note)
+  dd = @label.note
+  dt = Label.human_attribute_name(:url)
   dd = @label.url
   dt Twitter:
   dd
     - if @label.twitter.present?
       = link_to "@#{ @label.twitter }", 'https://twitter.com/%s' % @label.twitter, target: '_blank'
-      - if user_signed_in?
-        ul
-          li = link_to 'Seach from photos', search_faces_path(q: @label.twitter), class: %(btn-link)
-  - if user_signed_in?
-    dt Index Number:
+      ul
+        li = link_to 'Seach from photos', search_faces_path(q: @label.twitter), class: %(btn-link)
+  dt = Label.human_attribute_name(:tags)
+  dd = @label.tags
+  dt = Label.human_attribute_name(:status)
+  dd = @label.status
+  - if current_user.is_admin?
+    dt = Label.human_attribute_name(:index_number)
     dd = @label.index_number
-    dt Tags:
-    dd = @label.tags
-    dt Status:
-    dd = @label.status
 
 h4
   = link_to "Faces (#{@label.faces.size})", faces_label_path(@label)

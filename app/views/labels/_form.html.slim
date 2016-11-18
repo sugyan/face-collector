@@ -10,11 +10,11 @@
     = f.label :name
     = f.text_field :name, class: %(form-control)
   .field.form-group
-    = f.label :index_number
-    = f.number_field :index_number, min: 0, class: %(form-control)
-  .field.form-group
     = f.label :description
     = f.text_area :description, class: %(form-control)
+  .field.form-group
+    = f.label :note
+    = f.text_area :note, class: %(form-control)
   .field.form-group
     = f.label :url
     = f.url_field :url, class: %(form-control)

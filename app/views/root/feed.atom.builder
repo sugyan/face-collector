@@ -20,7 +20,7 @@ atom_feed(root_url: feed_url) do |feed|
       xml.link rel: :alternate, type: 'text/html', href: feed_url
 
       html = Builder::XmlMarkup.new
-      html.img src: collage_faces_url(face_ids: entries.map(&:id).join(','), size: 80)
+      html.img src: collage_faces_url(face_ids: entries.map(&:id).join('-'), size: 80)
       html.div do
         entries.each do |entry|
           html.text! "[#{entry.updated_at.to_s(:time)}] #{entry.id}: #{entry.label.name} (#{entry.edited_user.screen_name})"

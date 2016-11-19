@@ -66,7 +66,7 @@ class FacesController < ApplicationController
   def collage
     size = params.fetch(:size, '60').to_i
     if (ids = params[:face_ids])
-      faces = ids.split(/,/).map { |id| Face.find(id) }
+      faces = ids.split(/-/).map { |id| Face.find(id) }
     else
       labeled = Face.where.not(label_id: nil).where.not(label_id: 0)
       if (label_id = params[:label_id])

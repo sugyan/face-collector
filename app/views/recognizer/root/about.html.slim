@@ -10,8 +10,11 @@ ul.list-unstyled
       .small = key
       ul
         - @dict[key].each do |label|
-          li #{label.name} #{label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : ''}
-
+          li
+            => label.name + (label.description.present? ? "- #{label.description.gsub(/\r?\n/, ', ')}" : '')
+            | (
+            a href="https://twitter.com/#{label.twitter}" @#{label.twitter}
+            | )
 hr
 
 = form_for @feedback, html: { class: %(well) } do |f|

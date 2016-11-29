@@ -1,5 +1,7 @@
 h2 Users
 
+= page_entries_info @users
+
 table.table.table-striped
   thead
     tr
@@ -19,3 +21,6 @@ table.table.table-striped
           - last_edited = user.faces.order(updated_at: :desc).first
           - if last_edited
             = last_edited.updated_at
+
+.text-center
+  = paginate @users

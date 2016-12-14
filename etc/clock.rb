@@ -27,7 +27,7 @@ module Clockwork
     ).delete_all
     logger.info(format('%d photos are deleted', deleted))
 
-    next unless (Time.zone.today.yday % 3).zero?
+    next unless (Time.zone.today.yday % 5).zero?
 
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')

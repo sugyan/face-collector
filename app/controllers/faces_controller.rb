@@ -96,14 +96,16 @@ class FacesController < ApplicationController
 
   def tfrecords
     label = Label.find_by(index_number: params[:index_number])
-    return head :not_found unless label
+    unless label
+      return head :not_found if params[:index_number] != '-1'
+    end
 
     sample = [params.fetch(:sample, '100').to_i, 10_000].min
-    faces = label.faces.to_a
-    # faces of index "0"?
-    if label.index_number.zero?
-      faces.concat(Face.joins(:label).where('labels.index_number is null').to_a)
-    end
+    faces = if label.nil?
+              Face.joins(:label).includes(:label).where('labels.index_number is null')
+            else
+              label.faces
+            end
     # sample and generate tfrecords
     data = String.new
     faces.sample(sample).each do |face|

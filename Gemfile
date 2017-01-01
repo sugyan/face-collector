@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0'
@@ -21,7 +21,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 1.0.0.rc1', group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -48,13 +48,12 @@ end
 gem 'slim-rails', '~> 3.0'
 gem 'puma', '~> 2.15'
 
-gem 'twitter', '~> 5.15'
+gem 'twitter', '~> 6.0'
 gem 'kaminari', '~> 0.16'
 gem 'httpclient', '~> 2.7'
 gem 'react-rails', '~> 1.5'
 gem 'devise', '~> 4.2'
-gem 'omniauth-twitter', '~> 1.2'
-gem 'google-protobuf', '~> 3.0.0.alpha'
+gem 'google-protobuf', '~> 3.1'
 gem 'digest-crc', '~> 0.4'
 gem 'clockwork', '~> 1.2'
 gem 'mini_magick', '~> 4.5'

@@ -9,8 +9,7 @@ class QueriesController < ApplicationController
 
   # GET /queries/1
   # GET /queries/1.json
-  def show
-  end
+  def show; end
 
   # GET /queries/new
   def new
@@ -18,8 +17,7 @@ class QueriesController < ApplicationController
   end
 
   # GET /queries/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /queries
   # POST /queries.json

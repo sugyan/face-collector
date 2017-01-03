@@ -18,6 +18,9 @@ Style/EmptyLiteral:
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 160
 

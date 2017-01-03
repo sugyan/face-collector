@@ -60,4 +60,27 @@ namespace :search_idols do
       sleep 1
     end
   end
+
+  task speedland: :common do
+    uri = ENV['SPEEDLAND_API_ENDPOINT']
+    client = HTTPClient.new
+    data = JSON.parse(client.get_content(URI.join(uri, '/hplink/api/artists/')))
+    data.each do |artist|
+      artist_name = artist['name']
+      artist['members'].each do |member|
+        name = member['name']
+        graduation = Date.parse(member['graduationday'])
+        if graduation > Date.new(1, 1, 1) && graduation < Date.today
+          logger.info(format('%s is graduated', name))
+          next
+        end
+        label = Label.find_or_initialize_by(name: name)
+        if name != artist_name
+          label.description = artist_name
+        end
+        label.save
+        logger.info(label)
+      end
+    end
+  end
 end

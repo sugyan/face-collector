@@ -48,7 +48,7 @@ end
 gem 'slim-rails', '~> 3.0'
 gem 'puma', '~> 2.15'
 
-gem 'twitter', '~> 6.0'
+gem 'twitter', '~> 6.1'
 gem 'kaminari', '~> 0.16'
 gem 'httpclient', '~> 2.7'
 gem 'react-rails', '~> 1.5'

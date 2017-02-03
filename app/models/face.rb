@@ -12,6 +12,7 @@ class Face < ApplicationRecord
     example = Tensorflow::Example.new(
       features: Tensorflow::Features.new(
         feature: {
+          'id' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [id])),
           'label' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [label.index_number || 0])),
           'image_raw' => Tensorflow::Feature.new(bytes_list: Tensorflow::BytesList.new(value: [data]))
         }

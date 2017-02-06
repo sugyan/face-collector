@@ -6,14 +6,15 @@ class Face < ApplicationRecord
   belongs_to :edited_user, class_name: User, foreign_key: :edited_user_id
   has_one :inference, dependent: :destroy
 
-  def tfrecord
+  def tfrecord(offset = 0)
     return if label.blank?
 
+    index_number = (label.index_number + offset) || 0
     example = Tensorflow::Example.new(
       features: Tensorflow::Features.new(
         feature: {
           'id' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [id])),
-          'label' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [label.index_number || 0])),
+          'label' => Tensorflow::Feature.new(int64_list: Tensorflow::Int64List.new(value: [index_number])),
           'image_raw' => Tensorflow::Feature.new(bytes_list: Tensorflow::BytesList.new(value: [data]))
         }
       )

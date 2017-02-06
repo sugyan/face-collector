@@ -33,7 +33,7 @@ namespace :dataset do
     # devide sampled faces
     records = []
     Label.where.not(id: -1).order(:index_number).limit(num_labels).each do |label|
-      size = int(num_samples / num_tfrecords)
+      size = (num_samples / num_tfrecords).to_i
       label.faces.sample(num_samples).each_slice(size).each.with_index do |arr, i|
         (records[i] ||= []).concat(arr)
       end
@@ -45,7 +45,7 @@ namespace :dataset do
       logger.info(format('write to %s...', filename))
       Rails.root.join('var', 'data', 'tfrecords', filename).open('wb') do |file|
         faces.shuffle!.each do |face|
-          file.write(face.tfrecord)
+          file.write(face.tfrecord(-1))
         end
       end
     end

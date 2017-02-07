@@ -7,7 +7,7 @@ namespace :dataset do
     trunc = {}
     Label.where.not(index_number: nil).order(index_number: :asc).each do |label|
       n = (label.index_number - 1) / 10 + 1
-      filename = format('%03d.tfrecords', n)
+      filename = format('data-%03d.tfrecords', n)
       mode = trunc[filename] ? 'ab' : 'wb'
       trunc[filename] = true
       Rails.root.join('var', 'data', 'tfrecords', filename).open(mode) do |file|
@@ -41,7 +41,7 @@ namespace :dataset do
     # write to tfrecords file
     logger.info(format('%s faces', records.map(&:size).join(', ')))
     records.each.with_index do |faces, i|
-      filename = format('%02d.tfrecords', i)
+      filename = format('data-%02d.tfrecords', i)
       logger.info(format('write to %s...', filename))
       Rails.root.join('var', 'data', 'tfrecords', filename).open('wb') do |file|
         faces.shuffle!.each do |face|

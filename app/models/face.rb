@@ -9,7 +9,7 @@ class Face < ApplicationRecord
   def tfrecord(offset = 0)
     return if label.blank?
 
-    index_number = (label.index_number + offset) || 0
+    index_number = (label.index_number || 0) + offset
     example = Tensorflow::Example.new(
       features: Tensorflow::Features.new(
         feature: {

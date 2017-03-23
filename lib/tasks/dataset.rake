@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 namespace :dataset do
   desc 'generate dataset files for train'
 
@@ -37,10 +38,17 @@ namespace :dataset do
         end
       end
     end
+    # labels
+    labels = {}
+    Label.where.not(index_number: nil).each do |label|
+      next if label.index_number.zero?
+      labels[label.index_number] = label.as_json.slice('id', 'name', 'description', 'twitter')
+    end
+    Rails.root.join('var', 'data', 'tfrecords', 'labels.json').open('wb') do |file|
+      file.write(labels.to_json)
+    end
   end
-end
 
-namespace :dataset do
   desc 'generate dataset files for eval'
 
   task eval: :common do

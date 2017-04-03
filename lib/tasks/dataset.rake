@@ -14,7 +14,7 @@ namespace :dataset do
     zero_count = Label.find(-1).faces.count
     logger.info("index 0: #{zero_count}")
     label_ids[0] << -1
-    Label.where(status: :disabled).each.with_index do |label, i|
+    Label.where(index_number: nil).where(status: :disabled).each.with_index do |label, i|
       label_ids[i % (num_files - 1) + 1] << label.id
       zero_count += [label.faces.count, 100].min
     end

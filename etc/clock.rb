@@ -29,11 +29,11 @@ module Clockwork
 
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')
-    # delete files older than 15 days
+    # delete files older than 14 days
     Dir.foreach(dest_dir) do |file|
       path = File.join(dest_dir, file)
       next unless file =~ /.*\.dump$/
-      if File.stat(path).ctime < Time.zone.today - 15
+      if File.stat(path).ctime < Time.zone.today - 14
         manager.log(format('delete %s', path))
         File.unlink(path)
       end

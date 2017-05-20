@@ -3,9 +3,10 @@ namespace :dataset do
   desc 'generate dataset files for train'
 
   task train: :common do
-    num_samples = (ENV['NUM_SAMPLES'] || '120').to_i
-    num_files = (ENV['NUM_FILES'] || '50').to_i
+    num_samples = ENV.fetch('NUM_SAMPLES', '120').to_i
+    num_files = ENV.fetch('NUM_FILES', '50').to_i
 
+    # collect target ids
     label_ids = Array.new(num_files) { [] }
     Label.where.not(index_number: nil).each do |label|
       next if label.index_number.zero?
@@ -16,9 +17,10 @@ namespace :dataset do
     label_ids[0] << -1
     Label.where(index_number: nil).where(status: :disabled).each.with_index do |label, i|
       label_ids[i % (num_files - 1) + 1] << label.id
-      zero_count += [label.faces.count, 100].min
+      zero_count += [label.faces.count, 60].min
     end
     logger.info("index 0 (total): #{zero_count}")
+    # generate tfrecords files
     label_ids.each.with_index do |ids, i|
       filename = format('data-%03d.tfrecords', i)
       logger.info("write to #{filename}:")
@@ -26,7 +28,7 @@ namespace :dataset do
         Label.where(id: ids).each do |label|
           faces = label.faces
           sample = [faces.count, num_samples].min
-          sample = [sample, 100].min if label.disabled?
+          sample = [sample, 60].min if label.disabled?
           sample = faces.count if label.id == -1
           n = label.enabled? && sample <= num_samples / 2 ? 2 : 1
           logger.info("  (#{label.index_number}) #{label.name}: #{sample}" + (n == 2 ? ' x2' : ''))

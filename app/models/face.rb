@@ -3,7 +3,7 @@ require 'tensorflow/core/example/example'
 class Face < ApplicationRecord
   belongs_to :photo
   belongs_to :label
-  belongs_to :edited_user, class_name: User, foreign_key: :edited_user_id
+  belongs_to :edited_user, class_name: 'User', foreign_key: :edited_user_id
   has_one :inference, dependent: :destroy
 
   def tfrecord(offset = 0)

@@ -25,13 +25,14 @@ class InferencesController < ApplicationController
   # POST /inferences/:id/accept
   def accept
     inference = Inference.find(params[:id])
+    label = inference.label
     # TODO: logging
     unless inference.rejected?
       inference.face.update(label_id: inference.label.id, edited_user_id: current_user.id)
       inference.destroy
     end
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back fallback_location: inferences_label_path(label) }
       format.json { render json: { success: inference.destroyed? } }
     end
   end
@@ -39,12 +40,13 @@ class InferencesController < ApplicationController
   # POST /inferences/:id/reject
   def reject
     inference = Inference.find(params[:id])
+    label = inference.label
     # TODO: logging
     inference.rejected = true
     result = inference.changed?
     inference.save
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_back fallback_location: inferences_label_path(label) }
       format.json { render json: { success: result } }
     end
   end

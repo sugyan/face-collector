@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-  before_action :set_label, only: [:show, :edit, :update, :destroy, :faces, :faces_list, :inferences]
+  before_action :set_label, only: %i[show edit update destroy faces faces_list inferences]
 
   # GET /labels
   # GET /labels.json
@@ -90,7 +90,7 @@ class LabelsController < ApplicationController
       .joins(:photo)
       .where(label_id: params[:id])
       .order('photos.posted_at DESC')
-      .order('id DESC')
+      .order('faces.id DESC')
       .page(params[:page])
       .per(100)
     render 'faces/index'

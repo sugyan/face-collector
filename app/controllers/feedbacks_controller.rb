@@ -10,7 +10,7 @@ class FeedbacksController < ApplicationController
 
   def create
     Feedback.create!(feedback_params.merge(from_ip: request.remote_ip))
-    redirect_to :back, notice: I18n.t('feedback.create')
+    redirect_back fallback_location: recognizer_about_path, notice: I18n.t('feedback.create')
   end
 
   private

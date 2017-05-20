@@ -27,25 +27,22 @@ module Clockwork
     ).delete_all
     logger.info(format('%d photos are deleted', deleted))
 
-    next unless (Time.zone.today.yday % 5).zero?
-
     database = Rails.configuration.database_configuration[Rails.env]['database']
     dest_dir = File.join(Rails.root, 'var', 'backups')
-
+    # delete files older than 14 days
+    Dir.foreach(dest_dir) do |file|
+      path = File.join(dest_dir, file)
+      next unless file =~ /.*\.dump$/
+      if File.stat(path).ctime < Time.zone.today - 14
+        manager.log(format('delete %s', path))
+        File.unlink(path)
+      end
+    end
+    next unless (Time.zone.today.yday % 5).zero?
     # dump
     dest = File.join(dest_dir, format('backup-%s.dump', Time.zone.today.to_s))
     cmd = format('pg_dump -Fc --no-acl --no-owner %s > %s', database, dest)
     manager.log(cmd)
     manager.log('backup succeeded') if system(cmd)
-
-    # delete files older than 15 days
-    Dir.foreach(dest_dir) do |file|
-      path = File.join(dest_dir, file)
-      next unless file =~ /.*\.dump$/
-      if File.stat(path).ctime < Time.zone.today - 15
-        manager.log(format('delete %s', path))
-        File.unlink(path)
-      end
-    end
   end
 end

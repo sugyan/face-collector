@@ -24,8 +24,7 @@ class FacesController < ApplicationController
     render :index
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @face.destroy

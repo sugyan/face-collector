@@ -38,7 +38,8 @@ class TypeaheadLabel extends React.Component {
                     ret += ` (@${obj.twitter})`;
                 }
                 return ret;
-            }
+            },
+            limit: 10
         }).on('typeahead:select', (_, suggestion) => {
             $('#name').html(
                 $('<a>')

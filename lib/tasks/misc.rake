@@ -3,12 +3,16 @@ namespace :misc do
     client = HTTPClient.new
     Photo.find_in_batches(batch_size: 200) do |photos|
       photos.each do |photo|
-        res = client.head(photo.photo_url)
-        next if res.ok?
-        logger.info("#{res.status}: #{photo.photo_url}")
-        next unless photo.faces.all? { |face| face.label_id.nil? }
-        logger.info("destroy photo: #{photo.id}, face: #{photo.faces.map(&:id).join(', ')}")
-        photo.destroy
+        begin
+          res = client.head(photo.photo_url)
+          next if res.ok?
+          logger.info("#{res.status}: #{photo.photo_url}")
+          next unless photo.faces.all? { |face| face.label_id.nil? }
+          logger.info("destroy photo: #{photo.id}, face: #{photo.faces.map(&:id).join(', ')}")
+          photo.destroy
+        rescue => e
+          logger.error(e.message)
+        end
       end
       sleep 10
     end

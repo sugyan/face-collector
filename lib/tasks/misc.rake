@@ -5,11 +5,12 @@ namespace :misc do
       photos.each do |photo|
         begin
           res = client.head(photo.photo_url)
-          next if res.ok?
-          logger.info("#{res.status}: #{photo.photo_url}")
-          next unless photo.faces.all? { |face| face.label_id.nil? }
-          logger.info("destroy photo: #{photo.id}, face: #{photo.faces.map(&:id).join(', ')}")
-          photo.destroy
+          if res.status == 404
+            logger.info(photo.photo_url)
+            next unless photo.faces.all? { |face| face.label_id.nil? }
+            logger.info("destroy photo: #{photo.id}, face: #{photo.faces.map(&:id).join(', ')}")
+            photo.destroy
+          end
         rescue => e
           logger.error(e.message)
         end

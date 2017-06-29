@@ -17,7 +17,7 @@ namespace :dataset do
     label_ids[0] << -1
     Label.where(index_number: nil).where(status: :disabled).each.with_index do |label, i|
       label_ids[i % (num_files - 1) + 1] << label.id
-      zero_count += [label.faces.count, 30].min
+      zero_count += [label.faces.count, 60].min
     end
     logger.info("index 0 (total): #{zero_count}")
     # generate tfrecords files
@@ -28,12 +28,12 @@ namespace :dataset do
         Label.where(id: ids).each do |label|
           faces = label.faces
           sample = [faces.count, num_samples].min
-          sample = [sample, 30].min if label.disabled?
+          sample = [sample, 60].min if label.disabled?
           sample = faces.count if label.id == -1
           n = label.enabled? && sample <= num_samples / 2 ? 2 : 1
           logger.info("  (#{label.index_number}) #{label.name}: #{sample}" + (n == 2 ? ' x2' : ''))
           n.times do
-            faces.sample(num_samples).each do |face|
+            faces.sample(sample).each do |face|
               file.write(face.tfrecord)
             end
           end

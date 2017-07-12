@@ -51,6 +51,44 @@ namespace :dataset do
     end
   end
 
+  desc 'generate dataset files'
+  task :classes, [:num_classes] => :common do |_, args|
+    args.with_defaults(num_classes: '10')
+    num_classes = args.num_classes.to_i
+    # collect target ids
+    num_faces = Float::INFINITY
+    label_ids = Array.new(10) { [] }
+    Label.where.not(index_number: nil).where('index_number < ?', num_classes).each do |label|
+      label_ids[label.index_number % 10] << label.id
+      num_faces = [label.faces.count, num_faces].min
+    end
+    num_faces = [num_faces - (num_faces % 10), 300].min
+    logger.info("labels: #{num_classes}: faces: #{num_faces}")
+    # generate tfrecords files
+    label_ids.each.with_index do |ids, i|
+      filename = format('data-%02d.tfrecords', i)
+      logger.info("write to #{filename}:")
+      Rails.root.join('var', 'data', 'tfrecords', filename).open('wb') do |file|
+        Label.where(id: ids).each do |label|
+          faces = label.faces
+          logger.info("  (#{label.index_number}) #{label.name}: #{num_faces}")
+          faces.sample(num_faces).each do |face|
+            file.write(face.tfrecord)
+          end
+        end
+      end
+    end
+    # labels
+    labels = {}
+    Label.where.not(index_number: nil).where('index_number < ?', num_classes).each do |label|
+      next if label.index_number.zero?
+      labels[label.index_number] = label.as_json.slice('id', 'name', 'description', 'twitter')
+    end
+    Rails.root.join('var', 'data', 'tfrecords', 'labels.json').open('wb') do |file|
+      file.write(labels.to_json)
+    end
+  end
+
   desc 'generate dataset files for eval'
 
   task eval: :common do

@@ -44,7 +44,9 @@ namespace :dataset do
     labels = {}
     Label.where.not(index_number: nil).each do |label|
       next if label.index_number.zero?
-      labels[label.index_number] = label.as_json.slice('id', 'name', 'description', 'twitter')
+      labels[label.index_number] = label.as_json
+        .slice('id', 'name', 'description', 'twitter')
+        .merge(count: label.faces.count)
     end
     Rails.root.join('var', 'data', 'tfrecords', 'labels.json').open('wb') do |file|
       file.write(labels.to_json)

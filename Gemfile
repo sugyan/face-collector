@@ -58,6 +58,7 @@ gem 'digest-crc', '~> 0.4'
 gem 'clockwork', '~> 1.2'
 gem 'mini_magick', '~> 4.5'
 gem 'simple_token_authentication', '~> 1.14'
+gem 'faraday', '~> 0.15'
 
 group :development do
   gem 'i18n_generators', '~> 2.1'

@@ -10,7 +10,6 @@ namespace :collect_photos do
       config.consumer_key    = ENV['TWITTER_CONSUMER_KEY']
       config.consumer_secret = ENV['TWITTER_CONSUMER_SECRET']
     end
-    twitter.middleware.insert(-1, Faraday::Response::Logger, logger)
     queries = Query.all.map(&:text)
     Label
       .enabled

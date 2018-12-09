@@ -12,4 +12,4 @@ gulp.task('watch', function() {
     gulp.watch('app/assets/src/js/**/*.js*', ['build']);
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', gulp.series('build'));

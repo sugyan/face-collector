@@ -1,3 +1,5 @@
+require: rubocop-rails
+
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
@@ -6,8 +8,8 @@ AllCops:
     - 'db/migrate/*'
     - 'lib/tensorflow/core/example/*.rb'
 
-Rails:
-  Enabled: true
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 
 Style/Documentation:
   Enabled: false
@@ -15,10 +17,10 @@ Style/Documentation:
 Style/EmptyLiteral:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/FormatStringToken:
   Enabled: false
 
 Metrics/LineLength:

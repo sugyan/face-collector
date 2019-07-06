@@ -38,7 +38,8 @@ module Clockwork
         File.unlink(path)
       end
     end
-    next unless (Time.zone.today.yday % 5).zero?
+    next unless (Time.zone.today.yday % 10).zero?
+
     # dump
     dest = File.join(dest_dir, format('backup-%s.dump', Time.zone.today.to_s))
     cmd = format('pg_dump -Fc --no-acl --no-owner %s > %s', database, dest)
